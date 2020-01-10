@@ -97,12 +97,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Base Files\BaseTest.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Page Objects\" />
+    <Folder Include="Reporting\" />
+    <Folder Include="Test Cases\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
