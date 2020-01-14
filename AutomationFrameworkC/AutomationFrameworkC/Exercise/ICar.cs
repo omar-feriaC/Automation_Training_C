@@ -9,11 +9,11 @@ namespace AutomationFrameworkC.Exercise
     interface ICar
     {
         //Attributes
-        string engine { get; set; }
-        string tires { get; set; }
-        string color { get; set; }
-        string model { get; set; }
-        string plate { get; set; }
+        string strEngine { get; set; }
+        string strTires { get; set; }
+        string strColor { get; set; }
+        string strModel { get; set; }
+        
 
         //Methods
         void fnStart();
