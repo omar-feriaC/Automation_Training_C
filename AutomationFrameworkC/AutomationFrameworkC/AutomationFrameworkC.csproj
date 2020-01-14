@@ -99,6 +99,7 @@
   <ItemGroup>
     <Compile Include="Base Files\BaseTest.cs" />
     <Compile Include="Exercise\clsClassicCar.cs" />
+    <Compile Include="Exercise\clsVW.cs" />
     <Compile Include="Exercise\ICar.cs" />
     <Compile Include="Page Objects\clsMercury_LoginPage.cs" />
     <Compile Include="Program.cs" />
