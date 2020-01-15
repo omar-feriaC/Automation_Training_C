@@ -22,6 +22,7 @@ namespace AutomationFrameworkC
             objCCar.fnCalculateKM();
             objCCar.fnDisplayInfo();
 
+            Console.WriteLine("");
             Console.WriteLine("Constructor with parameters");
             clsClassicCar objCCar2 = new clsClassicCar("A", "B", "C", "D", "E");
             objCCar2.fnBrake();
@@ -30,6 +31,15 @@ namespace AutomationFrameworkC
             objCCar2.fnCalculateKM();
             objCCar2.fnDisplayInfo();
 
+
+            Console.WriteLine("");
+            Console.WriteLine("Constructor with parameters");
+            clsVW objCCar3 = new clsVW("A", "B", "C", "D", "E");
+            objCCar3.fnBrake();
+            objCCar3.fnParking();
+            objCCar3.fnStart();
+            objCCar3.fnCalculateKM();
+            objCCar3.fnDisplayInfo();
 
             Console.ReadKey();
 
