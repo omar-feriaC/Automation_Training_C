@@ -57,6 +57,7 @@ namespace AutomationFrameworkC.Exercise
 
         public void fnDisplayInfo()
         {
+            Console.WriteLine("ClassicCar_fnDisplayInfo");
             Console.WriteLine("strEngine: " + strEngine);
             Console.WriteLine("strTires: " + strTires);
             Console.WriteLine("strColor: " + strColor);
