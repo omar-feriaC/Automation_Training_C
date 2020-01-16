@@ -98,6 +98,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Base Files\BaseTest.cs" />
+    <Compile Include="Exercise2\clsAnimals.cs" />
+    <Compile Include="Exercise2\clsDogs.cs" />
+    <Compile Include="Exercise2\IAnimals.cs" />
     <Compile Include="Exercise\clsClassicCar.cs" />
     <Compile Include="Exercise\clsVW.cs" />
     <Compile Include="Exercise\ICar.cs" />

@@ -1,6 +1,7 @@
 ﻿
 using AutomationFrameworkC.Base_Files;
 using AutomationFrameworkC.Exercise;
+using AutomationFrameworkC.Exercise2;
 using AutomationFrameworkC.Page_Objects;
 using System;
 using System.Collections.Generic;
@@ -14,6 +15,10 @@ namespace AutomationFrameworkC
     {
         static void Main(string[] args)
         {
+            clsDogs objDog = new clsDogs("Poodle", "MyDog", "Howl", "Small", "Male", "Home", "Medium", 10);
+            objDog.fnDisplayInfo();
+
+            Console.WriteLine("");
             Console.WriteLine("Constructor without parameters");
             clsClassicCar objCCar = new clsClassicCar();
             objCCar.fnBrake();

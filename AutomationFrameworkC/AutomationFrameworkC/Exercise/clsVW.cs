@@ -43,6 +43,7 @@ namespace AutomationFrameworkC.Exercise
 
         public new void fnDisplayInfo()
         {
+            Console.WriteLine("clsVW_fnDisplayInfo");
             Console.WriteLine("strEngine: " + strEngine);
             Console.WriteLine("strTires: " + strTires);
             Console.WriteLine("strColor: " + strColor);
