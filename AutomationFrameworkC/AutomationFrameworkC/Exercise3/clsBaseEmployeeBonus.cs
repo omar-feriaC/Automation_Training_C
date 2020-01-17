@@ -8,5 +8,6 @@ namespace AutomationFrameworkC.Exercise3
 {
     class clsBaseEmployeeBonus : clsEmployee
     {
+
     }
 }

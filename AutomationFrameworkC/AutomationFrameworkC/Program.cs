@@ -19,7 +19,18 @@ namespace AutomationFrameworkC
 
 
             clsEmployee objEmployee = new clsEmployee("1ABC", "Programmer", "Sr", 1000.00);
+            Console.WriteLine("Employee Class");
             objEmployee.fnGetInfo();
+            Console.WriteLine();
+
+            clsBaseEmployee objBEmployee = new clsBaseEmployee();
+            objBEmployee.strID = "LLLLL";
+            objBEmployee.strPosition = "";
+            Console.WriteLine("Base Employee Class");
+            objBEmployee.fnCalculateSalary();
+            objBEmployee.fnGetInfo();
+            Console.WriteLine();
+
 
 
 
