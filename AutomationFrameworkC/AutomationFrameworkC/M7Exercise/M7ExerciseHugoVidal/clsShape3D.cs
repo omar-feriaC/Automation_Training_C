@@ -53,8 +53,11 @@ namespace AutomationFrameworkC.M7Exercise.M7ExerciseHugoVidal
         public void fnDisplayInfo()
         {
             Console.WriteLine("We are displaying the info for clsShape3D");
+            Console.WriteLine("the NAME in clsShape3D is: " + strName);
             Console.WriteLine("the Area in clsShape3D is: " + dblArea);
             Console.WriteLine("the Perimeter in clsShape3D is: " + dblPerimeter);
+            Console.WriteLine("the Volume in clsShape3D is: " + dblVolume);
+            
         }
 
         public double fnCalculateVolume()
