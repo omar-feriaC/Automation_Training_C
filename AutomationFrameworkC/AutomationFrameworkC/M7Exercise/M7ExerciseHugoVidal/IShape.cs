@@ -15,9 +15,5 @@ namespace AutomationFrameworkC.M7Exercise.M7ExerciseHugoVidal
         //METHODS
         void fnDisplayInfo();
 
-        //to calculate
-        double fnCalculateShape2D();
-
-
     }
 }

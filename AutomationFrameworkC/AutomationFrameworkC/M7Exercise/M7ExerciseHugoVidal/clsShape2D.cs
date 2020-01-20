@@ -13,39 +13,44 @@ namespace AutomationFrameworkC.M7Exercise.M7ExerciseHugoVidal
         public double dblPerimeter { get; set; }
 
         //Attribute specifically from clsShape2D
-        public double dblResult { get; set; }
+        public string strName { get; set; }
 
         //Constructor
         //Empty One JUST IN CASE*
         public clsShape2D(){ }
 
-        //other One using ONLY 2 parameters to PRINT
-        public clsShape2D(double pdblArea, double pdblPerimeter)
+        //The one requested already initialized with 0 and Name
+        public clsShape2D(string pstrName)
         {
-            dblArea = pdblArea;
-            dblPerimeter = pdblPerimeter;
+            dblArea = 0;
+            dblPerimeter = 0;
+            strName = pstrName;
         }
 
-        //other One using ALL the parameters
-        public clsShape2D (double pdblArea, double pdblPerimeter, double pdblResult)
-        {
-            dblArea = pdblArea;
-            dblPerimeter = pdblPerimeter;
-            dblResult = pdblResult;
-        }
+        //other having the strName = "Undefined"
+        //public clsShape2D(string pstrName)
+        //{
+        //    dblArea = 0;
+        //    dblPerimeter = 0;
+        //    strName = "Undifined";
+        //}
 
+        //Other to provide all the values to print
+        public clsShape2D(double pdblArea, double pdblPerimeter, string pstrName)
+        {
+            dblArea = 0;
+            dblPerimeter = 0;
+            strName = pstrName;
+        }
 
         //Methods from the IShape
         public void fnDisplayInfo()
         {
             Console.WriteLine("We are displaying the info for clsShape2D");
+            Console.WriteLine("the NAME is: " + strName);
             Console.WriteLine("the Area is: " + dblArea);
             Console.WriteLine("the Perimeter is: " + dblPerimeter);
         }
 
-        public double fnCalculateShape2D()
-        {
-            return dblResult;
-        }
     }
 }
