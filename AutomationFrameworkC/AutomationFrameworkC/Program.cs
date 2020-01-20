@@ -1,14 +1,7 @@
 ﻿
 using AutomationFrameworkC.Base_Files;
-using AutomationFrameworkC.Exercise;
-using AutomationFrameworkC.Exercise2;
-using AutomationFrameworkC.Exercise3;
-using AutomationFrameworkC.Page_Objects;
+using AutomationFrameworkC.M7Exercise_EduardoMendoza;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AutomationFrameworkC
 {
@@ -16,7 +9,14 @@ namespace AutomationFrameworkC
     {
         static void Main(string[] args)
         {
+            Console.WriteLine("2D Shape information");
+            cls2D_Shape obj2D_Shape = new cls2D_Shape();
+            obj2D_Shape.DisplayInfo();
+            Console.WriteLine("");
 
+            Console.WriteLine("3D Shape information");
+            cls3D_Shape obj3D_Shape = new cls3D_Shape();
+            obj3D_Shape.DisplayInfo();
             Console.ReadKey();
 
         }
