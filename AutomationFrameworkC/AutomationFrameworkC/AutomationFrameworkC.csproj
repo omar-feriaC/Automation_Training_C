@@ -98,6 +98,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Base Files\BaseTest.cs" />
+    <Compile Include="M7Exercise\M7ExerciseHugoVidal\clsShape2D.cs" />
+    <Compile Include="M7Exercise\M7ExerciseHugoVidal\IShape.cs" />
     <Compile Include="Page Objects\clsMercury_LoginPage.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
