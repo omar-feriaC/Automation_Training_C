@@ -9,6 +9,24 @@ namespace AutomationFrameworkC
     {
         static void Main(string[] args)
         {
+            //Part 2
+            Console.WriteLine("2D Shape information PART 2");
+            clsSquare objSquare = new clsSquare("Square", 5);
+            objSquare.fnCalculatePerimeter();
+            objSquare.fnCalculateArea();
+            objSquare.DisplayInfo();
+            Console.WriteLine("");
+
+            Console.WriteLine("3D Shape information PART 2");
+            clsPrism objPrism = new clsPrism("Rectangular Prism", 4, 6, 8);
+            objPrism.fnCalculatePerimeter();
+            objPrism.fnCalculateArea();
+            objPrism.fnCalculateVolume();
+            objPrism.DisplayInfo();
+            Console.WriteLine("");
+            Console.ReadKey();
+
+            //Part 1
             Console.WriteLine("2D Shape information");
             cls2D_Shape obj2D_Shape = new cls2D_Shape();
             obj2D_Shape.DisplayInfo();

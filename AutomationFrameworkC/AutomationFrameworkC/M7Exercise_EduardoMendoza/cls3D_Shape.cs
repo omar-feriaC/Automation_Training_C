@@ -10,13 +10,13 @@ namespace AutomationFrameworkC.M7Exercise_EduardoMendoza
     {
         //Attributes
         public double dblVolume { get; set; }
-        public double dblBaseArea { get; set; }
+        //public double dblBaseArea { get; set; }
 
         //Constructor
         public cls3D_Shape()
         {
             strName = "undefined";
-            dblBaseArea = 0.0;
+            dblArea = 0.0;
             dblPerimeter = 0.0;
             dblVolume = 0.0;
         }
@@ -27,8 +27,8 @@ namespace AutomationFrameworkC.M7Exercise_EduardoMendoza
             Console.WriteLine("Display 3D Shape Information");
             Console.WriteLine("strName: " + strName);
             Console.WriteLine("dblVolume: " + dblVolume);
-            Console.WriteLine("dblBaseArea: " + dblBaseArea);
-            Console.WriteLine("dblPerimeter: " + dblPerimeter);
+            Console.WriteLine("dblBaseArea: " + dblArea);
+            Console.WriteLine("dblBasePerimeter: " + dblPerimeter);
         }
     }
 }
