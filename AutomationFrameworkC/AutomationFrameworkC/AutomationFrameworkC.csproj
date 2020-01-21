@@ -97,7 +97,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Base Files\2D_Shape.cs" />
+    <Compile Include="Base Files\3D_Shape.cs" />
     <Compile Include="Base Files\BaseTest.cs" />
+    <Compile Include="M7Exercise\M7Exercise_SaulGarcia\IShape.cs" />
     <Compile Include="Page Objects\clsMercury_LoginPage.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
