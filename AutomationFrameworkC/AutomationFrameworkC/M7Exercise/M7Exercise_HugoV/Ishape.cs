@@ -6,7 +6,14 @@ using System.Threading.Tasks;
 
 namespace AutomationFrameworkC.M7Exercise.M7Exercise_HugoV
 {
-    interface Interface1
+    interface IShape
     {
+
+        double dblArea { get; set; }
+        double dblPerimeter { get; set;}
+
+
+        void DisplayInfo();
+
     }
 }
