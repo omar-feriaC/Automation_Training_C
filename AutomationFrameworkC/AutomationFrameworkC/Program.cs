@@ -1,9 +1,7 @@
 ﻿
 using AutomationFrameworkC.Base_Files;
-using AutomationFrameworkC.Exercise;
-using AutomationFrameworkC.Exercise2;
-using AutomationFrameworkC.Exercise3;
 using AutomationFrameworkC.Page_Objects;
+using AutomationFrameworkC.M7Exercise.M7Exercise_HugoV;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,8 +14,21 @@ namespace AutomationFrameworkC
     {
         static void Main(string[] args)
         {
+           
+
+           clsShape2D objShape2D = new clsShape2D();
+            objShape2D.DisplayInfo();
+
+            Console.WriteLine("");
+
+            clsShape3D objShape3D = new clsShape3D();
+            objShape3D.DisplayInfo();
+
+            Console.WriteLine(" ");
+            Console.WriteLine("Hugo Vazquez");
 
             Console.ReadKey();
+
 
         }
     }
