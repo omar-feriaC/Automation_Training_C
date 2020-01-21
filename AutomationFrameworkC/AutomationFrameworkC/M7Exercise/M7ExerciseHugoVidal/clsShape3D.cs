@@ -12,15 +12,14 @@ namespace AutomationFrameworkC.M7Exercise.M7ExerciseHugoVidal
         public double dblArea { get; set; }
         public double dblPerimeter { get; set; }
 
-        //Attribute specifically from clsShape3D
+        //Attributes specifically for clsShape3D
         public string strName { get; set; }
         public double dblVolume { get; set; }
 
         //Constructor
-        //Empty One JUST IN CASE*
         public clsShape3D() { }
 
-        //other already initialized, and requesting the Name, since it is undefined
+        //One already initialized, and requesting the Name, since it is undefined
         public clsShape3D(string pstrName)
         {
             dblArea = 0;
@@ -28,18 +27,7 @@ namespace AutomationFrameworkC.M7Exercise.M7ExerciseHugoVidal
             dblVolume = 0;
             strName = pstrName;
         }
-
-        //other already initialized, and requesting NOTHING, having the name = "Undifined"
-        //public clsShape3D()
-        //{
-        //    dblArea = 0;
-        //    dblPerimeter = 0;
-        //    dblVolume = 0;
-        //    strName = "Undifined";
-        //}
-
-
-        //other to provide the values of parameters, just in case you want
+        //A different constructor to provide the values of parameters
         public clsShape3D(double pdblArea, double pdblPerimeter, double pdblVolume, string pstrName)
         {
             dblArea = pdblArea;
@@ -47,7 +35,6 @@ namespace AutomationFrameworkC.M7Exercise.M7ExerciseHugoVidal
             dblVolume = pdblVolume;
             strName = pstrName;
         }
-
 
         //Methods from the IShape
         public void fnDisplayInfo()
@@ -57,7 +44,6 @@ namespace AutomationFrameworkC.M7Exercise.M7ExerciseHugoVidal
             Console.WriteLine("the Area in clsShape3D is: " + dblArea);
             Console.WriteLine("the Perimeter in clsShape3D is: " + dblPerimeter);
             Console.WriteLine("the Volume in clsShape3D is: " + dblVolume);
-            
         }
 
         public double fnCalculateVolume()

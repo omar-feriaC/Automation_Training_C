@@ -12,28 +12,19 @@ namespace AutomationFrameworkC.M7Exercise.M7ExerciseHugoVidal
         public double dblArea { get; set; }
         public double dblPerimeter { get; set; }
 
-        //Attribute specifically from clsShape2D
+        //Attribute specifically for clsShape2D
         public string strName { get; set; }
 
         //Constructor
-        //Empty One JUST IN CASE*
         public clsShape2D(){ }
 
-        //The one requested already initialized with 0 and Name
+        //One requested already initialized with 0 and Name
         public clsShape2D(string pstrName)
         {
             dblArea = 0;
             dblPerimeter = 0;
             strName = pstrName;
         }
-
-        //other having the strName = "Undefined"
-        //public clsShape2D(string pstrName)
-        //{
-        //    dblArea = 0;
-        //    dblPerimeter = 0;
-        //    strName = "Undifined";
-        //}
 
         //Other to provide all the values to print
         public clsShape2D(double pdblArea, double pdblPerimeter, string pstrName)

@@ -35,7 +35,7 @@ namespace AutomationFrameworkC.M7Exercise.M7ExerciseHugoVidal
         public new void fnDisplayInfo()
         {
             Console.WriteLine("We are displaying the info for Shape2");
-            Console.WriteLine("the Shape2 is: " + strName);
+            Console.WriteLine("the Name of Shape2 is: " + strName);
             Console.WriteLine("the Value of the Radio is: " + dblRadio);
             Console.WriteLine("the Value of the Height is: " + dblAltura);
             Console.WriteLine("the Volume is: " + dblVolume);

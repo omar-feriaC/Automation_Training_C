@@ -11,9 +11,7 @@ namespace AutomationFrameworkC.M7Exercise.M7ExerciseHugoVidal
         //ATTRIBUTES
         double dblArea { get; set; }
         double dblPerimeter { get; set; }
-
         //METHODS
         void fnDisplayInfo();
-
     }
 }
