@@ -14,7 +14,7 @@ namespace AutomationFrameworkC
             clsSquare objSquare = new clsSquare("Square", 5);
             objSquare.fnCalculatePerimeter();
             objSquare.fnCalculateArea();
-            objSquare.DisplayInfo();
+            objSquare.fnDisplayInfo();
             Console.WriteLine("");
 
             Console.WriteLine("3D Shape information PART 2");
@@ -22,19 +22,19 @@ namespace AutomationFrameworkC
             objPrism.fnCalculatePerimeter();
             objPrism.fnCalculateArea();
             objPrism.fnCalculateVolume();
-            objPrism.DisplayInfo();
+            objPrism.fnDisplayInfo();
             Console.WriteLine("");
             Console.ReadKey();
 
             //Part 1
-            Console.WriteLine("2D Shape information");
+            Console.WriteLine("2D Shape information PART 1");
             cls2D_Shape obj2D_Shape = new cls2D_Shape();
-            obj2D_Shape.DisplayInfo();
+            obj2D_Shape.fnDisplayInfo();
             Console.WriteLine("");
 
-            Console.WriteLine("3D Shape information");
+            Console.WriteLine("3D Shape information PART 1");
             cls3D_Shape obj3D_Shape = new cls3D_Shape();
-            obj3D_Shape.DisplayInfo();
+            obj3D_Shape.fnDisplayInfo();
             Console.ReadKey();
 
         }

@@ -10,7 +10,6 @@ namespace AutomationFrameworkC.M7Exercise_EduardoMendoza
     {
         //Attributes
         public double dblVolume { get; set; }
-        //public double dblBaseArea { get; set; }
 
         //Constructor
         public cls3D_Shape()
@@ -22,7 +21,7 @@ namespace AutomationFrameworkC.M7Exercise_EduardoMendoza
         }
 
         //Methods
-        public new void DisplayInfo()
+        public new void fnDisplayInfo()
         {
             Console.WriteLine("Display 3D Shape Information");
             Console.WriteLine("strName: " + strName);

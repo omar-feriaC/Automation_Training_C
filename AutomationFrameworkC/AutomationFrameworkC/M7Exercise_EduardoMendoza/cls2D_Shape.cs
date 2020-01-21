@@ -22,13 +22,9 @@ namespace AutomationFrameworkC.M7Exercise_EduardoMendoza
             dblPerimeter = 0.0;
         }
 
-        //public cls2D_Shape(string pstrName)
-        //{
-
-        //}
 
         //Methods
-        public void DisplayInfo()
+        public void fnDisplayInfo()
         {
             Console.WriteLine("Display 2D Shape Information");
             Console.WriteLine("strName: " + strName);

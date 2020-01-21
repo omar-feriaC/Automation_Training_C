@@ -15,6 +15,7 @@ namespace AutomationFrameworkC.M7Exercise_EduardoMendoza
         //Constructor
         public clsSquare()
         {
+            strName = "";
             dblSide = 0.0;
         }
 

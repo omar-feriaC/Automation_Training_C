@@ -16,8 +16,10 @@ namespace AutomationFrameworkC.M7Exercise_EduardoMendoza
         //Constructor
         public clsPrism()
         {
+            strName = "";
             dblLength = 0.0;
             dblWidth = 0.0;
+            dblHeight = 0.0;
         }
 
         public clsPrism(string pstrName, double pdblLength, double pdblWidth, double pdblHeight)

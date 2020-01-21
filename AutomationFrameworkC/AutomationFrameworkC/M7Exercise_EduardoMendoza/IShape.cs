@@ -10,8 +10,10 @@ namespace AutomationFrameworkC.M7Exercise_EduardoMendoza
     {
         //Attributes
         string strName { get; set; }
+        double dblArea { get; set; }
+        double dblPerimeter { get; set; }
 
         //Methods
-        void DisplayInfo();
+        void fnDisplayInfo();
     }
 }
