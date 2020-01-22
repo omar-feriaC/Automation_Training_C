@@ -34,12 +34,13 @@ namespace AutomationFrameworkC.M7Exercise_OmarGonzalez
         //Methods
         public void fnDisplayInfo()
         {
-            Console.WriteLine("***3D Shape***");
-            Console.WriteLine("strName: " + strName);
-            Console.WriteLine("dblBase: " + dblBase);
+            Console.WriteLine("************3D Shape************");
+            Console.WriteLine("strName:      " + strName);
+            Console.WriteLine("dblBase:      " + dblBase);
             Console.WriteLine("dblPerimeter: " + dblPerimeter);
-            Console.WriteLine("dblArea: " + dblArea);
-            Console.WriteLine("dblVolumen: " + dblVolumen);
+            Console.WriteLine("dblArea:      " + dblArea);
+            Console.WriteLine("dblVolumen:   " + dblVolumen);
+            Console.WriteLine("********************************");
             Console.WriteLine("");
         }
     }

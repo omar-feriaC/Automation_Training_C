@@ -32,10 +32,11 @@ namespace AutomationFrameworkC.M7Exercise_OmarGonzalez
         //Methods
         public void fnDisplayInfo()
         {
-            Console.WriteLine("***2D Shape***");
-            Console.WriteLine("strName: " + strName);
+            Console.WriteLine("************2D Shape************");
+            Console.WriteLine("strName:      " + strName);
             Console.WriteLine("dblperimeter: " + dblPerimeter);
-            Console.WriteLine("dblarea: " + dblArea);
+            Console.WriteLine("dblarea:      " + dblArea);
+            Console.WriteLine("********************************");
             Console.WriteLine("");
         }
 

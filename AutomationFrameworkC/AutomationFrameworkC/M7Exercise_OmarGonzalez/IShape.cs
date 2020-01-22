@@ -13,6 +13,7 @@ namespace AutomationFrameworkC.M7Exercise_OmarGonzalez
         double dblPerimeter { get; set; }
 
         //Methods
+
         //void fnDisplayInfo();
     }
 }
