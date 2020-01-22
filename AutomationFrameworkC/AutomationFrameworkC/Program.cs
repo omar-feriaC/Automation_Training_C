@@ -25,7 +25,18 @@ namespace AutomationFrameworkC
             objShape3D.DisplayInfo();
 
             Console.WriteLine(" ");
-            Console.WriteLine("Hugo Vazquez");
+           
+            Pentagon pentagon = new Pentagon(5, 200);
+            pentagon.perimetroPentagono();
+            pentagon.areaPentagono();
+            pentagon.valoresPentagano();
+            Console.WriteLine(" ");
+            Console.WriteLine(" ");
+            Cone cone = new Cone(10, 100);
+            cone.volumeCone();
+            cone.valuesCone();
+            
+
 
             Console.ReadKey();
 

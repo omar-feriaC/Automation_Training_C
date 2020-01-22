@@ -23,6 +23,11 @@ namespace AutomationFrameworkC.M7Exercise.M7Exercise_HugoV
 
         }
 
+        public clsShape3D(string name)
+        {
+            this.strName = name;
+        }
+
         public void DisplayInfo()
         {
             Console.WriteLine("Information for class Shape3D");
