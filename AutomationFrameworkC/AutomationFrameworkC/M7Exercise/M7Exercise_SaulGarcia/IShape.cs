@@ -22,7 +22,5 @@ namespace AutomationFrameworkC.M7Exercise.M7Exercise_SaulGarcia
         void fnGetVolume();
         void fnGetBaseArea();
 
-
-
     }
 }
