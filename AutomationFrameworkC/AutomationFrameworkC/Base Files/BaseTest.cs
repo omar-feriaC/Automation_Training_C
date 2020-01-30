@@ -14,9 +14,9 @@ namespace AutomationFrameworkC.Base_Files
     {
         //Variables
         public static IWebDriver objDriver;
-        private static readonly string strUrl = ConfigurationManager.AppSettings.Get("url");
-        public static readonly string strUser = ConfigurationManager.AppSettings.Get("user");
-        public static readonly string strPass = ConfigurationManager.AppSettings.Get("password");
+        private static readonly string strUrl = ConfigurationManager.AppSettings.Get("https://www.linkedin.com/login?fromSignIn=true&trk=guest_homepage-basic_nav-header-signin");
+        public static readonly string strUser = ConfigurationManager.AppSettings.Get("saul.garcia@4thsource.com");
+        public static readonly string strPass = ConfigurationManager.AppSettings.Get("Source4262");
 
         //Functions
         [SetUp]
