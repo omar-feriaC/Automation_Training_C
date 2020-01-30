@@ -17,7 +17,7 @@ namespace AutomationFrameworkC.Page_Objects
 
         //Variables
         private static WebDriverWait objWait;
-        private static IWebDriver _objDriver;
+        private static IWebDriver _objDriver; // we are going to use this specifically for this class
 
         //Constructor
         public clsMercury_RegisterPage(IWebDriver pobjDriver)
@@ -112,6 +112,21 @@ namespace AutomationFrameworkC.Page_Objects
             {
                 fnFillFirstName(pstrFirstName);
                 fnFillLastName(pstrLasttName);
+                //fnClickSignIn();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("The Error ");
+                Assert.Fail();
+            }
+        }
+
+        public static void fnRegisterPageList(List <string> pListformRegisterPage)
+        {
+            try
+            {
+                fnFillFirstName(pListformRegisterPage[0]);
+                fnFillLastName(pListformRegisterPage[1]);
                 //fnClickSignIn();
             }
             catch (Exception e)

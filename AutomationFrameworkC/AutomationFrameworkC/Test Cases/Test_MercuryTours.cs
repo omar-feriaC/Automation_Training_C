@@ -12,6 +12,7 @@ namespace AutomationFrameworkC.Test_Cases
 {
     class Test_MercuryTours : BaseTest
     {
+       
         //Init Objects
         clsMercury_loginPage objLogin;// = new clsMercury_loginPage(objDriver);  //since we inheret from BaseTest objDriver is reused
         clsMercury_RegisterPage objRegister;
@@ -40,6 +41,15 @@ namespace AutomationFrameworkC.Test_Cases
             objRegister = new clsMercury_RegisterPage(objDriver); //we use the objDriver from BaseTest
             objDriver.Url = "http://newtours.demoaut.com/mercuryregister.php";
             clsMercury_RegisterPage.fnRegisterPage(strUser, strPass);
+        }
+
+        [Test, Order(1)]
+        public void fnRegister_MercuryTours2()
+        {
+            objRegister = new clsMercury_RegisterPage(objDriver); //we use the objDriver from BaseTest
+            objDriver.Url = "http://newtours.demoaut.com/mercuryregister.php";
+            var plist = new List<string> { "value1","value2"}; //creating an object of list type
+            clsMercury_RegisterPage.fnRegisterPageList(plist);
         }
     }
 }

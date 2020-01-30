@@ -111,10 +111,12 @@
     <Compile Include="Exercise\clsClassicCar.cs" />
     <Compile Include="Exercise\clsVW.cs" />
     <Compile Include="Exercise\ICar.cs" />
+    <Compile Include="Page Objects\clsLinkedIn_LoginPage.cs" />
     <Compile Include="Page Objects\clsMercury_loginPage.cs" />
     <Compile Include="Page Objects\clsMercury_RegisterPage.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Test Cases\Test_LinkedIn.cs" />
     <Compile Include="Test Cases\Test_MercuryTours.cs" />
   </ItemGroup>
   <ItemGroup>
