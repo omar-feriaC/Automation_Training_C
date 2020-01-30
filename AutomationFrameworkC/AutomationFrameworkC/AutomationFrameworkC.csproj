@@ -98,17 +98,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Base Files\BaseTest.cs" />
-    <Compile Include="Exercise2\clsAnimals.cs" />
-    <Compile Include="Exercise2\clsDogs.cs" />
-    <Compile Include="Exercise2\IAnimals.cs" />
-    <Compile Include="Exercise3\clsBaseEmployee.cs" />
-    <Compile Include="Exercise3\clsBaseEmployeeBonus.cs" />
-    <Compile Include="Exercise3\clsEmployee.cs" />
-    <Compile Include="Exercise3\IPerson.cs" />
-    <Compile Include="Exercise\clsClassicCar.cs" />
-    <Compile Include="Exercise\clsVW.cs" />
-    <Compile Include="Exercise\ICar.cs" />
-    <Compile Include="Page Objects\clsMercury_LoginPage.cs" />
     <Compile Include="Page Objects\LinkedIn_LoginPage.cs" />
     <Compile Include="Page Objects\LinkedIn_SearchPage.cs" />
     <Compile Include="Program.cs" />
