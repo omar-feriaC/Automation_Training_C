@@ -8,5 +8,9 @@ namespace AutomationFrameworkC.Test_Cases
 {
     class Test_LinkedInSearch
     {
+        //VARIABLES
+        string[] arrTechnologies = { "Java", "C#", "C++", "Pega", "Cobol" };
+        string[] arrLanguages = { "Spanish", "English" };
+
     }
 }
