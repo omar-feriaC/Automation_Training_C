@@ -24,7 +24,7 @@ namespace AutomationFrameworkC.Page_Objects
             objWait = new WebDriverWait(objDriver, new TimeSpan(0, 0, 30));
         }
 
-        //Elements   https://www.linkedin.com/login?
+        //Elements
         readonly static string STR_USERNAME = "//input[@id='username']";
         readonly static string STR_PASSWORD = "//input[@id='password']";
         readonly static string STR_SIGNIN = "//button[@class='btn__primary--large from__button--floating']";
