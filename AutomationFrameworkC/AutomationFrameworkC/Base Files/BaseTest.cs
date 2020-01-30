@@ -12,21 +12,18 @@ namespace AutomationFrameworkC.Base_Files
 {
     class BaseTest
     {
-        // Variables
-        public static IWebDriver objDriver; // if this has an I -- it is an interfaze
-        //private static readonly string strUrl = ConfigurationManager.AppSettings.Get("url"); //readonly in order to not modify
-        protected static readonly string strUrl = ConfigurationManager.AppSettings.Get("url"); //readonly in order to not modify
-        //protected  is another type of variable
-        // the protected allows to use it only when it is inhenerit
+        //Variables
+        public static IWebDriver objDriver;
+        private static readonly string strUrl = ConfigurationManager.AppSettings.Get("url");
         public static readonly string strUser = ConfigurationManager.AppSettings.Get("user");
         public static readonly string strPass = ConfigurationManager.AppSettings.Get("password");
 
         //Functions
         [SetUp]
-        public static void fnSetup()  // normally visual studio expects to have this with capital letters
+        public static void fnSetUp()
         {
             objDriver = new ChromeDriver();
-            objDriver.Url = strUrl; // this is the way to obtain the URL
+            objDriver.Url = strUrl;
         }
 
         [TearDown]
@@ -35,5 +32,6 @@ namespace AutomationFrameworkC.Base_Files
             objDriver.Close();
             objDriver.Quit();
         }
+
     }
 }

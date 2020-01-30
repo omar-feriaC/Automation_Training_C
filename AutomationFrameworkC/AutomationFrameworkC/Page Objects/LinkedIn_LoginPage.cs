@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AutomationFrameworkC.Test_Cases
+namespace AutomationFrameworkC.Page_Objects
 {
-    class Test_LinkedIn
+    class LinkedIn_LoginPage
     {
     }
 }
