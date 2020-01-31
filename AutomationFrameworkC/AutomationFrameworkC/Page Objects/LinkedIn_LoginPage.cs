@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using AutomationFrameworkC.Base_Files;
+using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using System;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace AutomationFrameworkC.Page_Objects
 {
-    class LinkedIn_LoginPage
+    class LinkedIn_LoginPage : BaseTest 
     {
         //Variales
         private static WebDriverWait _objWait;
@@ -23,14 +24,14 @@ namespace AutomationFrameworkC.Page_Objects
         }
 
         //Locators Definitions
-        readonly static string STR_USERNAME = "username";
-        readonly static string STR_PASSWORD = "password";
-        readonly static string STR_SIGNIN = "submit";
+        readonly static string STR_USERNAME = "//input[@id='username']";
+        readonly static string STR_PASSWORD = "//input[@id='password']";
+        readonly static string STR_SIGNIN = "//button[@class='btn__primary--large from__button--floating']";
 
         //WebElements Definition
-        private static IWebElement objUserNameTxt => _objDriver.FindElement(By.Name(STR_USERNAME));
-        private static IWebElement objPasswordTxt => _objDriver.FindElement(By.Name(STR_PASSWORD));
-        private static IWebElement objSignInBtn => _objDriver.FindElement(By.Name(STR_SIGNIN));
+        private static IWebElement objUserNameTxt => _objDriver.FindElement(By.XPath(STR_USERNAME));
+        private static IWebElement objPasswordTxt => _objDriver.FindElement(By.XPath(STR_PASSWORD));
+        private static IWebElement objSignInBtn => _objDriver.FindElement(By.XPath(STR_SIGNIN));
 
         //Methods
         //UserName
@@ -43,8 +44,8 @@ namespace AutomationFrameworkC.Page_Objects
         {
             try
             {
-                _objWait.Until(ExpectedConditions.ElementExists(By.Name(STR_USERNAME)));
-                _objWait.Until(ExpectedConditions.ElementIsVisible(By.Name(STR_USERNAME)));
+                _objWait.Until(ExpectedConditions.ElementExists(By.XPath(STR_USERNAME)));
+                _objWait.Until(ExpectedConditions.ElementIsVisible(By.XPath(STR_USERNAME)));
                 objUserNameTxt.Clear();
                 objUserNameTxt.SendKeys(pstrUserName);
             }
@@ -65,8 +66,9 @@ namespace AutomationFrameworkC.Page_Objects
         {
             try
             {
-                _objWait.Until(ExpectedConditions.ElementExists(By.Name(STR_PASSWORD)));
-                _objWait.Until(ExpectedConditions.ElementIsVisible(By.Name(STR_PASSWORD)));
+                _objWait.Until(ExpectedConditions.ElementExists(By.XPath(STR_PASSWORD)));
+                _objWait.Until(ExpectedConditions.ElementIsVisible(By.XPath(STR_PASSWORD)));
+                _objWait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(STR_PASSWORD)));
                 objPasswordTxt.Clear();
                 objPasswordTxt.SendKeys(pstrPassword);
             }
@@ -87,9 +89,9 @@ namespace AutomationFrameworkC.Page_Objects
         {
             try
             {
-                _objWait.Until(ExpectedConditions.ElementExists(By.Name(STR_SIGNIN)));
-                _objWait.Until(ExpectedConditions.ElementIsVisible(By.Name(STR_SIGNIN)));
-                _objWait.Until(ExpectedConditions.ElementToBeClickable(By.Name(STR_SIGNIN)));
+                _objWait.Until(ExpectedConditions.ElementExists(By.XPath(STR_SIGNIN)));
+                _objWait.Until(ExpectedConditions.ElementIsVisible(By.XPath(STR_SIGNIN)));
+                _objWait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(STR_SIGNIN)));
                 objSignInBtn.Click();
             }
             catch (Exception e)
