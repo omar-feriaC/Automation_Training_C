@@ -1,8 +1,5 @@
 ﻿
 using AutomationFrameworkC.Base_Files;
-using AutomationFrameworkC.Exercise;
-using AutomationFrameworkC.Exercise2;
-using AutomationFrameworkC.Exercise3;
 using AutomationFrameworkC.Page_Objects;
 using System;
 using System.Collections.Generic;
@@ -18,18 +15,18 @@ namespace AutomationFrameworkC
         {
 
 
-            clsEmployee objEmployee = new clsEmployee("1ABC", "Programmer", "Sr", 1000.00);
-            Console.WriteLine("Employee Class");
-            objEmployee.fnGetInfo();
-            Console.WriteLine();
+            //clsEmployee objEmployee = new clsEmployee("1ABC", "Programmer", "Sr", 1000.00);
+            //Console.WriteLine("Employee Class");
+            //objEmployee.fnGetInfo();
+            //Console.WriteLine();
 
-            clsBaseEmployee objBEmployee = new clsBaseEmployee();
-            objBEmployee.strID = "LLLLL";
-            objBEmployee.strPosition = "";
-            Console.WriteLine("Base Employee Class");
-            objBEmployee.fnCalculateSalary();
-            objBEmployee.fnGetInfo();
-            Console.WriteLine();
+            //clsBaseEmployee objBEmployee = new clsBaseEmployee();
+            //objBEmployee.strID = "LLLLL";
+            //objBEmployee.strPosition = "";
+            //Console.WriteLine("Base Employee Class");
+            //objBEmployee.fnCalculateSalary();
+            //objBEmployee.fnGetInfo();
+            //Console.WriteLine();
 
 
 

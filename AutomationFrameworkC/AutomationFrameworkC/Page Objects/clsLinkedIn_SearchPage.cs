@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AutomationFrameworkC.Page_Objects
 {
-    class LinkedIn_SearchPage
+    class clsLinkedIn_SearchPage
     {
     }
 }

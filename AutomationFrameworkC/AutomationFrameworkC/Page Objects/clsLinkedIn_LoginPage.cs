@@ -11,36 +11,44 @@ using System.Threading.Tasks;
 
 namespace AutomationFrameworkC.Page_Objects
 {
-    class LinkedIn_LoginPage : BaseTest
+    class clsLinkedIn_LoginPage : BaseTest
     {
+        #region variables
         //Variables
         private static WebDriverWait objWait;
         private static IWebDriver _objDriver;
-
+        #endregion variables
+        #region Constructor
         //Constructor
-        public LinkedIn_LoginPage(IWebDriver pobjDriver)
+        public clsLinkedIn_LoginPage(IWebDriver pobjDriver)
         {
             _objDriver = pobjDriver; //we are receiving the value from outside
             objWait = new WebDriverWait(objDriver, new TimeSpan(0, 0, 30));
         }
-
+        #endregion Constructor
+        #region Elements
         //Elements
         readonly static string STR_USERNAME = "//input[@id='username']";
         readonly static string STR_PASSWORD = "//input[@id='password']";
         readonly static string STR_SIGNIN = "//button[@class='btn__primary--large from__button--floating']";
-
+        readonly static string STR_ERRORUSERNAME = "//div[@id='error-for-username']";
+        readonly static string STR_ERRORPASSWORD = "//div[@id='error-for-password']";
+        #endregion Elements
+        #region xpathElements
         //WebElements Definition
-        private static IWebElement objUserNameTxt => _objDriver.FindElement(By.XPath(STR_USERNAME)); //lambda expression, assign something to an object
+        private static IWebElement objUserNameTxt => _objDriver.FindElement(By.XPath(STR_USERNAME));
         private static IWebElement objPasswordTxt => _objDriver.FindElement(By.XPath(STR_PASSWORD));
         private static IWebElement objSignInBtn => _objDriver.FindElement(By.XPath(STR_SIGNIN));
-
+        private static IWebElement objUserNameErrorTxt => _objDriver.FindElement(By.XPath(STR_ERRORUSERNAME));
+        private static IWebElement objPasswordErrorTxt => _objDriver.FindElement(By.XPath(STR_ERRORPASSWORD));
+        #endregion xpathElements
+        #region Methods
         //Methods
-        //Username
+        #region UserName Methods
         private IWebElement fnGetUserName()
         {
             return objUserNameTxt;
         }
-
         public static void fnUserName(string pstrUserName)
         {
             try
@@ -56,13 +64,13 @@ namespace AutomationFrameworkC.Page_Objects
                 Assert.Fail();
             }
         }
-
+        #endregion UserName Methods
+        #region Password Methods
         //Password
         private IWebElement fnGetPassowrd()
-        {
-            return objPasswordTxt;
-        }
-
+            {
+                return objPasswordTxt;
+            }
         public static void fnPassword(string pstrPassword)
         {
             try
@@ -79,29 +87,46 @@ namespace AutomationFrameworkC.Page_Objects
                 Assert.Fail();
             }
         }
-
+        #endregion Password Methods
+        #region SignIn Buton Methods
         //Sign In Button
         private IWebElement fnGetSignIn()
-        {
-            return objSignInBtn;
-        }
-
-        public static void fnClickSignIn()
-        {
-            try
+                {
+                    return objSignInBtn;
+                }
+            public static void fnClickSignIn()
             {
-                objWait.Until(ExpectedConditions.ElementExists(By.XPath(STR_SIGNIN)));
-                objWait.Until(ExpectedConditions.ElementIsVisible(By.XPath(STR_SIGNIN)));
-                objWait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(STR_SIGNIN)));
-                objSignInBtn.Click();
+                try
+                {
+                    objWait.Until(ExpectedConditions.ElementExists(By.XPath(STR_SIGNIN)));
+                    objWait.Until(ExpectedConditions.ElementIsVisible(By.XPath(STR_SIGNIN)));
+                    objWait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(STR_SIGNIN)));
+                    objSignInBtn.Click();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("The Element SignIn Button does not exist: " + e.Message);
+                    Assert.Fail();
+                }
             }
-            catch (Exception e)
+        #endregion SignIn Buton Methods
+        #region fnConfirmFeedPage
+        public static void fnConfirmFeedPage()
+        {
+            if (_objDriver.Url.Contains("feed")) // If login happened, so we are good
             {
-                Console.WriteLine("The Element SignIn Button does not exist: " + e.Message);
+                Assert.Pass();
+            }
+            else
+            {
+                Console.WriteLine($"The page is not the one expected");
                 Assert.Fail();
             }
         }
-
+        #endregion fnConfirmFeedPage
+        //MergeMethods
+        #region MergeMethods
+        //Function to compile all involved in a success login
         public static void fnLoginPage(string pstrUser, string pstrPass)
         {
             try
@@ -109,13 +134,19 @@ namespace AutomationFrameworkC.Page_Objects
                 fnUserName(pstrUser);
                 fnPassword(pstrPass);
                 fnClickSignIn();
+                fnConfirmFeedPage();
+            }
+            catch (SuccessException e) // to print a text when the test case is success
+            {
+                Console.WriteLine($"The Login was done as expected");
             }
             catch (Exception e)
             {
-                Console.WriteLine("The Error ");
+                Console.WriteLine($"There is an error {e.Message}");
                 Assert.Fail();
             }
         }
-
+        #endregion MergeMethods
+        #endregion Methods
     }
 }
