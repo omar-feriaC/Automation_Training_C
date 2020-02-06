@@ -13,21 +13,21 @@ namespace AutomationFrameworkC.Base_Files
     class BaseTest
     {
         //Variables
-        public static IWebDriver objDriver;
+        public IWebDriver objDriver;
         private static readonly string strUrl = ConfigurationManager.AppSettings.Get("url");
         public static readonly string strUser = ConfigurationManager.AppSettings.Get("user");
         public static readonly string strPass = ConfigurationManager.AppSettings.Get("password");
 
         //Functions
         [SetUp]
-        public static void fnSetUp()
+        public void fnSetUp()
         {
             objDriver = new ChromeDriver();
             objDriver.Url = strUrl;
         }
 
         [TearDown]
-        public static void fnTearDown()
+        public void fnTearDown()
         {
             objDriver.Close();
             objDriver.Quit();
