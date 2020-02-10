@@ -24,7 +24,7 @@ namespace AutomationFrameworkC.Test_Cases
         {
             try
             {
-                _objDriverWait = new WebDriverWait(objDriver, new TimeSpan(0, 0, 15));
+                _objDriverWait = new WebDriverWait(objDriver, new TimeSpan(0, 0, 30));
                 objLogin = new LinkedIn_LoginPage(objDriver);
                 objSearch = new LinkedIn_SearchPage(objDriver);
 
@@ -36,17 +36,21 @@ namespace AutomationFrameworkC.Test_Cases
                 _objDriverWait.Until(ExpectedConditions.UrlContains("feed"));
 
                 Assert.AreEqual("https://www.linkedin.com/feed/", objDriver.Url);
-                objSearch.fnEnterDataInSearchTextField("4th Source");
+                objSearch.fnEnterDataInSearchTextField("Automation");
                 _objDriverWait.Until(ExpectedConditions.UrlContains("results"));
                 objSearch.fnClickPeopleButton();
                 _objDriverWait.Until(ExpectedConditions.UrlContains("people"));
-                objSearch.fnClickAllFiltersButton();
-                _objDriverWait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//h2[@class='t-20 t-20--open t-black--light t-normal']")));
+                objSearch.fnClickAllFiltersButton();              
+                objSearch.fnLocationTextBox("Mex");
                 objSearch.fnSelectMexicoCheckBox();
-                objSearch.fnAddValueToLocationTextBox("Italy");
+                objSearch.fnLocationTextBox("Ita");
                 objSearch.fnSelectItalyCheckBox();
                 _objDriverWait.Until(ExpectedConditions.ElementToBeClickable(By.XPath("//button[@class='search-advanced-facets__button--apply ml4 mr2 artdeco-button artdeco-button--3 artdeco-button--primary ember-view']")));
+                objSearch.fnClickApplyAllFiltersButton();
+                objSearch.fnMultipleSearch();
             }
+            
+
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
