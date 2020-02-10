@@ -22,7 +22,7 @@ namespace AutomationFrameworkC.Test_Cases
             objLogin = new LinkedIn_LoginPage(objDriver);
             LinkedIn_LoginPage.fnLoginPage(strUser, strPass);
             Console.WriteLine("Test Login");
-            Assert.Fail();
+            
         }
     }
 }

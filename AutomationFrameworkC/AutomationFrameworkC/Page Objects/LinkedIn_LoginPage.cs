@@ -12,7 +12,7 @@ namespace AutomationFrameworkC.Page_Objects
 {
     class LinkedIn_LoginPage : BaseTest 
     {
-        //Variales
+        //Variables
         private static WebDriverWait _objWait;
         private static IWebDriver _objDriver;
 
