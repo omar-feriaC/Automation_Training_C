@@ -42,9 +42,7 @@ namespace AutomationFrameworkC.Page_Objects
         //private static IWebElement objItalyListOption => _objDriver.FindElement(By.XPath(str_Italy_ListOption_Xpath));
         private static IWebElement objLocationTextbox => _objDriver.FindElement(By.XPath(str_Location_textbox_Xpath));
         private static IWebElement objApplyFiltersButton => _objDriver.FindElement(By.XPath(str_ApplyFilters_button_Xpath));
-        private static IList<IWebElement> objMemberNames;
-        private static IList<IWebElement> objMemberRoles;
-        private static IList<IWebElement> objMemberUrls;
+      
 
         /*GET ELEMENT METHODS*/
         public IWebElement GetSearchTextField()
