@@ -15,9 +15,10 @@ namespace AutomationFrameworkC.Test_Cases
         public clsLinkedIn_LoginPage objLogin;
 
         [Test, Order(1)]
+        //This test case allows to login and verify if the landed page is the expected one
         public void fnLogin_LinkedIn()
         {
-            objLogin = new clsLinkedIn_LoginPage(objDriver); //we use the objDriver from BaseTest
+            objLogin = new clsLinkedIn_LoginPage(objDriver);
             objDriver.Url = "https://www.linkedin.com/login?";
             clsLinkedIn_LoginPage.fnLoginPage(strUser, strPass);
         }

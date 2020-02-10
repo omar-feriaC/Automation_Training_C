@@ -18,19 +18,17 @@ namespace AutomationFrameworkC.Page_Objects
         //Variables
         private static WebDriverWait objWait;
         private static IWebDriver _objDriver;
-        private static clsLinkedIn_LoginPage objLogin;
+        private static clsLinkedIn_LoginPage objLogin; // we need to be able to login before continue with the test
         #endregion variables
         #region Constructor
-        //Constructor
         public clsLinkedIn_SearchPage(IWebDriver pobjDriver)
         {
-            _objDriver = pobjDriver; //we are receiving the value from outside
+            _objDriver = pobjDriver;
             objWait = new WebDriverWait(objDriver, new TimeSpan(0, 0, 30));
-            
         }
         #endregion Constructor
         #region Elements
-        //Elements
+        //Elements, we identify the elements having in count the spanish and english versions
         readonly static string SRT_SEARCH = "//input[@class='search-global-typeahead__input always-show-placeholder']";
         readonly static string STR_PEOPLE = "//span[text()='Gente' or text()='People']";
         readonly static string STR_ALLFILTERS = "//span[text()='Todos los filtros' or text()='All Filters']";
@@ -38,13 +36,11 @@ namespace AutomationFrameworkC.Page_Objects
         readonly static string STR_ADDCOUNTRYREGION = "(//input[@placeholder='Add a country/region' and (@aria-label='Add a country/region') and (@type='text')])[1]";
         readonly static string STR_SELECTMEXICO = "//*[@class='basic-typeahead__selectable ember-view']//span[text()= 'México' or 'Mexico']";
         readonly static string STR_SELECTITALIA = "//*[@class='basic-typeahead__selectable ember-view']//span[text()= 'Italy' or 'Italia']";
-        //readonly static string STR_APPLYFILTERS = "//button[@data-control-name='all_filters_apply']";
-        readonly static string STR_APPLYFILTERS = "//button[@class='search-advanced-facets__button--apply ml4 mr2 artdeco-button artdeco-button--3 artdeco-button--primary ember-view']//following::span[1][text()='Apply']";
+        readonly static string STR_APPLYFILTERS = "//span[text()='Apply' or text()='Aplicar'][1]";
         public static readonly string STR_MEMBER_NAMES = "//span[@class='actor-name']";
         public static readonly string STR_MEMBER_ROLES = "//p[@class='subline-level-1 t-14 t-black t-normal search-result__truncate']";
         public static readonly string STR_MEMBER_URLS = "//div[@class='search-result__info pt3 pb4 ph0']//a[@href]";
-        #endregion Elements
-        #region xpathElements
+        public static readonly string STR_MEMBER_RESULTS = "//div[@class='search-results-container']";
         //WebElements Definition
         private static IWebElement objSearchTxt => _objDriver.FindElement(By.XPath(SRT_SEARCH));
         private static IWebElement objPeopleBtn => _objDriver.FindElement(By.XPath(STR_PEOPLE));
@@ -57,11 +53,11 @@ namespace AutomationFrameworkC.Page_Objects
         private static IList<IWebElement> objMemberNames;
         private static IList<IWebElement> objMemberRoles;
         private static IList<IWebElement> objMemberURLs;
-
-        #endregion xpathElements
+        private static IWebElement objMemberResultsTxt => _objDriver.FindElement(By.XPath(STR_MEMBER_RESULTS));
+        #endregion Elements
         #region Methods
-        //Methods
         #region Search field
+        // this allows to identify the search input element and send some text
         private IWebElement fnGetSearchField()
         {
             return objSearchTxt;
@@ -78,12 +74,13 @@ namespace AutomationFrameworkC.Page_Objects
             }
             catch (Exception e)
             {
-                Console.WriteLine("The Element username does not exist: " + e.Message);
+                Console.WriteLine("The Element to input a search does not exist: " + e.Message);
                 Assert.Fail();
             }
         }
         #endregion Search field
         #region People Button
+        // this allows to identify the People button and click on it
         private IWebElement fnGetPeopleBtn()
         {
             return objPeopleBtn;
@@ -106,6 +103,7 @@ namespace AutomationFrameworkC.Page_Objects
         }
         #endregion People Button
         #region All filters Button
+        //This clicks in All Filters button and wait until the element that contains all the options to filter appears
         private IWebElement fnGetAllFiltersBtn()
         {
             return objAllFiltersBtn;
@@ -132,6 +130,7 @@ namespace AutomationFrameworkC.Page_Objects
         }
         #endregion All filters Button
         #region Search Locations
+        //This allows to search different locations provided in a list of strings
         private IWebElement fnGetAddCountryRegionField()
         {
             return objAddCountryRegionTxt;
@@ -154,19 +153,10 @@ namespace AutomationFrameworkC.Page_Objects
                 objAddCountryRegionTxt.Clear();
                 objAddCountryRegionTxt.SendKeys(plistcountries[0]);
                 objWait.Until(ExpectedConditions.ElementExists(By.XPath(STR_SELECTITALIA)));
-                //objWait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(STR_SELECTITALIA)));
                 objSelectItalyBtn.Click();
-                //objAddCountryRegionTxt.Clear();
-                Thread.Sleep(2000);
                 objAddCountryRegionTxt.SendKeys(plistcountries[1]);
                 objWait.Until(ExpectedConditions.ElementExists(By.XPath(STR_SELECTMEXICO)));
-                //objWait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(STR_SELECTMEXICO)));
                 objSelectMexicoBtn.Click();
-                Thread.Sleep(2000);
-                objWait.Until(ExpectedConditions.ElementExists(By.XPath(STR_APPLYFILTERS)));
-                objWait.Until(ExpectedConditions.ElementIsVisible(By.XPath(STR_APPLYFILTERS)));
-                objWait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(STR_APPLYFILTERS)));
-                objApplyFilters.Click();
             }
             catch (Exception e)
             {
@@ -176,79 +166,77 @@ namespace AutomationFrameworkC.Page_Objects
         }
         #endregion Search Locations
         #region Apply Filters
+        //This click in the Apply filter button 
         private IWebElement fnGetApplyFiltersBtn()
         {
             return objApplyFilters;
         }
-
-        //public static void fnClickApplyFilters()
-        //{
-        //    try
-        //    {
-        //        objWait.Until(ExpectedConditions.ElementExists(By.XPath(STR_APPLYFILTERS)));
-        //        objWait.Until(ExpectedConditions.ElementIsVisible(By.XPath(STR_APPLYFILTERS)));
-        //        objWait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(STR_APPLYFILTERS)));
-        //        objApplyFilters.Click();
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        Console.WriteLine("The Element Apply Filters does not exist: " + e.Message);
-        //        Assert.Fail();
-        //    }
-        //}
-        #endregion Apply Filters
-        #region Search 5 technologies
-        public static void fnMultipleSearch(string[] pstringArrTechnologies)
-        {
-            for (int i = 0; i < pstringArrTechnologies.Length; i++)
-            {
-                fnSearchData(pstringArrTechnologies[i]);
-                //Thread.Sleep(1000);
-                objWait.Until(ExpectedConditions.ElementExists(By.XPath(STR_MEMBER_NAMES)));
-                objWait.Until(ExpectedConditions.ElementIsVisible(By.XPath(STR_MEMBER_NAMES)));
-                objWait.Until(ExpectedConditions.ElementExists(By.XPath(STR_MEMBER_ROLES)));
-                objWait.Until(ExpectedConditions.ElementIsVisible(By.XPath(STR_MEMBER_ROLES)));
-                objWait.Until(ExpectedConditions.ElementExists(By.XPath(STR_MEMBER_URLS)));
-                objWait.Until(ExpectedConditions.ElementIsVisible(By.XPath(STR_MEMBER_URLS)));
-                objMemberNames = _objDriver.FindElements(By.XPath(STR_MEMBER_NAMES));
-                objMemberRoles = _objDriver.FindElements(By.XPath(STR_MEMBER_ROLES));
-                objMemberURLs = _objDriver.FindElements(By.XPath(STR_MEMBER_URLS));
-
-                for (int j = 0; j < objMemberNames.Count; j++)
-                {
-                    Console.WriteLine("Name: {0}", objMemberNames[j].Text);
-                    Console.WriteLine("Role: {0}", objMemberRoles[j].Text);
-                    Console.WriteLine("URL: {0}", objMemberURLs[j].GetAttribute("href"));
-                    Console.WriteLine();
-                }
-            }
-        }
-        #endregion Search 5 technologies
-        //MergeMethods
-        #region MergeMethods
-        //Function to compile all involved in a success login
-        public static void fnSearch(string pstrSearch, List<string> plistcountries, string[] pstringArrTechnologies)
+        public static void fnClickApplyFilters()
         {
             try
             {
-                fnSearchData(pstrSearch);
-                fnClickPeopleBtn();
-                fnClickAllFiltersBtn();
-                fnAddCountryRegion(plistcountries);
-                //fnClickApplyFilters();
-                fnMultipleSearch(pstringArrTechnologies);
-            }
-            catch (SuccessException e) // to print a text when the test case is success
-            {
-                Console.WriteLine($"The Search was done as expected");
+                objWait.Until(ExpectedConditions.ElementExists(By.XPath(STR_APPLYFILTERS)));
+                objWait.Until(ExpectedConditions.ElementIsVisible(By.XPath(STR_APPLYFILTERS)));
+                objWait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(STR_APPLYFILTERS)));
+                objApplyFilters.Click();
             }
             catch (Exception e)
             {
-                Console.WriteLine($"There is an error {e.Message}");
+                Console.WriteLine("The Element Apply Filters does not exist: " + e.Message);
                 Assert.Fail();
             }
         }
-        #endregion MergeMethods
+        #endregion Apply Filters
+        #region Search 5 technologies
+        /* this allows to do a search using an array of strings
+         * then we use a -for- cycle to do it based on the number of elements of the array
+         * inside the -for-, is another -for- that allows us to obtain the elements per each search
+         * and print those in console
+        */
+        private IWebElement fnGetMemberResults()
+        {
+            return objMemberResultsTxt;
+        }
+        public static void fnMultipleSearch(string[] pstringArrTechnologies)
+        {
+            try
+            {
+                //We need to wait until the URL is modified to start the search of these technologies
+                objWait.Until(ExpectedConditions.UrlContains("facetGeoRegion"));
+                for (int i = 0; i < pstringArrTechnologies.Length; i++)
+                {
+                    fnSearchData(pstringArrTechnologies[i]);
+                    objWait.Until(ExpectedConditions.ElementExists(By.XPath(STR_MEMBER_RESULTS)));
+                    objWait.Until(ExpectedConditions.ElementIsVisible(By.XPath(STR_MEMBER_RESULTS)));
+                    objWait.Until(ExpectedConditions.ElementExists(By.XPath(STR_MEMBER_NAMES)));
+                    objWait.Until(ExpectedConditions.ElementIsVisible(By.XPath(STR_MEMBER_NAMES)));
+                    objWait.Until(ExpectedConditions.ElementExists(By.XPath(STR_MEMBER_ROLES)));
+                    objWait.Until(ExpectedConditions.ElementIsVisible(By.XPath(STR_MEMBER_ROLES)));
+                    objWait.Until(ExpectedConditions.ElementExists(By.XPath(STR_MEMBER_URLS)));
+                    objWait.Until(ExpectedConditions.ElementIsVisible(By.XPath(STR_MEMBER_URLS)));
+                    objWait.Until(ExpectedConditions.StalenessOf(_objDriver.FindElement(By.XPath(STR_MEMBER_URLS))));
+                    //stalenessof it know that the element exist, but it has not load
+                    objMemberNames = _objDriver.FindElements(By.XPath(STR_MEMBER_NAMES));
+                    objMemberRoles = _objDriver.FindElements(By.XPath(STR_MEMBER_ROLES));
+                    objMemberURLs = _objDriver.FindElements(By.XPath(STR_MEMBER_URLS));
+
+                    for (int j = 0; j < objMemberNames.Count; j++)
+                    {
+                        Console.WriteLine("Technology: {0}", pstringArrTechnologies[i]);
+                        Console.WriteLine("Name: {0}", objMemberNames[j].Text);
+                        Console.WriteLine("Role: {0}", objMemberRoles[j].Text);
+                        Console.WriteLine("URL: {0}", objMemberURLs[j].GetAttribute("href"));
+                        Console.WriteLine();
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("The Search of the technology is not possible" + e.Message);
+                Assert.Fail();
+            }
+        }
+        #endregion Search 5 technologies        
         #endregion Methods
     }
 

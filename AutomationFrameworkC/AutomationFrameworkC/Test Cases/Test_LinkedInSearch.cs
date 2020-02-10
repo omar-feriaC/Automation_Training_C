@@ -11,28 +11,23 @@ namespace AutomationFrameworkC.Test_Cases
 {
     class Test_LinkedInSearch : BaseTest
     {
+        //VARIABLES
         clsLinkedIn_SearchPage objSearch;
         Test_LinkedIn objTestLogin = new Test_LinkedIn();
-
-
-        //VARIABLES
         string[] arrTechnologies = { "Java", "C#", "C++", "Pega", "Cobol" };
         string[] arrLanguages = { "Spanish", "English" };
-
-        //Test case
+        //TEST CASES
         [Test, Order(1)]
         public void fnSearch_LinkedIn()
         {
             objTestLogin.fnLogin_LinkedIn();
             objSearch = new clsLinkedIn_SearchPage(objDriver);
-            //clsLinkedIn_SearchPage.fnSearch(strSearch, listCountries, arrTechnologies);
             clsLinkedIn_SearchPage.fnSearchData(strSearch);
             clsLinkedIn_SearchPage.fnClickPeopleBtn();
             clsLinkedIn_SearchPage.fnClickAllFiltersBtn();
             clsLinkedIn_SearchPage.fnAddCountryRegion(listCountries);
-            //clsLinkedIn_SearchPage.fnClickApplyFilters();
+            clsLinkedIn_SearchPage.fnClickApplyFilters();
             clsLinkedIn_SearchPage.fnMultipleSearch(arrTechnologies);
         }
-
     }
 }

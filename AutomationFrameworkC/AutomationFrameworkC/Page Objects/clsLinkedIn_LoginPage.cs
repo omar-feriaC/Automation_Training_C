@@ -22,26 +22,24 @@ namespace AutomationFrameworkC.Page_Objects
         //Constructor
         public clsLinkedIn_LoginPage(IWebDriver pobjDriver)
         {
-            _objDriver = pobjDriver; //we are receiving the value from outside
+            _objDriver = pobjDriver;
             objWait = new WebDriverWait(objDriver, new TimeSpan(0, 0, 30));
         }
         #endregion Constructor
         #region Elements
-        //Elements
+        //Elements, we are identifying the elements to fill and the errors that could be triggered
         readonly static string STR_USERNAME = "//input[@id='username']";
         readonly static string STR_PASSWORD = "//input[@id='password']";
         readonly static string STR_SIGNIN = "//button[@class='btn__primary--large from__button--floating']";
         readonly static string STR_ERRORUSERNAME = "//div[@id='error-for-username']";
         readonly static string STR_ERRORPASSWORD = "//div[@id='error-for-password']";
-        #endregion Elements
-        #region xpathElements
-        //WebElements Definition
+         //WebElements Definition
         private static IWebElement objUserNameTxt => _objDriver.FindElement(By.XPath(STR_USERNAME));
         private static IWebElement objPasswordTxt => _objDriver.FindElement(By.XPath(STR_PASSWORD));
         private static IWebElement objSignInBtn => _objDriver.FindElement(By.XPath(STR_SIGNIN));
         private static IWebElement objUserNameErrorTxt => _objDriver.FindElement(By.XPath(STR_ERRORUSERNAME));
         private static IWebElement objPasswordErrorTxt => _objDriver.FindElement(By.XPath(STR_ERRORPASSWORD));
-        #endregion xpathElements
+        #endregion Elements
         #region Methods
         //Methods
         #region UserName Methods
@@ -89,7 +87,7 @@ namespace AutomationFrameworkC.Page_Objects
         }
         #endregion Password Methods
         #region SignIn Buton Methods
-        //Sign In Button
+        //Sign In Button, this allows to identify the element and click it
         private IWebElement fnGetSignIn()
                 {
                     return objSignInBtn;
@@ -111,9 +109,10 @@ namespace AutomationFrameworkC.Page_Objects
         }
         #endregion SignIn Buton Methods
         #region Confirm the login in feed page
+        // this verify that the URL has changed after the login and is the one expected
         public static void fnConfirmFeedPage()
         {
-            if (_objDriver.Url.Contains("feed")) // If login happened in the correct page, in this case feed
+            if (_objDriver.Url.Contains("feed"))
             {
                 Console.WriteLine($"The Login was done as expected");
             }
@@ -123,9 +122,8 @@ namespace AutomationFrameworkC.Page_Objects
             }
         }
         #endregion Confirm the login in feed page
-        //MergeMethods
         #region MergeMethods
-        //Function to compile all involved in a login
+        //Function to compile/merge all involved in a login
         public static void fnLoginPage(string pstrUser, string pstrPass)
         {
             try
@@ -135,10 +133,10 @@ namespace AutomationFrameworkC.Page_Objects
                 fnClickSignIn();
                 fnConfirmFeedPage();
             }
-            //catch (SuccessException e)
-            //{
-            //    Console.WriteLine($"The Login was done as expected");
-            //}
+            catch (SuccessException e)
+            {
+                Console.WriteLine($"The Login was done as expected");
+            }
             catch (Exception e)
             {
                 Assert.Fail($"There is an error {e.Message}");
