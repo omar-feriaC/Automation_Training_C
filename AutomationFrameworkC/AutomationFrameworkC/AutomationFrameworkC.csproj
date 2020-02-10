@@ -101,6 +101,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Base Files\BaseTest.cs" />
+    <Compile Include="M7Exercise\cls2D_Shape.cs" />
+    <Compile Include="M7Exercise\cls3D_Shape.cs" />
+    <Compile Include="M7Exercise\clsPyramid.cs" />
+    <Compile Include="M7Exercise\clsRectangle.cs" />
+    <Compile Include="M7Exercise\IShape.cs" />
     <Compile Include="Page Objects\clsMercury_LoginPage.cs" />
     <Compile Include="Page Objects\clsMercury_RegisterPage.cs" />
     <Compile Include="Program.cs" />
