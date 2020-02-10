@@ -32,19 +32,20 @@ namespace AutomationFrameworkC.Test_Cases
                 objLogin.FnClickSignInButton();
                 _objDriverWait.Until(ExpectedConditions.UrlContains("feed"));
                 Assert.AreEqual("https://www.linkedin.com/feed/", objDriver.Url);
-                
+                Console.WriteLine("Login was done as expected");
 
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
-                Console.WriteLine("Test Case Failed.");
-                
+                Console.WriteLine("Error appears");
+                Assert.Fail();
+
             }
             
             finally
             {
-                Console.WriteLine("Test case successfully executed");
+                Console.WriteLine("Test End");
             }
         }
     }
