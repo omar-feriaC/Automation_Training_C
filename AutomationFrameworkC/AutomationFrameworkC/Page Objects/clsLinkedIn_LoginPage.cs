@@ -94,39 +94,38 @@ namespace AutomationFrameworkC.Page_Objects
                 {
                     return objSignInBtn;
                 }
-            public static void fnClickSignIn()
-            {
-                try
-                {
-                    objWait.Until(ExpectedConditions.ElementExists(By.XPath(STR_SIGNIN)));
-                    objWait.Until(ExpectedConditions.ElementIsVisible(By.XPath(STR_SIGNIN)));
-                    objWait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(STR_SIGNIN)));
-                    objSignInBtn.Click();
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine("The Element SignIn Button does not exist: " + e.Message);
-                    Assert.Fail();
-                }
-            }
-        #endregion SignIn Buton Methods
-        #region fnConfirmFeedPage
-        public static void fnConfirmFeedPage()
+        public static void fnClickSignIn()
         {
-            if (_objDriver.Url.Contains("feed")) // If login happened, so we are good
+            try
             {
-                Assert.Pass();
+                objWait.Until(ExpectedConditions.ElementExists(By.XPath(STR_SIGNIN)));
+                objWait.Until(ExpectedConditions.ElementIsVisible(By.XPath(STR_SIGNIN)));
+                objWait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(STR_SIGNIN)));
+                objSignInBtn.Click();
             }
-            else
+            catch (Exception e)
             {
-                Console.WriteLine($"The page is not the one expected");
+                Console.WriteLine("The Element SignIn Button does not exist: " + e.Message);
                 Assert.Fail();
             }
         }
-        #endregion fnConfirmFeedPage
+        #endregion SignIn Buton Methods
+        #region Confirm the login in feed page
+        public static void fnConfirmFeedPage()
+        {
+            if (_objDriver.Url.Contains("feed")) // If login happened in the correct page, in this case feed
+            {
+                Console.WriteLine($"The Login was done as expected");
+            }
+            else
+            {
+                Assert.Fail("The page is not the one expected");
+            }
+        }
+        #endregion Confirm the login in feed page
         //MergeMethods
         #region MergeMethods
-        //Function to compile all involved in a success login
+        //Function to compile all involved in a login
         public static void fnLoginPage(string pstrUser, string pstrPass)
         {
             try
@@ -136,14 +135,13 @@ namespace AutomationFrameworkC.Page_Objects
                 fnClickSignIn();
                 fnConfirmFeedPage();
             }
-            catch (SuccessException e) // to print a text when the test case is success
-            {
-                Console.WriteLine($"The Login was done as expected");
-            }
+            //catch (SuccessException e)
+            //{
+            //    Console.WriteLine($"The Login was done as expected");
+            //}
             catch (Exception e)
             {
-                Console.WriteLine($"There is an error {e.Message}");
-                Assert.Fail();
+                Assert.Fail($"There is an error {e.Message}");
             }
         }
         #endregion MergeMethods

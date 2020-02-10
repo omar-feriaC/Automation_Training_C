@@ -12,7 +12,7 @@ namespace AutomationFrameworkC.Test_Cases
     
     class Test_LinkedIn : BaseTest
     {
-        clsLinkedIn_LoginPage objLogin;
+        public clsLinkedIn_LoginPage objLogin;
 
         [Test, Order(1)]
         public void fnLogin_LinkedIn()
