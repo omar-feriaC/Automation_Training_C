@@ -33,7 +33,7 @@ namespace AutomationFrameworkC.Page_Objects
         readonly static string STR_PEOPLE = "//span[text()='Gente' or text()='People']";
         readonly static string STR_ALLFILTERS = "//span[text()='Todos los filtros' or text()='All Filters']";
         readonly static string STR_ALLFILTERSOPTIONS = "//div[@class='artdeco-modal__content search-advanced-facets__content-container artdeco-modal__content ember-view']";
-        readonly static string STR_ADDCOUNTRYREGION = "(//input[@placeholder='Add a country/region' and (@aria-label='Add a country/region') and (@type='text')])[1]";
+        readonly static string STR_ADDCOUNTRYREGION = "(//input[(@placeholder='Add a country/region' or 'Añadir un país o región') and (@aria-autocomplete='list') and (@role='combobox') and (@type='text')])[3]";
         readonly static string STR_SELECTMEXICO = "//*[@class='basic-typeahead__selectable ember-view']//span[text()= 'México' or 'Mexico']";
         readonly static string STR_SELECTITALIA = "//*[@class='basic-typeahead__selectable ember-view']//span[text()= 'Italy' or 'Italia']";
         readonly static string STR_APPLYFILTERS = "//span[text()='Apply' or text()='Aplicar'][1]";
