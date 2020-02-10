@@ -85,20 +85,7 @@ namespace AutomationFrameworkC.Page_Objects
             return objApplyFiltersButton;
         }
 
-        public IList<IWebElement> GetMemberNames()
-        {
-            return objMemberNames;
-        }
-
-        public IList<IWebElement> GetMemberRoles()
-        {
-            return objMemberRoles;
-        }
-
-        public IList<IWebElement> GetMemberURLs()
-        {
-            return objMemberUrls;
-        }
+     
 
         /*ELEMENT ACTIONS*/
         public void fnEnterDataInSearchTextField(string pstrSearchFieldData)
