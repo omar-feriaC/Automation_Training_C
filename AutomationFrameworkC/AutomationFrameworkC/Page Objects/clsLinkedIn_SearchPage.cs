@@ -50,9 +50,9 @@ namespace AutomationFrameworkC.Page_Objects
         private static IWebElement objSelectMexicoBtn => _objDriver.FindElement(By.XPath(STR_SELECTMEXICO));
         private static IWebElement objSelectItalyBtn => _objDriver.FindElement(By.XPath(STR_SELECTITALIA));
         private static IWebElement objApplyFilters => _objDriver.FindElement(By.XPath(STR_APPLYFILTERS));
-        private static IList<IWebElement> objMemberNames;
-        private static IList<IWebElement> objMemberRoles;
-        private static IList<IWebElement> objMemberURLs;
+        private static IList<IWebElement> objMemberNamesTxt;
+        private static IList<IWebElement> objMemberRolesTxt;
+        private static IList<IWebElement> objMemberURLsTxt;
         private static IWebElement objMemberResultsTxt => _objDriver.FindElement(By.XPath(STR_MEMBER_RESULTS));
         #endregion Elements
         #region Methods
@@ -216,16 +216,16 @@ namespace AutomationFrameworkC.Page_Objects
                     objWait.Until(ExpectedConditions.ElementIsVisible(By.XPath(STR_MEMBER_URLS)));
                     objWait.Until(ExpectedConditions.StalenessOf(_objDriver.FindElement(By.XPath(STR_MEMBER_URLS))));
                     //stalenessof it know that the element exist, but it has not load
-                    objMemberNames = _objDriver.FindElements(By.XPath(STR_MEMBER_NAMES));
-                    objMemberRoles = _objDriver.FindElements(By.XPath(STR_MEMBER_ROLES));
-                    objMemberURLs = _objDriver.FindElements(By.XPath(STR_MEMBER_URLS));
+                    objMemberNamesTxt = _objDriver.FindElements(By.XPath(STR_MEMBER_NAMES));
+                    objMemberRolesTxt = _objDriver.FindElements(By.XPath(STR_MEMBER_ROLES));
+                    objMemberURLsTxt = _objDriver.FindElements(By.XPath(STR_MEMBER_URLS));
 
-                    for (int j = 0; j < objMemberNames.Count; j++)
+                    for (int j = 0; j < objMemberNamesTxt.Count; j++) 
                     {
                         Console.WriteLine("Technology: {0}", pstringArrTechnologies[i]);
-                        Console.WriteLine("Name: {0}", objMemberNames[j].Text);
-                        Console.WriteLine("Role: {0}", objMemberRoles[j].Text);
-                        Console.WriteLine("URL: {0}", objMemberURLs[j].GetAttribute("href"));
+                        Console.WriteLine("Name: {0}", objMemberNamesTxt[j].Text);
+                        Console.WriteLine("Role: {0}", objMemberRolesTxt[j].Text);
+                        Console.WriteLine("URL: {0}", objMemberURLsTxt[j].GetAttribute("href"));
                         Console.WriteLine();
                     }
                 }
