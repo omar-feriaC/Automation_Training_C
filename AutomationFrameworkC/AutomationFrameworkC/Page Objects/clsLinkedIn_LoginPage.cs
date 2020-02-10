@@ -27,7 +27,7 @@ namespace AutomationFrameworkC.Page_Objects
         //Locators Definition
         readonly static string STR_USERNAME = "username";
         readonly static string STR_PASSWORD = "password";
-        readonly static string STR_SIGNIN = ".//button[@aria-label='Sign in']";
+        readonly static string STR_SIGNIN = "//button[@aria-label='Sign in']";
 
         //WebElements Definition
         private static IWebElement objUserNameTxt => _objDriver.FindElement(By.Id(STR_USERNAME));
@@ -69,8 +69,8 @@ namespace AutomationFrameworkC.Page_Objects
         {
             try
             {
-                _objWait.Until(ExpectedConditions.ElementExists(By.Name(STR_PASSWORD)));
-                _objWait.Until(ExpectedConditions.ElementIsVisible(By.Name(STR_PASSWORD)));
+                _objWait.Until(ExpectedConditions.ElementExists(By.Id(STR_PASSWORD)));
+                _objWait.Until(ExpectedConditions.ElementIsVisible(By.Id(STR_PASSWORD)));
                 objPasswordTxt.Clear();
                 objPasswordTxt.SendKeys(pstrPassword);
             }
@@ -87,7 +87,7 @@ namespace AutomationFrameworkC.Page_Objects
             return objSignInBtn;
         }
 
-        public static void fnClickSign()
+        public static void fnClickSignIn()
         {
             try
             {
@@ -98,6 +98,23 @@ namespace AutomationFrameworkC.Page_Objects
             catch (Exception e)
             {
                 Console.WriteLine("The element signIn does not exist. Error code: " + e.Message);
+                Assert.Fail();
+            }
+        }
+
+        //Login to LinkedIn
+        public static void fnLinkedIn_LoginPage(string pstrUserName, string pstrPassword)
+        {
+            try
+            {
+                fnEnterUserName(pstrUserName);
+                fnEnterPassword(pstrPassword);
+                fnClickSignIn();
+                _objWait.Until(ExpectedConditions.ElementExists(By.XPath("//div[@data-control-name='identity_welcome_message']")));
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Login test failed: " + e.Message);
                 Assert.Fail();
             }
         }
