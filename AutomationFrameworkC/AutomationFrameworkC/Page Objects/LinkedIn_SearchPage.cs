@@ -4,133 +4,159 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
+using OpenQA.Selenium.Chrome;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace AutomationFrameworkC.Page_Objects
 {
     class LinkedIn_SearchPage : BaseTest
     {
-       
+
         //Variables
         private static IWebDriver _objDriver;
+        WebDriverWait _objwait;
 
         //Constructor
         public LinkedIn_SearchPage(IWebDriver driver)
         {
             _objDriver = driver;
+            _objwait = new WebDriverWait(_objDriver, new TimeSpan(0, 0, 30));
         }
 
         //Locators Definitions
-        private static readonly string STR_SEARCH_TEXTFIELD = "search-global-typeahead__input";
-        private static readonly string STR_SEARCH_BUTTON = "search-global-typeahead__controls";
-        private static readonly string STR_PEOPLE_BUTTON = "//button[span[text()='Gente' or text()='People']]";
-        private static readonly string STR_ALLFILTER_BUTTON = "//button[span[text()='All Filters' or text()='Todos los filtros']]";
-        private static readonly string STR_APPLY_BUTTON = "//button[span[text()='Apply' or text()='Aplicar']]";
-        private static readonly string STR_MEX_OPT = "//*[label[text()='Mexico' or text()='México']]";
-        private static readonly string STR_ITA_OPT = "//*[label[text()='Italy']]";
-        private static readonly string STR_ENG_OPT = "//*[label[text()='Inglés' or text()='English']]";
-        private static readonly string STR_SPA_OPT = "//*[label[text()='Español' or text()='Spanish']]";
 
+        private static readonly string strSearchField = "//input[@class='search-global-typeahead__input always-show-placeholder']";
+        private static readonly string strPeopleBtn = "//span[text()='Gente' or text()='People']";
+        private static readonly string strAllFilters = "//span[text()='Todos los filtros' or text()='All Filters']";
+        private static readonly string strLocation = "(//input[@placeholder='Añadir un país o región'])[1]";
+        private static readonly string strMex = "//span[starts-with(@class, 'search-typeahead') and (text()='México' or text()='Mexico')]";
+        private static readonly string strIta = "//span[starts-with(@class, 'search-typeahead') and (text()='Italia' or text()='Italy')]";
+        private static readonly string strEng = "//*[label[text()='Inglés' or text()='English']]";
+        private static readonly string strSpa = "//*[label[text()='Español' or text()='Spanish']]";
+        private static readonly string strApplyBtn = "//span[text()='Apply' or text()='Aplicar'][1]";
+        private static readonly string strNameMember = "//span[@class='actor-name']";
+        private static readonly string strRolMember = "//p[@class='subline-level-1 t-14 t-black t-normal search-result__truncate']";
+        private static readonly string strUrlMember = "//div[@class='search-result__info pt3 pb4 ph0']//a[@href]";
 
-        
         //Web Elements Definitions
-        private static IWebElement objSearchTextField => _objDriver.FindElement(By.ClassName(STR_SEARCH_TEXTFIELD));
-        private static IWebElement objSearchButton => _objDriver.FindElement(By.ClassName(STR_SEARCH_BUTTON));
-        private static IWebElement objPeopleButton => _objDriver.FindElement(By.XPath(STR_PEOPLE_BUTTON));
-        private static IWebElement objAllFiltersButton => _objDriver.FindElement(By.XPath(STR_ALLFILTER_BUTTON));
-        private static IWebElement objMxOpt => _objDriver.FindElement(By.XPath(STR_MEX_OPT));
-        private static IWebElement objItOpt => _objDriver.FindElement(By.XPath(STR_ITA_OPT));
-        private static IWebElement objEngOpt => _objDriver.FindElement(By.XPath(STR_ENG_OPT));
-        private static IWebElement objSpOpt => _objDriver.FindElement(By.XPath(STR_SPA_OPT));
-        private static IWebElement objApplyButton => _objDriver.FindElement(By.XPath(STR_APPLY_BUTTON));
+
+        private static IWebElement objSearchTx => _objDriver.FindElement(By.XPath(strSearchField));
+        private static IWebElement objPeople => _objDriver.FindElement(By.XPath(strPeopleBtn));
+        private static IWebElement objAllFilters => _objDriver.FindElement(By.XPath(strAllFilters));
+        private static IWebElement objLocationTx => _objDriver.FindElement(By.XPath(strLocation));
+        private static IWebElement objMxChk => _objDriver.FindElement(By.XPath(strMex));
+        private static IWebElement objItChk => _objDriver.FindElement(By.XPath(strIta));
+        private static IWebElement objEngOpt => _objDriver.FindElement(By.XPath(strEng));
+        private static IWebElement objSpOpt => _objDriver.FindElement(By.XPath(strSpa));
+        private static IWebElement objApply => _objDriver.FindElement(By.XPath(strApplyBtn));
+
+        private static IList<IWebElement> objMemberNames;
+
+        private static IList<IWebElement> objMemberRoles;
+
+        private static IList<IWebElement> objMemberUrls;
 
         //Methods
-        //Search Text Field
-        public IWebElement GetSearchTextField()
-        {
-            return objSearchTextField;
-        }
 
-        //Searcg Button
-        public IWebElement GetSearchButton()
+        //Search Text Field
+        public IWebElement GetSearchTx()
         {
-            return objSearchButton;
+            return objSearchTx;
         }
 
         //People or Gente button
-        public IWebElement GetPeopleButton()
+        public IWebElement GetPeople()
         {
-            return objPeopleButton;
+            return objPeople;
         }
 
         //All Filters Button
-        public IWebElement GetAllFiltersButton()
+        public IWebElement GetAllFlt()
         {
-            return objAllFiltersButton;
+            return objAllFilters;
+        }
+
+        //Location Option
+        public IWebElement GetLocation()
+        {
+            return objLocationTx;
         }
 
         //Mexico Option
-        public IWebElement getMxOpt()
+        public IWebElement GetMex()
         {
-            return objMxOpt;
+            return objMxChk;
         }
 
         //Italy Option
-        public IWebElement getItOpt()
+        public IWebElement GetIta()
         {
-            return objMxOpt;
+            return objItChk;
         }
 
         //English Option
-        public IWebElement getEngOpt()
+        public IWebElement getEng()
         {
             return objEngOpt;
         }
 
         //Spanish Option 
-        public IWebElement getSpOpt()
+        public IWebElement getSpa()
         {
             return objSpOpt;
         }
 
         //Apply button
-        public IWebElement GetAplyButton()
+        public IWebElement GetApplyAllFilters()
         {
-            return objApplyButton;
+            return objApply;
         }
+
 
         //Actions
-        public void fnSearchText(string pstrSearchString)
+        public void fnDataSearch(string pSearchData)
         {
-            objSearchTextField.Clear();
-            objSearchTextField.SendKeys(pstrSearchString);
+            objSearchTx.Clear();
+            objSearchTx.SendKeys(pSearchData);
+            objSearchTx.SendKeys(Keys.Enter);
         }
 
-        public void fnSearchButton()
+        public void fnClickPpl()
         {
-            objSearchButton.Click();
+            _objwait.Until(ExpectedConditions.ElementIsVisible(By.XPath(strPeopleBtn)));
+            objPeople.Click();
         }
 
-        public void fnPeopleButton()
+        public void fnClickAllFilters()
         {
-            objPeopleButton.Click();
+            _objwait.Until(ExpectedConditions.ElementIsVisible(By.XPath(strAllFilters)));
+            objAllFilters.Click();
         }
-
-        public void fnAllFiltersButton()
+        public void fnLocation(string pstrLocationTextBox)
         {
-            objAllFiltersButton.Click();
+            _objwait.Until(ExpectedConditions.ElementExists(By.XPath(strLocation)));
+            _objwait.Until(ExpectedConditions.ElementIsVisible(By.XPath(strLocation)));
+            objLocationTx.Clear();
+            objLocationTx.SendKeys(pstrLocationTextBox); ;
         }
-
         public void fnMexicoOpt()
         {
-            objMxOpt.Click();
+            _objwait.Until(ExpectedConditions.ElementExists(By.XPath(strMex)));
+            _objwait.Until(ExpectedConditions.ElementIsVisible(By.XPath(strMex)));
+            _objwait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(strMex)));
+            objMxChk.Click();
         }
 
         public void fnItalyOpt()
         {
-            objItOpt.Click();
+            _objwait.Until(ExpectedConditions.ElementExists(By.XPath(strIta)));
+            _objwait.Until(ExpectedConditions.ElementIsVisible(By.XPath(strIta)));
+            _objwait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(strIta)));
+            objItChk.Click();
         }
 
         public void fnEnglishOpt()
@@ -142,12 +168,53 @@ namespace AutomationFrameworkC.Page_Objects
         {
             objSpOpt.Click();
         }
-
-        public void fnApplyButton()
+        public void fnApplyFilters()
         {
-            objApplyButton.Click();
+            _objwait.Until(ExpectedConditions.ElementIsVisible(By.XPath(strApplyBtn)));
+            objApply.Click();
+            _objwait.Until(ExpectedConditions.UrlContains("facetGeoRegion"));
+        }
+        public IList<IWebElement> GetNames()
+        {
+            return objMemberNames;
+        }
+        public IList<IWebElement> GetRoles()
+        {
+            return objMemberRoles;
+        }
+        public IList<IWebElement> GetUrls()
+        {
+            return objMemberUrls;
         }
 
+        public void fnTechno()
+        {
+            string[] arrTechnologies = { "Java", "C", "Phyton", "Pega", "C#" };
 
+            for (int i = 0; i < arrTechnologies.Length; i++)
+            {
+                fnDataSearch(arrTechnologies[i]);
+
+                _objwait.Until(ExpectedConditions.ElementExists(By.XPath(strNameMember)));
+                _objwait.Until(ExpectedConditions.ElementIsVisible(By.XPath(strNameMember)));
+                _objwait.Until(ExpectedConditions.ElementExists(By.XPath(strRolMember)));
+                _objwait.Until(ExpectedConditions.ElementIsVisible(By.XPath(strRolMember)));
+                _objwait.Until(ExpectedConditions.ElementExists(By.XPath(strUrlMember)));
+                _objwait.Until(ExpectedConditions.ElementIsVisible(By.XPath(strUrlMember)));
+                _objwait.Until(ExpectedConditions.StalenessOf(_objDriver.FindElement(By.XPath(strUrlMember))));
+
+                objMemberNames = _objDriver.FindElements(By.XPath(strNameMember));
+                objMemberRoles = _objDriver.FindElements(By.XPath(strRolMember));
+                objMemberUrls = _objDriver.FindElements(By.XPath(strUrlMember));
+
+                for (int j = 0; j < objMemberNames.Count; j++)
+                {
+                    Console.WriteLine("Name: {0}", objMemberNames[j].Text);
+                    Console.WriteLine("Role: {0}", objMemberRoles[j].Text);
+                    Console.WriteLine("URL: {0}", objMemberUrls[j].GetAttribute("href"));
+                    Console.WriteLine();
+                }
+            }
+        }
     }
 }
