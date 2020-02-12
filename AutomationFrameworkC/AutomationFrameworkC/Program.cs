@@ -4,6 +4,7 @@ using AutomationFrameworkC.Exercise;
 using AutomationFrameworkC.Exercise2;
 using AutomationFrameworkC.Exercise3;
 using AutomationFrameworkC.Page_Objects;
+using AutomationFrameworkC.Reporting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +18,8 @@ namespace AutomationFrameworkC
         static void Main(string[] args)
         {
 
+            clsReportManager objReport = new clsReportManager();
+            string strTemp = objReport.fnReportPath();
 
             clsEmployee objEmployee = new clsEmployee("1ABC", "Programmer", "Sr", 1000.00);
             Console.WriteLine("Employee Class");
