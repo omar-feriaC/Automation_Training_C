@@ -1,5 +1,7 @@
 ﻿using AventStack.ExtentReports;
 using AventStack.ExtentReports.Reporter;
+using NUnit.Framework;
+using NUnit.Framework.Interfaces;
 using OpenQA.Selenium;
 using System;
 using System.Collections.Generic;
@@ -45,7 +47,7 @@ namespace AutomationFrameworkC.Reporting
             pExtent.AddSystemInfo("Version:", "v1.0");
         }
 
-        //Method to take image and return screen path
+        //Method to take image and returns screen path
         public string fnCaptureImage(IWebDriver pobjDriver, string pstrScreenName)
         {
             ITakesScreenshot objITake = (ITakesScreenshot)pobjDriver;
@@ -60,9 +62,114 @@ namespace AutomationFrameworkC.Reporting
             var strLocalPath = new Uri(strFullPath).LocalPath;
             objSS.SaveAsFile(strLocalPath, ScreenshotImageFormat.Png);
             return strLocalPath;
-
         }
 
+        //Method to take Nunit Results
+        public void fnTestCaseResult(ExtentTest pobjTest, ExtentReports pobjExtent, IWebDriver pobjDriver)
+        {
+            var status = TestContext.CurrentContext.Result.Outcome.Status;
+            var stacktrace = string.IsNullOrEmpty(TestContext.CurrentContext.Result.StackTrace)
+           ? "" : string.Format("{0}", TestContext.CurrentContext.Result.StackTrace);
+            Status logStatus;
+
+            switch (status)
+            {
+                case TestStatus.Failed:
+                    logStatus = Status.Fail;
+                    //DateTime time = DateTime.Now;
+                    //string strFileName = "Screenshot_" + time.ToShortDateString() + ".png";
+                    string strFileName = "Screenshot_" + time.ToString("hh_mm_ss") + ".png";
+                    var strImagePath = fnCaptureImage(pobjDriver, strFileName);
+                    pobjTest.Log(Status.Fail, "Fail ");
+                    pobjTest.Fail("Snapshot below: ", MediaEntityBuilder.CreateScreenCaptureFromPath(strImagePath).Build());
+                    //pobjTest.Log(Status.Fail, "Snapshot below: " + pobjTest.AddScreenCaptureFromPath("Screenshots\\" + strFileName));
+                    break;
+                case TestStatus.Skipped:
+                    logStatus = Status.Skip;
+                    break;
+                case TestStatus.Passed:
+                    logStatus = Status.Pass;
+                    break;
+                default:
+                    logStatus = Status.Warning;
+                    Console.WriteLine("The status: " + status + " is not supported.");
+                    break;
+            }
+            pobjTest.Log(logStatus, "Test ended with " + logStatus + stacktrace);
+            pobjExtent.Flush();
+        }
+
+        //Method to add log step
+        public void fnAddStepLog(ExtentTest pobjTest, string pstrMessage, string pStatus)
+        {
+            pobjTest.Log(Status.Info, pstrMessage);
+            switch (pStatus.ToUpper())
+            {
+                case "PASS":
+                    pobjTest.Log(Status.Pass, pstrMessage);
+                    break;
+                case "ERROR":
+                    pobjTest.Log(Status.Error, pstrMessage);
+                    break;
+                case "SKIPT":
+                    pobjTest.Log(Status.Skip, pstrMessage);
+                    break;
+                case "WARNING":
+                    pobjTest.Log(Status.Warning, pstrMessage);
+                    break;
+                case "INFO":
+                    pobjTest.Log(Status.Info, pstrMessage);
+                    break;
+                case "FAIL":
+                    pobjTest.Log(Status.Fail, pstrMessage);
+                    break;
+                case "FATAL":
+                    pobjTest.Log(Status.Fatal, pstrMessage);
+                    break;
+                case "DEBUG":
+                    pobjTest.Log(Status.Debug, pstrMessage);
+                    break;
+                default:
+                    pobjTest.Log(Status.Info, pstrMessage);
+                    break;
+            }
+        }
+
+        //Method to add log step with image
+        public void fnAddStepLogWithSnapshot(ExtentTest pobjTest, IWebDriver pobjDriver, string pstrMessage, string pstrImageName, string pStatus)
+        {
+            var strImagePath = fnCaptureImage(pobjDriver, pstrImageName);
+            switch (pStatus.ToUpper())
+            {
+                case "PASS":
+                    pobjTest.Pass(pstrMessage, MediaEntityBuilder.CreateScreenCaptureFromPath(strImagePath).Build());
+                    break;
+                case "ERROR":
+                    pobjTest.Error(pstrMessage, MediaEntityBuilder.CreateScreenCaptureFromPath(strImagePath).Build());
+                    break;
+                case "SKIPT":
+                    pobjTest.Skip(pstrMessage, MediaEntityBuilder.CreateScreenCaptureFromPath(strImagePath).Build());
+                    break;
+                case "WARNING":
+                    pobjTest.Warning(pstrMessage, MediaEntityBuilder.CreateScreenCaptureFromPath(strImagePath).Build());
+                    break;
+                case "INFO":
+                    pobjTest.Info(pstrMessage, MediaEntityBuilder.CreateScreenCaptureFromPath(strImagePath).Build());
+                    break;
+                case "FAIL":
+                    pobjTest.Fail(pstrMessage, MediaEntityBuilder.CreateScreenCaptureFromPath(strImagePath).Build());
+                    break;
+                case "FATAL":
+                    pobjTest.Fatal(pstrMessage, MediaEntityBuilder.CreateScreenCaptureFromPath(strImagePath).Build());
+                    break;
+                case "DEBUG":
+                    pobjTest.Debug(pstrMessage, MediaEntityBuilder.CreateScreenCaptureFromPath(strImagePath).Build());
+                    break;
+                default:
+                    pobjTest.Info(pstrMessage, MediaEntityBuilder.CreateScreenCaptureFromPath(strImagePath).Build());
+                    break;
+            }
+        }
 
     }
 
