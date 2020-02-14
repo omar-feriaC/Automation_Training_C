@@ -34,7 +34,8 @@ namespace AutomationFrameworkC.Reporting
         }
 
         //Method to set up the report
-        public void fnReportSetUp(ExtentV3HtmlReporter phtmlReporter, ExtentReports pExtent)
+        public void fnReportSetUp(ExtentHtmlReporter phtmlReporter, ExtentReports pExtent)
+        //public void fnReportSetUp(ExtentV3HtmlReporter phtmlReporter, ExtentReports pExtent)
         {
             phtmlReporter.Config.Theme = AventStack.ExtentReports.Reporter.Configuration.Theme.Dark;
             phtmlReporter.Config.DocumentTitle = "Automation Framework Report";

@@ -19,8 +19,14 @@ namespace AutomationFrameworkC.Test_Cases
         [Test, Order(0)]
         public void fnLogin_MercuryTours()
         {
+            /*Take Nunit Test Name*/
+            objTest = objExtent.CreateTest(TestContext.CurrentContext.Test.Name);
+            /*Init Login Page*/
             objLogin = new clsMercury_LoginPage(objDriver);
-            clsMercury_LoginPage.fnLoginPage(strUser, strPass);
+            objRM.fnAddStepLog(objTest, "Before Login.", "Pass");
+            clsMercury_LoginPage.fnLoginPage("sdsada", "sadasd");
+            objRM.fnAddStepLogWithSnapshot(objTest, objDriver, "After Login.", "LoginEvidence.png", "Pass");
+
 
         }
     }
