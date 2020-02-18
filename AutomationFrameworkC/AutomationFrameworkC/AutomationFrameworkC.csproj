@@ -46,6 +46,12 @@
     <Reference Include="ExtentReports, Version=4.0.3.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\ExtentReports.4.0.3\lib\ExtentReports.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Azure.KeyVault.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Azure.KeyVault.Core.1.0.0\lib\net40\Microsoft.Azure.KeyVault.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAzure.Storage, Version=9.3.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\WindowsAzure.Storage.9.3.3\lib\net45\Microsoft.WindowsAzure.Storage.dll</HintPath>
+    </Reference>
     <Reference Include="MongoDB.Bson, Version=2.10.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MongoDB.Bson.2.10.1\lib\net452\MongoDB.Bson.dll</HintPath>
     </Reference>
@@ -101,6 +107,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Base Files\BaseTest.cs" />
+    <Compile Include="M7Exercise\Jorge_Pilotzi_M7_Excercise\_2D_Shape.cs" />
+    <Compile Include="M7Exercise\Jorge_Pilotzi_M7_Excercise\_3D_Shape.cs" />
+    <Compile Include="M7Exercise\Jorge_Pilotzi_M7_Excercise\Ellipse.cs" />
+    <Compile Include="M7Exercise\Jorge_Pilotzi_M7_Excercise\IShape.cs" />
+    <Compile Include="M7Exercise\Jorge_Pilotzi_M7_Excercise\Sphere.cs" />
     <Compile Include="Page Objects\clsMercury_LoginPage.cs" />
     <Compile Include="Page Objects\clsMercury_RegisterPage.cs" />
     <Compile Include="Program.cs" />
