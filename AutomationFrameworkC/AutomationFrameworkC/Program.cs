@@ -18,6 +18,23 @@ namespace AutomationFrameworkC
         static void Main(string[] args)
         {
 
+
+            string phrase = "Accounts;SubMenu1";
+            string[] words = phrase.Split(';');
+
+
+            for (int i=0; i<= words.Length -1 ; i++)
+            {
+                System.Console.WriteLine($"<{words[i]}>");
+
+            }
+
+            foreach (var word in words)
+            {
+                System.Console.WriteLine($"<{word}>");
+            }
+
+
             clsReportManager objReport = new clsReportManager();
             string strTemp = objReport.fnReportPath();
 

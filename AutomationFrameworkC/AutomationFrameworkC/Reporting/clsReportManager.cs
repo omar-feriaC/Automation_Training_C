@@ -103,7 +103,6 @@ namespace AutomationFrameworkC.Reporting
         //Method to add log step
         public void fnAddStepLog(ExtentTest pobjTest, string pstrMessage, string pStatus)
         {
-            pobjTest.Log(Status.Info, pstrMessage);
             switch (pStatus.ToUpper())
             {
                 case "PASS":
