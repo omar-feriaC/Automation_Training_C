@@ -1,8 +1,5 @@
 ﻿
 using AutomationFrameworkC.Base_Files;
-using AutomationFrameworkC.Exercise;
-using AutomationFrameworkC.Exercise2;
-using AutomationFrameworkC.Exercise3;
 using AutomationFrameworkC.Page_Objects;
 using AutomationFrameworkC.Reporting;
 using System;
