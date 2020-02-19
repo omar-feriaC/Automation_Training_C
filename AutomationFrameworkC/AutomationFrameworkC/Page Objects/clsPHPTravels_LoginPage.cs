@@ -11,7 +11,7 @@ namespace AutomationFrameworkC.Page_Objects
 {
     class clsPHPTravels_LoginPage
     {
-        /*ATTRIBUTES*/
+        /*ATTRIBUTES hvidal*/
         public static WebDriverWait _driverWait;
         private static IWebDriver _objDriver;
 
