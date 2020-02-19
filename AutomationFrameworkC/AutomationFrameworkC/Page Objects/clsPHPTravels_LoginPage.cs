@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using AutomationFrameworkC.Base_Files;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.WaitHelpers;
 using System;
@@ -11,8 +12,9 @@ namespace AutomationFrameworkC.Page_Objects
 {
     class clsPHPTravels_LoginPage
     {
-        /*ATTRIBUTES hvidal*/
+        /*ATTRIBUTES*/
         public static WebDriverWait _driverWait;
+        private static clsDriver clsDriver;
         private static IWebDriver _objDriver;
 
         /*LOCATORS DESCRIPTION*/
@@ -33,11 +35,11 @@ namespace AutomationFrameworkC.Page_Objects
         }
 
         /*OBJECT DEFINITION*/
-        private static IWebElement objEmailTxt = objDriver.FindElement(By.Name(STR_EMAIL_TXT));
-        private static IWebElement objPasswordTxt = objDriver.FindElement(By.Name(STR_PASSWORD_TXT));
-        private static IWebElement objRememberMeLnk = objDriver.FindElement(By.XPath(STRREMEMBERME_LNK));
-        private static IWebElement objForgotPassLnk = objDriver.FindElement(By.XPath(STR_FORGOTPASS_LNK));
-        private static IWebElement objLoginBtn = objDriver.FindElement(By.XPath(STR_LOGIN_BTN));
+        private static IWebElement objEmailTxt = _objDriver.FindElement(By.Name(STR_EMAIL_TXT));
+        private static IWebElement objPasswordTxt = _objDriver.FindElement(By.Name(STR_PASSWORD_TXT));
+        private static IWebElement objRememberMeLnk = _objDriver.FindElement(By.XPath(STRREMEMBERME_LNK));
+        private static IWebElement objForgotPassLnk = _objDriver.FindElement(By.XPath(STR_FORGOTPASS_LNK));
+        private static IWebElement objLoginBtn = _objDriver.FindElement(By.XPath(STR_LOGIN_BTN));
 
 
         /*METHODS/FUNCTIONS*/
@@ -50,6 +52,7 @@ namespace AutomationFrameworkC.Page_Objects
 
         public static void fnEnterEmail(string pstrEmail)
         {
+
             clsDriver.fnWaitForElementToExist(By.Name(STR_EMAIL_TXT));
             clsDriver.fnWaitForElementToBeVisible(By.Name(STR_EMAIL_TXT));
             objEmailTxt.Clear();

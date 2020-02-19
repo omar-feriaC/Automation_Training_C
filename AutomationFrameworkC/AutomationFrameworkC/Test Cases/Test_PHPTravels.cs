@@ -13,7 +13,6 @@ namespace AutomationFrameworkC.Test_Cases
     {
         clsPHPTravels_LoginPage objPHP;
 
-
         [Test]
         public void Test_M9Exercise()
         {
