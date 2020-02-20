@@ -12,10 +12,21 @@ namespace AutomationFrameworkC.Page_Objects
 {
     class clsPHPTravels_LoginPage
     {
+        #region Attributes
         /*ATTRIBUTES*/
         public static WebDriverWait _objDriverWait;
         private static IWebDriver _objDriver;
         private static clsDriver objClsDriver = new clsDriver(_objDriver); // initializing this object
+        #endregion region Attributes
+
+        #region Constructor
+        /*CONSTRUCTOR*/
+        public clsPHPTravels_LoginPage(IWebDriver pobjDriver)
+        {
+            _objDriver = pobjDriver;
+            _objDriverWait = new WebDriverWait(_objDriver, new TimeSpan(0, 0, 40));
+        }
+        #endregion Constructor
 
         /*LOCATORS DESCRIPTION*/
         readonly static string STR_EMAIL_TXT = "//input[@name='email']";
@@ -26,14 +37,7 @@ namespace AutomationFrameworkC.Page_Objects
         readonly static string STR_FORGOTPASS_LNK = "//*[text()='Forget Password']";
         readonly static string STR_LOGIN_BTN = "//span[text()='Login']";
         readonly static string STR_HAMBURGER_BTN = "sidebarCollapse";
-
-        /*CONSTRUCTOR*/
-        public clsPHPTravels_LoginPage(IWebDriver pobjDriver)
-        {
-            _objDriver = pobjDriver;
-            _objDriverWait = new WebDriverWait(_objDriver, new TimeSpan(0, 0, 40));
-        }
-
+        
         /*OBJECT DEFINITION*/
         private static IWebElement objEmailTxt => _objDriver.FindElement(By.XPath(STR_EMAIL_TXT));
         private static IWebElement objPasswordTxt => _objDriver.FindElement(By.XPath(STR_PASSWORD_TXT));
@@ -43,15 +47,15 @@ namespace AutomationFrameworkC.Page_Objects
 
         /*METHODS/FUNCTIONS*/
         //Email
-        private IWebElement GetEmailField()
-        {
-            return objEmailTxt;
-        }
+        //private IWebElement GetEmailField()
+        //{
+        //    return objEmailTxt;
+        //}
 
         public static void fnEnterEmail(string pstrEmail)
         {
-            clsDriver.fnWaitForElementToExist(By.Name(STR_EMAIL_TXT));
-            clsDriver.fnWaitForElementToBeVisible(By.Name(STR_EMAIL_TXT));
+            clsDriver.fnWaitForElementToExist(By.XPath(STR_EMAIL_TXT));
+            clsDriver.fnWaitForElementToBeVisible(By.XPath(STR_EMAIL_TXT));
             objEmailTxt.Clear();
             objEmailTxt.SendKeys(pstrEmail);
         }
@@ -66,8 +70,8 @@ namespace AutomationFrameworkC.Page_Objects
         {
             //_objDriverWait.Until(ExpectedConditions.ElementExists(By.Name(STR_PASSWORD_TXT)));
             //_objDriverWait.Until(ExpectedConditions.ElementIsVisible(By.Name(STR_PASSWORD_TXT)));
-            clsDriver.fnWaitForElementToExist(By.Name(STR_PASSWORD_TXT));
-            clsDriver.fnWaitForElementToBeVisible(By.Name(STR_PASSWORD_TXT));
+            clsDriver.fnWaitForElementToExist(By.XPath(STR_PASSWORD_TXT));
+            clsDriver.fnWaitForElementToBeVisible(By.XPath(STR_PASSWORD_TXT));
             objPasswordTxt.Clear();
             objPasswordTxt.SendKeys(pstrPass);
         }

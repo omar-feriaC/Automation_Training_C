@@ -1,6 +1,7 @@
 ﻿using AutomationFrameworkC.Base_Files;
 using AutomationFrameworkC.Page_Objects;
 using NUnit.Framework;
+using OpenQA.Selenium;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,7 @@ namespace AutomationFrameworkC.Test_Cases
 {
     class Test_PHPTravels : BaseTest
     {
+        private static IWebDriver _objDriver;
         clsPHPTravels_LoginPage objPHP;
 
         [Test, Order(0)]
@@ -18,7 +20,7 @@ namespace AutomationFrameworkC.Test_Cases
         {
             //Init objects
             objTest = objExtent.CreateTest(TestContext.CurrentContext.Test.Name);
-            objPHP = new clsPHPTravels_LoginPage(objDriver);
+            objPHP = new clsPHPTravels_LoginPage(_objDriver);
             //Login Action
             objRM.fnAddStepLog(objTest, "Before Login.", "Pass");
             Assert.AreEqual(true, objDriver.Title.Contains("Administrador Login"), "The Login Page was not loaded correctly.");

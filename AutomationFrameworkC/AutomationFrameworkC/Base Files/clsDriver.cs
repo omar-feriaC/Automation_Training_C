@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using NUnit.Framework;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.WaitHelpers;
 using System;
@@ -27,9 +28,11 @@ namespace AutomationFrameworkC.Base_Files
         /*METHODS*/
         private static IWebElement WaitForElementThread(IWebDriver pobjDriver, By by, string pstrDesc)
         {
-            //Thread.Sleep(5000);
-            objElement = pobjDriver.FindElement(by);
-            return objElement;
+
+                //Thread.Sleep(5000);
+                objElement = pobjDriver.FindElement(by);
+                return objElement;
+
         }
 
         private static IWebElement fnWaitForElementDriver(IWebDriver pobjDriver, By by)
