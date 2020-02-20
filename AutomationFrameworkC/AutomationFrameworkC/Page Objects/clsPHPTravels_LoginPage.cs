@@ -15,6 +15,7 @@ namespace AutomationFrameworkC.Page_Objects
         /*ATTRIBUTES*/
         public static WebDriverWait _objDriverWait;
         private static IWebDriver _objDriver;
+        private static clsDriver objClsDriver = new clsDriver(_objDriver); // initializing this object
 
         /*LOCATORS DESCRIPTION*/
         readonly static string STR_EMAIL_TXT = "//input[@name='email']";
@@ -42,10 +43,10 @@ namespace AutomationFrameworkC.Page_Objects
 
         /*METHODS/FUNCTIONS*/
         //Email
-        //private IWebElement GetEmailField()
-        //{
-        //    return objEmailTxt;
-        //}
+        private IWebElement GetEmailField()
+        {
+            return objEmailTxt;
+        }
 
         public static void fnEnterEmail(string pstrEmail)
         {
