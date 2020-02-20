@@ -20,7 +20,7 @@ namespace AutomationFrameworkC.Test_Cases
             //Init objects
             objPHP = new clsPHPTravels_LoginPage(objDriver);
             //Login Action
-            Assert.AreEqual(true, objDriver.Title.Contains("Administrador Login."), "The Login Page was not loaded correctly.");
+            Assert.AreEqual(true, objDriver.Title.Contains("Administator Login"), "The Login Page was not loaded correctly.");
             clsPHPTravels_LoginPage.fnEnterEmail("admin@phptravels.com");
             clsPHPTravels_LoginPage.fnEnterPassword("demoadmin");
             clsPHPTravels_LoginPage.fnClickLoginButton();

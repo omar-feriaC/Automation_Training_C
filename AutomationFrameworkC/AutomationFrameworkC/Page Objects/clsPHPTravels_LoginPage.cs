@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using AutomationFrameworkC.Base_Files;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.WaitHelpers;
 using System;
@@ -9,17 +10,17 @@ using System.Threading.Tasks;
 
 namespace AutomationFrameworkC.Page_Objects
 {
-    class clsPHPTravels_LoginPage
+    class clsPHPTravels_LoginPage : BaseTest
     {
         /*ATTRIBUTES*/
         public static WebDriverWait _driverWait;
         private static IWebDriver _objDriver;
 
         /*LOCATORS DESCRIPTION*/
-        readonly static string STR_EMAIL_TXT = "email";
+        readonly static string STR_EMAIL_TXT = "//input[@name='email' and @type='text']";
         readonly static string STR_EMAIL_TXT2 = "email";
         readonly static string STR_PASSWORD_TXT = "password";
-        readonly static string STRREMEMBERME_LNK = "///label[@class='checkbox']";
+        readonly static string STRREMEMBERME_LNK = "//label[@class='checkbox']";
         readonly static string STRREMEMBERME_LNK2 = "//label[@class='checkbox']";
         readonly static string STR_FORGOTPASS_LNK = "//*[text()='Forget Password']";
         readonly static string STR_LOGIN_BTN = "//span[text()='Login']";
@@ -33,7 +34,7 @@ namespace AutomationFrameworkC.Page_Objects
         }
 
         /*OBJECT DEFINITION*/
-        private static IWebElement objEmailTxt = objDriver.FindElement(By.Name(STR_EMAIL_TXT));
+        private static IWebElement objEmailTxt = objDriver.FindElement(By.XPath(STR_EMAIL_TXT));
         private static IWebElement objPasswordTxt = objDriver.FindElement(By.Name(STR_PASSWORD_TXT));
         private static IWebElement objRememberMeLnk = objDriver.FindElement(By.XPath(STRREMEMBERME_LNK));
         private static IWebElement objForgotPassLnk = objDriver.FindElement(By.XPath(STR_FORGOTPASS_LNK));
@@ -50,7 +51,8 @@ namespace AutomationFrameworkC.Page_Objects
 
         public static void fnEnterEmail(string pstrEmail)
         {
-            clsDriver.fnWaitForElementToExist(By.Name(STR_EMAIL_TXT));
+            clsDriver.fnWaitForElementToExist(By.XPath(STR_EMAIL_TXT));
+            //clsDriver.fnWaitForElementToExist(By.objEmailTxt);
             clsDriver.fnWaitForElementToBeVisible(By.Name(STR_EMAIL_TXT));
             objEmailTxt.Clear();
             objEmailTxt.SendKeys(pstrEmail);
