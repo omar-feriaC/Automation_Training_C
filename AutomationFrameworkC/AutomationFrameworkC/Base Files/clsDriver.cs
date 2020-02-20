@@ -14,25 +14,23 @@ namespace AutomationFrameworkC.Base_Files
     class clsDriver : BaseTest
     {
         /*ATTRIBUTES*/
-        private static IWebDriver _objDriver;
+        //private static IWebDriver _objDriver;
         private static WebDriverWait _driverWait;
         private static IWebElement objElement;
 
         /*CONSTRUCTOR*/
         public clsDriver(IWebDriver pobjDriver)
         {
-            _objDriver = pobjDriver;
-            _driverWait = new WebDriverWait(_objDriver, new TimeSpan(0, 0, 40));
+            objDriver = pobjDriver;
+            _driverWait = new WebDriverWait(objDriver, new TimeSpan(0, 0, 40));
         }
 
         /*METHODS*/
         private static IWebElement WaitForElementThread(IWebDriver pobjDriver, By by, string pstrDesc)
         {
-
                 //Thread.Sleep(5000);
                 objElement = pobjDriver.FindElement(by);
                 return objElement;
-
         }
 
         private static IWebElement fnWaitForElementDriver(IWebDriver pobjDriver, By by)

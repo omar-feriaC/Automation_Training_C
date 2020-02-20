@@ -16,6 +16,7 @@ namespace AutomationFrameworkC.Reporting
     class clsReportManager
     {
         //Variables
+
         private DateTime time = DateTime.Now;
         private string strImagePath;
                 

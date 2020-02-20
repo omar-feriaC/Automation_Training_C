@@ -10,28 +10,33 @@ using System.Threading.Tasks;
 
 namespace AutomationFrameworkC.Page_Objects
 {
-    class clsPHPTravels_LoginPage
+    class clsPHPTravels_LoginPage : BaseTest
     {
         #region Attributes
         /*ATTRIBUTES*/
         public static WebDriverWait _objDriverWait;
-        private static IWebDriver _objDriver;
-        private static clsDriver objClsDriver = new clsDriver(_objDriver); // initializing this object
+        //private static IWebDriver _objDriver;
+        private static clsDriver objClsDriver = new clsDriver(objDriver); // initializing this object
         #endregion region Attributes
 
         #region Constructor
         /*CONSTRUCTOR*/
         public clsPHPTravels_LoginPage(IWebDriver pobjDriver)
         {
-            _objDriver = pobjDriver;
-            _objDriverWait = new WebDriverWait(_objDriver, new TimeSpan(0, 0, 40));
+            objDriver = pobjDriver;
+            _objDriverWait = new WebDriverWait(objDriver, new TimeSpan(0, 0, 40));
+        }
+
+        public clsPHPTravels_LoginPage()
+        {
+
         }
         #endregion Constructor
 
         /*LOCATORS DESCRIPTION*/
         readonly static string STR_EMAIL_TXT = "//input[@name='email']";
         //readonly static string STR_EMAIL_TXT2 = "email";
-        readonly static string STR_PASSWORD_TXT = "//input[@name='email']";
+        readonly static string STR_PASSWORD_TXT = "//input[@name='password']";
         readonly static string STRREMEMBERME_LNK = "///label[@class='checkbox']";
         //readonly static string STRREMEMBERME_LNK2 = "//label[@class='checkbox']";
         readonly static string STR_FORGOTPASS_LNK = "//*[text()='Forget Password']";
@@ -39,11 +44,11 @@ namespace AutomationFrameworkC.Page_Objects
         readonly static string STR_HAMBURGER_BTN = "sidebarCollapse";
         
         /*OBJECT DEFINITION*/
-        private static IWebElement objEmailTxt => _objDriver.FindElement(By.XPath(STR_EMAIL_TXT));
-        private static IWebElement objPasswordTxt => _objDriver.FindElement(By.XPath(STR_PASSWORD_TXT));
-        private static IWebElement objRememberMeLnk => _objDriver.FindElement(By.XPath(STRREMEMBERME_LNK));
-        private static IWebElement objForgotPassLnk => _objDriver.FindElement(By.XPath(STR_FORGOTPASS_LNK));
-        private static IWebElement objLoginBtn => _objDriver.FindElement(By.XPath(STR_LOGIN_BTN));
+        private static IWebElement objEmailTxt => objDriver.FindElement(By.XPath(STR_EMAIL_TXT));
+        private static IWebElement objPasswordTxt => objDriver.FindElement(By.XPath(STR_PASSWORD_TXT));
+        private static IWebElement objRememberMeLnk => objDriver.FindElement(By.XPath(STRREMEMBERME_LNK));
+        private static IWebElement objForgotPassLnk => objDriver.FindElement(By.XPath(STR_FORGOTPASS_LNK));
+        private static IWebElement objLoginBtn => objDriver.FindElement(By.XPath(STR_LOGIN_BTN));
 
         /*METHODS/FUNCTIONS*/
         //Email
