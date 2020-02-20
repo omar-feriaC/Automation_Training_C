@@ -18,7 +18,7 @@ namespace AutomationFrameworkC
             clsReportManager objReport = new clsReportManager();
             string strTemp = objReport.fnReportPath();
 
-            clsEmployee objEmployee = new clsEmployee("1ABC", "Programmer", "Sr", 1000.00);
+            /*clsEmployee objEmployee = new clsEmployee("1ABC", "Programmer", "Sr", 1000.00);
             Console.WriteLine("Employee Class");
             objEmployee.fnGetInfo();
             Console.WriteLine();
@@ -66,6 +66,7 @@ namespace AutomationFrameworkC
             //objCCar3.fnCalculateKM();
             //objCCar3.fnDisplayInfo();
 
+    */
             Console.ReadKey();
 
         }

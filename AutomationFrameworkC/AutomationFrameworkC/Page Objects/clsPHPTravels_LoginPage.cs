@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using AutomationFrameworkC.Base_Files;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.WaitHelpers;
 using System;
@@ -9,21 +10,27 @@ using System.Threading.Tasks;
 
 namespace AutomationFrameworkC.Page_Objects
 {
-    class clsPHPTravels_LoginPage
+    class clsPHPTravels_LoginPage : BaseTest 
     {
         /*ATTRIBUTES*/
         public static WebDriverWait _driverWait;
         private static IWebDriver _objDriver;
+        
 
         /*LOCATORS DESCRIPTION*/
         readonly static string STR_EMAIL_TXT = "email";
-        readonly static string STR_EMAIL_TXT2 = "email";
         readonly static string STR_PASSWORD_TXT = "password";
         readonly static string STRREMEMBERME_LNK = "///label[@class='checkbox']";
-        readonly static string STRREMEMBERME_LNK2 = "//label[@class='checkbox']";
         readonly static string STR_FORGOTPASS_LNK = "//*[text()='Forget Password']";
         readonly static string STR_LOGIN_BTN = "//span[text()='Login']";
         readonly static string STR_HAMBURGER_BTN = "sidebarCollapse";
+
+        readonly static string STR_MINIMIZE_CHAT_BTN = "e1mwfyk10 lc-4rgplc e1m5b1js0";
+        readonly static string STR_TOTALADMIN_TXT = "//a[text()= ' Total Admins ']";
+        readonly static string STR_TOTALSUPPLIERS_TXT = "//a[text()= ' Total Suppliers ']";
+        readonly static string STR_TOTALCUSTOMERS_TXT = "//a[text()= ' Total Customers ']";
+        readonly static string STR_TOTALGUESTS_TXT = "//a[text()= ' Total Guests ']";
+        readonly static string STR_TOTALBOOKINGS_TXT = "//a[text()= ' Total Bookings ']";
 
         /*CONSTRUCTOR*/
         public clsPHPTravels_LoginPage(IWebDriver pobjDriver)
@@ -39,6 +46,12 @@ namespace AutomationFrameworkC.Page_Objects
         private static IWebElement objForgotPassLnk = objDriver.FindElement(By.XPath(STR_FORGOTPASS_LNK));
         private static IWebElement objLoginBtn = objDriver.FindElement(By.XPath(STR_LOGIN_BTN));
 
+        private static IWebElement objMinChat => objDriver.FindElement(By.ClassName(STR_MINIMIZE_CHAT_BTN));
+        private static IWebElement objTotalAdminTXT => objDriver.FindElement(By.XPath(STR_TOTALADMIN_TXT));
+        private static IWebElement objTotalSuppiersTXT => objDriver.FindElement(By.XPath(STR_TOTALSUPPLIERS_TXT));
+        private static IWebElement objTotalCustomersTXT => objDriver.FindElement(By.XPath(STR_TOTALCUSTOMERS_TXT));
+        private static IWebElement objTotalGuestsTXT => objDriver.FindElement(By.XPath(STR_TOTALGUESTS_TXT));
+        private static IWebElement objTotalBookingsTXT => objDriver.FindElement(By.XPath(STR_TOTALBOOKINGS_TXT));
 
         /*METHODS/FUNCTIONS*/
 
@@ -73,7 +86,7 @@ namespace AutomationFrameworkC.Page_Objects
         //Login Button
         private IWebElement GetLoginButton()
         {
-            return objRememberMeLnk;
+            return objLoginBtn;
         }
 
         public static void fnClickLoginButton()
@@ -92,6 +105,24 @@ namespace AutomationFrameworkC.Page_Objects
             _driverWait.Until(ExpectedConditions.ElementToBeClickable(By.Id(STR_HAMBURGER_BTN)));
         }
 
+        //Print stats
+        public static void fnPrintStats()
+        {
+            Console.WriteLine(objTotalAdminTXT.Text);
+            objRM.fnAddStepLog(objTest, objTotalAdminTXT.Text, "Pass");
+            Console.WriteLine("");
+            Console.WriteLine(objTotalSuppiersTXT.Text);
+            objRM.fnAddStepLog(objTest, objTotalSuppiersTXT.Text, "Pass");
+            Console.WriteLine("");
+            Console.WriteLine(objTotalCustomersTXT.Text);
+            objRM.fnAddStepLog(objTest, objTotalGuestsTXT.Text, "Pass");
+            Console.WriteLine("");
+            Console.WriteLine(objTotalGuestsTXT.Text);
+            objRM.fnAddStepLog(objTest, objTotalGuestsTXT.Text, "Pass");
+            Console.WriteLine("");
+            Console.WriteLine(objTotalBookingsTXT.Text);
+            objRM.fnAddStepLog(objTest, objTotalBookingsTXT.Text, "Pass");
+        }
 
     }
 }
