@@ -18,8 +18,7 @@ namespace AutomationFrameworkC.Reporting
         //Variables
         private DateTime time = DateTime.Now;
         private string strImagePath;
-
-        
+                
         //Method to get report path
         public string fnReportPath()
         {

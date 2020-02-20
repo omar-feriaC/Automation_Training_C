@@ -22,6 +22,9 @@ namespace AutomationFrameworkC.Base_Files
         public static IWebDriver objDriver;
         /*URL*/
         private static string strUrl = ConfigurationManager.AppSettings.Get("url");
+        /*USER AND PASSWORD*/
+        public static readonly string strUser = ConfigurationManager.AppSettings.Get("email");
+        public static readonly string strPass = ConfigurationManager.AppSettings.Get("password");
         /*Extent Reports Instances*/
         public static clsReportManager objRM = new clsReportManager();
         public static ExtentHtmlReporter objHtmlReporter;

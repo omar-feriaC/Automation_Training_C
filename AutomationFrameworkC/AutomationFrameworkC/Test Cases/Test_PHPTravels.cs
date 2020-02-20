@@ -13,19 +13,21 @@ namespace AutomationFrameworkC.Test_Cases
     {
         clsPHPTravels_LoginPage objPHP;
 
-        [Test]
+        [Test, Order(0)]
         public void Test_M9Exercise()
         {
             //Init objects
+            objTest = objExtent.CreateTest(TestContext.CurrentContext.Test.Name);
             objPHP = new clsPHPTravels_LoginPage(objDriver);
             //Login Action
-            Assert.AreEqual(true, objDriver.Title.Contains("Administrador Login."), "The Login Page was not loaded correctly.");
-            clsPHPTravels_LoginPage.fnEnterEmail("admin@phptravels.com");
-            clsPHPTravels_LoginPage.fnEnterPassword("demoadmin");
+            objRM.fnAddStepLog(objTest, "Before Login.", "Pass");
+            //Assert.AreEqual(true, objDriver.Title.Contains("Administrador Login"), "The Login Page was not loaded correctly.");
+            clsPHPTravels_LoginPage.fnEnterEmail(strUser);
+            clsPHPTravels_LoginPage.fnEnterPassword(strPass);
             clsPHPTravels_LoginPage.fnClickLoginButton();
             clsPHPTravels_LoginPage.fnWaitHamburgerMenu();
-            Assert.AreEqual(true, objDriver.Title.Contains("Dashboard."), "The Dashboard was not loaded correctly.");
-
+            Assert.AreEqual(true, objDriver.Title.Contains("Dashboard"), "The Dashboard was not loaded correctly.");
+            objRM.fnAddStepLogWithSnapshot(objTest, objDriver, "After Login.", "LoginEvidence.png", "Pass");
         }
 
 
