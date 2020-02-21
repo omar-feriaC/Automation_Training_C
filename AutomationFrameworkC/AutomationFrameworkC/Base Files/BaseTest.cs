@@ -8,30 +8,36 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
+
 namespace AutomationFrameworkC.Base_Files
 {
     class BaseTest
     {
-        //Variables
+        /*ATTRIBUTES*/
         public static IWebDriver objDriver;
-        private static readonly string strUrl = ConfigurationManager.AppSettings.Get("url");
-        public static readonly string strUser = ConfigurationManager.AppSettings.Get("user");
-        public static readonly string strPass = ConfigurationManager.AppSettings.Get("password");
+        protected static string strUserName = ConfigurationManager.AppSettings.Get("username");
+        protected static string strPassword = ConfigurationManager.AppSettings.Get("password");
+        protected static string strUrl = ConfigurationManager.AppSettings.Get("url");
 
-        //Functions
+        /*METHOD/FUNCTIONS*/
+
         [SetUp]
-        public static void fnSetUp()
+        public static void SetupDriver()
         {
             objDriver = new ChromeDriver();
             objDriver.Url = strUrl;
+            objDriver.Manage().Window.Maximize();
         }
 
         [TearDown]
-        public static void fnTearDown()
+        public static void ExitDriver()
         {
             objDriver.Close();
             objDriver.Quit();
         }
+
+
 
     }
 }
