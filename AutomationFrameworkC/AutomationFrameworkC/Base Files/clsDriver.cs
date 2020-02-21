@@ -27,7 +27,6 @@ namespace AutomationFrameworkC.Base_Files
         /*METHODS*/
         private static IWebElement WaitForElementThread(IWebDriver pobjDriver, By by, string pstrDesc)
         {
-            Thread.Sleep(5000);
             objElement = pobjDriver.FindElement(by);
             return objElement;
         }
