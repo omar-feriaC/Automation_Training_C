@@ -21,10 +21,9 @@ namespace AutomationFrameworkC.Test_Cases
             //Init objects
             objTest = objExtent.CreateTest(TestContext.CurrentContext.Test.Name);
             objPHP = new clsPHPTravels_LoginPage(objDriver);
-            
             //Login Action
             objRM.fnAddStepLog(objTest, "Before Login.", "Pass");
-            //Assert.AreEqual(true, objDriver.Title.Contains("Administrador Login."), "The Login Page was not loaded correctly.");
+            Assert.AreEqual(true, objDriver.Title.Contains("Administator Login"), "The Login Page was not loaded correctly.");
             clsPHPTravels_LoginPage.fnEnterEmail(strUser);
             clsPHPTravels_LoginPage.fnEnterPassword(strPass);
             clsPHPTravels_LoginPage.fnClickLoginButton();

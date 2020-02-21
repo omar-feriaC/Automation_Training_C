@@ -1,4 +1,5 @@
-﻿using AventStack.ExtentReports;
+﻿using AutomationFrameworkC.Base_Files;
+using AventStack.ExtentReports;
 using AventStack.ExtentReports.Reporter;
 using NUnit.Framework;
 using NUnit.Framework.Interfaces;
@@ -13,10 +14,9 @@ using System.Threading.Tasks;
 
 namespace AutomationFrameworkC.Reporting
 {
-    class clsReportManager
+    class clsReportManager : BaseTest
     {
         //Variables
-
         private DateTime time = DateTime.Now;
         private string strImagePath;
                 
@@ -41,7 +41,7 @@ namespace AutomationFrameworkC.Reporting
             phtmlReporter.Config.DocumentTitle = "Automation Framework Report";
             pExtent.AttachReporter(phtmlReporter);
             pExtent.AddSystemInfo("Project Name:", "Automation Framework");
-            pExtent.AddSystemInfo("Application:", "LinkedIn");
+            pExtent.AddSystemInfo("Application:", strApplication);
             pExtent.AddSystemInfo("Environment:", "QA");
             pExtent.AddSystemInfo("Browser:", ConfigurationManager.AppSettings.Get("browser"));
             pExtent.AddSystemInfo("Date:", time.ToShortDateString());
@@ -53,12 +53,10 @@ namespace AutomationFrameworkC.Reporting
         {
             ITakesScreenshot objITake = (ITakesScreenshot)pobjDriver;
             Screenshot objSS = objITake.GetScreenshot();
-
             var strSSPath = System.Reflection.Assembly.GetCallingAssembly().CodeBase;
             var strActualPath = strSSPath.Substring(0, strSSPath.LastIndexOf("bin"));
             var strReportPath = new Uri(strActualPath).LocalPath;
             Directory.CreateDirectory(strReportPath.ToString() + "ExtentReports\\Screenshots");
-
             var strFullPath = strSSPath.Substring(0, strSSPath.LastIndexOf("bin")) + "ExtentReports\\Screenshots\\" + pstrScreenName;
             var strLocalPath = new Uri(strFullPath).LocalPath;
             objSS.SaveAsFile(strLocalPath, ScreenshotImageFormat.Png);

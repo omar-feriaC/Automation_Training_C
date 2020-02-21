@@ -14,9 +14,11 @@ namespace AutomationFrameworkC.Base_Files
     class clsDriver : BaseTest
     {
         /*ATTRIBUTES*/
-        //private static IWebDriver _objDriver;
         private static WebDriverWait _driverWait;
         private static IWebElement objElement;
+        private static IList<IWebElement> objCountListTxt;
+
+        //readonly List<IWebElement> optionCount => objDriver.FindElements(By.XPath("//div/ul[@class='serverHeader__statsList']/li"));
 
         /*CONSTRUCTOR*/
         public clsDriver(IWebDriver pobjDriver)
@@ -28,9 +30,9 @@ namespace AutomationFrameworkC.Base_Files
         /*METHODS*/
         private static IWebElement WaitForElementThread(IWebDriver pobjDriver, By by, string pstrDesc)
         {
-                //Thread.Sleep(5000);
-                objElement = pobjDriver.FindElement(by);
-                return objElement;
+            //Thread.Sleep(5000);
+            objElement = pobjDriver.FindElement(by);
+            return objElement;
         }
 
         private static IWebElement fnWaitForElementDriver(IWebDriver pobjDriver, By by)

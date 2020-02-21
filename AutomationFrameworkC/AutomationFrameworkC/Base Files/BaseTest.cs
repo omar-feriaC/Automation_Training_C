@@ -25,13 +25,13 @@ namespace AutomationFrameworkC.Base_Files
         /*USER AND PASSWORD*/
         public static readonly string strUser = ConfigurationManager.AppSettings.Get("email");
         public static readonly string strPass = ConfigurationManager.AppSettings.Get("password");
+        public static readonly string strApplication = ConfigurationManager.AppSettings.Get("application");
         /*Extent Reports Instances*/
         public static clsReportManager objRM = new clsReportManager();
         public static ExtentHtmlReporter objHtmlReporter;
         //public static ExtentV3HtmlReporter objHtmlReporter;
         public static ExtentReports objExtent;
         public static ExtentTest objTest;
-
 
         //**************************************************
         //                  M E T H O D S 
@@ -53,14 +53,12 @@ namespace AutomationFrameworkC.Base_Files
                 objRM.fnReportSetUp(objHtmlReporter, objExtent);
             }
         }
-
         //OneTimeTearDown after each class test
         [OneTimeTearDown]
         public static void fnAfterClass()
         {
             objExtent.Flush();
         }
-
         //SetUp Before each test case
         [SetUp]
         public static void fnSetUp()
@@ -69,7 +67,6 @@ namespace AutomationFrameworkC.Base_Files
             objDriver.Url = strUrl;
             objDriver.Manage().Window.Maximize();
         }
-        
         //TearDown After each test case
         [TearDown]
         public static void fnTearDown()
@@ -78,7 +75,5 @@ namespace AutomationFrameworkC.Base_Files
             objDriver.Close();
             objDriver.Quit();
         }
-
-
     }
 }

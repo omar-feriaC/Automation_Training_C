@@ -12,14 +12,11 @@ namespace AutomationFrameworkC.Page_Objects
 {
     class clsPHPTravels_LoginPage : BaseTest
     {
-        #region Attributes
+        
         /*ATTRIBUTES*/
         public static WebDriverWait _objDriverWait;
-        //private static IWebDriver _objDriver;
         private static clsDriver objClsDriver = new clsDriver(objDriver); // initializing this object
-        #endregion region Attributes
 
-        #region Constructor
         /*CONSTRUCTOR*/
         public clsPHPTravels_LoginPage(IWebDriver pobjDriver)
         {
@@ -27,22 +24,14 @@ namespace AutomationFrameworkC.Page_Objects
             _objDriverWait = new WebDriverWait(objDriver, new TimeSpan(0, 0, 40));
         }
 
-        public clsPHPTravels_LoginPage()
-        {
-
-        }
-        #endregion Constructor
-
         /*LOCATORS DESCRIPTION*/
         readonly static string STR_EMAIL_TXT = "//input[@name='email']";
-        //readonly static string STR_EMAIL_TXT2 = "email";
         readonly static string STR_PASSWORD_TXT = "//input[@name='password']";
         readonly static string STRREMEMBERME_LNK = "///label[@class='checkbox']";
-        //readonly static string STRREMEMBERME_LNK2 = "//label[@class='checkbox']";
         readonly static string STR_FORGOTPASS_LNK = "//*[text()='Forget Password']";
         readonly static string STR_LOGIN_BTN = "//span[text()='Login']";
         readonly static string STR_HAMBURGER_BTN = "sidebarCollapse";
-        
+
         /*OBJECT DEFINITION*/
         private static IWebElement objEmailTxt => objDriver.FindElement(By.XPath(STR_EMAIL_TXT));
         private static IWebElement objPasswordTxt => objDriver.FindElement(By.XPath(STR_PASSWORD_TXT));
@@ -52,11 +41,6 @@ namespace AutomationFrameworkC.Page_Objects
 
         /*METHODS/FUNCTIONS*/
         //Email
-        //private IWebElement GetEmailField()
-        //{
-        //    return objEmailTxt;
-        //}
-
         public static void fnEnterEmail(string pstrEmail)
         {
             clsDriver.fnWaitForElementToExist(By.XPath(STR_EMAIL_TXT));
@@ -64,17 +48,8 @@ namespace AutomationFrameworkC.Page_Objects
             objEmailTxt.Clear();
             objEmailTxt.SendKeys(pstrEmail);
         }
-
-        //Password
-        //private IWebElement GetPasswordField()
-        //{
-        //    return objPasswordTxt;
-        //}
-
         public static void fnEnterPassword(string pstrPass)
         {
-            //_objDriverWait.Until(ExpectedConditions.ElementExists(By.Name(STR_PASSWORD_TXT)));
-            //_objDriverWait.Until(ExpectedConditions.ElementIsVisible(By.Name(STR_PASSWORD_TXT)));
             clsDriver.fnWaitForElementToExist(By.XPath(STR_PASSWORD_TXT));
             clsDriver.fnWaitForElementToBeVisible(By.XPath(STR_PASSWORD_TXT));
             objPasswordTxt.Clear();
@@ -89,9 +64,9 @@ namespace AutomationFrameworkC.Page_Objects
 
         public static void fnClickLoginButton()
         {
-            _objDriverWait.Until(ExpectedConditions.ElementExists(By.XPath(STR_LOGIN_BTN)));
-            _objDriverWait.Until(ExpectedConditions.ElementIsVisible(By.XPath(STR_LOGIN_BTN)));
-            _objDriverWait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(STR_LOGIN_BTN)));
+            clsDriver.fnWaitForElementToExist(By.XPath(STR_LOGIN_BTN));
+            clsDriver.fnWaitForElementToBeClickable(By.XPath(STR_LOGIN_BTN));
+            clsDriver.fnWaitForElementToBeVisible(By.XPath(STR_LOGIN_BTN));
             objLoginBtn.Click();
         }
 
@@ -103,6 +78,14 @@ namespace AutomationFrameworkC.Page_Objects
             _objDriverWait.Until(ExpectedConditions.ElementToBeClickable(By.Id(STR_HAMBURGER_BTN)));
         }
 
+
+        public static void fnCounTheElements()
+        {
+            clsDriver.fnWaitForElementToExist(By.XPath(STR_LOGIN_BTN));
+            clsDriver.fnWaitForElementToBeClickable(By.XPath(STR_LOGIN_BTN));
+            clsDriver.fnWaitForElementToBeVisible(By.XPath(STR_LOGIN_BTN));
+            objLoginBtn.Click();
+        }
 
     }
 }
