@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace AutomationFrameworkC.Test_Cases
 {
     class Test_PHPTravels : BaseTest
@@ -19,13 +20,15 @@ namespace AutomationFrameworkC.Test_Cases
         {
             //Init objects
             objPHP = new clsPHPTravels_LoginPage(objDriver);
+            objTest = objExtent.CreateTest(TestContext.CurrentContext.Test.Name);
+
             //Login Action
-            Assert.AreEqual(true, objDriver.Title.Contains("Administrador Login."), "The Login Page was not loaded correctly.");
+            Assert.AreEqual(true, objDriver.Title.Contains("Administator Login"), "The Login Page was not loaded correctly.");
             clsPHPTravels_LoginPage.fnEnterEmail("admin@phptravels.com");
             clsPHPTravels_LoginPage.fnEnterPassword("demoadmin");
             clsPHPTravels_LoginPage.fnClickLoginButton();
             clsPHPTravels_LoginPage.fnWaitHamburgerMenu();
-            Assert.AreEqual(true, objDriver.Title.Contains("Dashboard."), "The Dashboard was not loaded correctly.");
+            Assert.AreEqual(true, objDriver.Title.Contains("Dashboard"), "The Dashboard was not loaded correctly.");
 
         }
 

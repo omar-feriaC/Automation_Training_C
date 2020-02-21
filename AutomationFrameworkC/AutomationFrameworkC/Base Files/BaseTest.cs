@@ -22,6 +22,8 @@ namespace AutomationFrameworkC.Base_Files
         public static IWebDriver objDriver;
         /*URL*/
         private static string strUrl = ConfigurationManager.AppSettings.Get("url");
+        protected static string strUserName = ConfigurationManager.AppSettings.Get("email");
+        protected static string strPassword = ConfigurationManager.AppSettings.Get("password");
         /*Extent Reports Instances*/
         public static clsReportManager objRM = new clsReportManager();
         public static ExtentHtmlReporter objHtmlReporter;
@@ -41,7 +43,7 @@ namespace AutomationFrameworkC.Base_Files
             if (objHtmlReporter == null)
             {
                 objHtmlReporter = new ExtentHtmlReporter(objRM.fnReportPath());
-                //objHtmlReporter = new ExtentV3HtmlReporter(objRM.fnReportPath());
+               // objHtmlReporter = new ExtentV3HtmlReporter(objRM.fnReportPath());
             }
             /*Init ExtentReports*/
             if (objExtent == null)
