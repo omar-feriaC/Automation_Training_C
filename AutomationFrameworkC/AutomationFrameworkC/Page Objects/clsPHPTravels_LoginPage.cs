@@ -6,10 +6,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AutomationFrameworkC.Base_Files;
 
 namespace AutomationFrameworkC.Page_Objects
 {
-    class clsPHPTravels_LoginPage
+    class clsPHPTravels_LoginPage : BaseTest
     {
         /*ATTRIBUTES*/
         public static WebDriverWait _driverWait;
