@@ -99,6 +99,12 @@ namespace AutomationFrameworkC.Page_Objects
             _driverWait.Until(ExpectedConditions.ElementToBeClickable(By.Id(STR_HAMBURGER_BTN)));
         }
 
+        public static void fnArray()
+        {
+            IWebElement ul = objDriver.FindElement(By.ClassName("serverHeader__statsList"));
+            Console.WriteLine(ul.Text);
+        }
+
 
     }
 }
