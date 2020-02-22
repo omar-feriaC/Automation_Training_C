@@ -16,10 +16,11 @@ namespace AutomationFrameworkC.Reporting
 {
     class clsReportManager : BaseTest
     {
+        #region variables
         //Variables
         private DateTime time = DateTime.Now;
-        private string strImagePath;
-                
+        #endregion variables
+        #region Methods
         //Method to get report path
         public string fnReportPath()
         {
@@ -32,7 +33,6 @@ namespace AutomationFrameworkC.Reporting
             var strReportPath = strProjectPath + "ExtentReports\\ExtentReport_" + time.ToString("MMddyyyy_HHmmss") + ".html";
             return strReportPath;
         }
-
         //Method to set up the report
         public void fnReportSetUp(ExtentHtmlReporter phtmlReporter, ExtentReports pExtent)
         //public void fnReportSetUp(ExtentV3HtmlReporter phtmlReporter, ExtentReports pExtent)
@@ -47,7 +47,6 @@ namespace AutomationFrameworkC.Reporting
             pExtent.AddSystemInfo("Date:", time.ToShortDateString());
             pExtent.AddSystemInfo("Version:", "v1.0");
         }
-
         //Method to take image and returns screen path
         public string fnCaptureImage(IWebDriver pobjDriver, string pstrScreenName)
         {
@@ -62,7 +61,6 @@ namespace AutomationFrameworkC.Reporting
             objSS.SaveAsFile(strLocalPath, ScreenshotImageFormat.Png);
             return strLocalPath;
         }
-
         //Method to take Nunit Results
         public void fnTestCaseResult(ExtentTest pobjTest, ExtentReports pobjExtent, IWebDriver pobjDriver)
         {
@@ -97,7 +95,6 @@ namespace AutomationFrameworkC.Reporting
             pobjTest.Log(logStatus, "Test ended with " + logStatus + stacktrace);
             pobjExtent.Flush();
         }
-
         //Method to add log step
         public void fnAddStepLog(ExtentTest pobjTest, string pstrMessage, string pStatus)
         {
@@ -132,7 +129,6 @@ namespace AutomationFrameworkC.Reporting
                     break;
             }
         }
-
         //Method to add log step with image
         public void fnAddStepLogWithSnapshot(ExtentTest pobjTest, IWebDriver pobjDriver, string pstrMessage, string pstrImageName, string pStatus)
         {
@@ -168,7 +164,7 @@ namespace AutomationFrameworkC.Reporting
                     break;
             }
         }
-
+        #endregion Methods
     }
 
 }

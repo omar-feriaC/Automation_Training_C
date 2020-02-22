@@ -11,34 +11,36 @@ namespace AutomationFrameworkC.Page_Objects
 {
     class clsPHPTravels_DashboardPage : BaseTest
     {
+        #region variables
         /*ATTRIBUTES*/
         public static WebDriverWait _objDriverWait;
         private static clsDriver objClsDriver = new clsDriver(objDriver); // initializing this object
-
+        #endregion variables
+        #region Constructor
         /*CONSTRUCTOR*/
         public clsPHPTravels_DashboardPage(IWebDriver pobjDriver)
         {
             objDriver = pobjDriver;
             _objDriverWait = new WebDriverWait(objDriver, new TimeSpan(0, 0, 40));
         }
-
+        #endregion Constructor
+        #region Elements
         /*LOCATORS DESCRIPTION*/
-        readonly static string STR_STATS_LIST = "//div/ul[@class='serverHeader__statsList']/li";
-
+        readonly static string STR_STATS_LIST = "//div/ul[@class='serverHeader__statsList']/li/a";
         /*OBJECT DEFINITION*/
         private static IList<IWebElement> objStatsList => objDriver.FindElements(By.XPath(STR_STATS_LIST));
-
+        #endregion Elements
+        #region Methods
         /*METHODS/FUNCTIONS*/
-        public static void fnCountCheckStatsList()
-        {
-            int intCountStatsList = objStatsList.Count();
-        }
-
         public static void fnCheckStatsList()
         {
-            objStatsList.Count();
+            for (int j = 0; j < objStatsList.Count; j++)
+            {
+                Console.WriteLine(objStatsList[j].Text);
+            }
         }
+        
 
-
+        #endregion Methods
     }
 }
