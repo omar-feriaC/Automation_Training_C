@@ -41,7 +41,7 @@ namespace AutomationFrameworkC.Reporting
             phtmlReporter.Config.DocumentTitle = "Automation Framework Report";
             pExtent.AttachReporter(phtmlReporter);
             pExtent.AddSystemInfo("Project Name:", "Automation Framework");
-            pExtent.AddSystemInfo("Application:", "LinkedIn");
+            pExtent.AddSystemInfo("Application:", "phptravels.net");
             pExtent.AddSystemInfo("Environment:", "QA");
             pExtent.AddSystemInfo("Browser:", ConfigurationManager.AppSettings.Get("browser"));
             pExtent.AddSystemInfo("Date:", time.ToShortDateString());
@@ -71,6 +71,8 @@ namespace AutomationFrameworkC.Reporting
             var status = TestContext.CurrentContext.Result.Outcome.Status;
             var stacktrace = string.IsNullOrEmpty(TestContext.CurrentContext.Result.StackTrace)
            ? "" : string.Format("{0}", TestContext.CurrentContext.Result.StackTrace);
+            string strFileName;
+            var strImagePath = "";
             Status logStatus;
 
             switch (status)
@@ -79,17 +81,21 @@ namespace AutomationFrameworkC.Reporting
                     logStatus = Status.Fail;
                     //DateTime time = DateTime.Now;
                     //string strFileName = "Screenshot_" + time.ToShortDateString() + ".png";
-                    string strFileName = "Screenshot_" + time.ToString("hh_mm_ss") + ".png";
-                    var strImagePath = fnCaptureImage(pobjDriver, strFileName);
-                    pobjTest.Log(Status.Fail, "Fail ");
-                    pobjTest.Fail("Snapshot below: ", MediaEntityBuilder.CreateScreenCaptureFromPath(strImagePath).Build());
-                    //pobjTest.Log(Status.Fail, "Snapshot below: " + pobjTest.AddScreenCaptureFromPath("Screenshots\\" + strFileName));
+                    strFileName = "Screenshot_" + time.ToString("hh_mm_ss") + ".png";
+                    strImagePath= fnCaptureImage(pobjDriver, strFileName);
+                    //pobjTest.Log(Status.Fail, "Fail ");
+                    pobjTest.Fail("Fail", MediaEntityBuilder.CreateScreenCaptureFromPath(strImagePath).Build());
+                    pobjTest.Log(Status.Fail, "Snapshot below: " + pobjTest.AddScreenCaptureFromPath("Screenshots\\" + strFileName));
                     break;
                 case TestStatus.Skipped:
                     logStatus = Status.Skip;
                     break;
                 case TestStatus.Passed:
                     logStatus = Status.Pass;
+                    strFileName = "Screenshot_" + time.ToString("hh_mm_ss") + ".png";
+                    strImagePath = fnCaptureImage(pobjDriver, strFileName);
+                    pobjTest.Pass("Pass", MediaEntityBuilder.CreateScreenCaptureFromPath(strImagePath).Build());
+                    pobjTest.Log(Status.Pass, "Snapshot below: " + pobjTest.AddScreenCaptureFromPath("Screenshots\\" + strFileName));
                     break;
                 default:
                     logStatus = Status.Warning;

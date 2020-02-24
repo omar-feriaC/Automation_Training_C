@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace AutomationFrameworkC.Page_Objects
 {
-    class clsPHPTravels_LoginPage : BaseTest
+    class clsPHPTravels_AccountPage : BaseTest
     {
         /*ATTRIBUTES*/
         public static WebDriverWait _driverWait;
@@ -28,7 +28,7 @@ namespace AutomationFrameworkC.Page_Objects
         readonly static string STR_HAMBURGER_BTN = "sidebarCollapse";
 
         /*CONSTRUCTOR*/
-        public clsPHPTravels_LoginPage(IWebDriver pobjDriver)
+        public clsPHPTravels_AccountPage(IWebDriver pobjDriver)
         {
             _objDriver = pobjDriver;
             _driverWait = new WebDriverWait(_objDriver, new TimeSpan(0, 0, 40));
