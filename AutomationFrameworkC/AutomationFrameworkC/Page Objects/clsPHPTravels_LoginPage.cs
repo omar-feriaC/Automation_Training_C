@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AutomationFrameworkC.Base_Files;
-
+using NUnit.Framework;
 
 namespace AutomationFrameworkC.Page_Objects
 {
@@ -20,10 +20,10 @@ namespace AutomationFrameworkC.Page_Objects
 
         /*LOCATORS DESCRIPTION*/
         readonly static string STR_EMAIL_TXT = "email";
-       // readonly static string STR_EMAIL_TXT2 = "email";
+    
         readonly static string STR_PASSWORD_TXT = "password";
         readonly static string STRREMEMBERME_LNK = "//label[@class='checkbox']";
-        //readonly static string STRREMEMBERME_LNK2 = "//label[@class='checkbox']";
+        
         readonly static string STR_FORGOTPASS_LNK = "//*[text()='Forget Password']";
         readonly static string  STR_LOGIN_BTN = "//span[text()='Login']";
         readonly static string STR_HAMBURGER_BTN = "sidebarCollapse";
@@ -35,7 +35,7 @@ namespace AutomationFrameworkC.Page_Objects
         public clsPHPTravels_LoginPage(IWebDriver pobjDriver)
         {
             _objDriver = pobjDriver;
-            _driverWait = new WebDriverWait(_objDriver, new TimeSpan(0, 0, 40));
+            _driverWait = new WebDriverWait(_objDriver, new TimeSpan(0,0,40));
             clsdrivers = new Base_Files.clsDriver(objDriver);
         }
 
@@ -106,5 +106,60 @@ namespace AutomationFrameworkC.Page_Objects
         }
 
 
+        public static void fnMenuAdmins()
+
+        {
+        
+            _driverWait.Until(ExpectedConditions.ElementExists(By.Id("social-sidebar-menu")));
+            IWebElement nav = objDriver.FindElement(By.LinkText("ACCOUNTS"));
+            nav.Click();
+            IWebElement nav2 = objDriver.FindElement(By.LinkText("ADMINS"));
+            nav2.Click();
+            _driverWait.Until(ExpectedConditions.TitleContains("Admins Management"));
+
+
+
+
+        }
+        public static void fnMenuSuppliers()
+        {
+            
+            IWebElement nav3 = objDriver.FindElement(By.LinkText("ACCOUNTS"));
+            nav3.Click();
+            _driverWait.Until(ExpectedConditions.ElementExists(By.Id("social-sidebar-menu")));
+            _driverWait.Until(ExpectedConditions.ElementExists(By.TagName("li")));
+            _driverWait.Until(ExpectedConditions.ElementExists(By.TagName("a")));
+            IWebElement nav4 = objDriver.FindElement(By.LinkText("SUPPLIERS"));
+            nav4.Click();
+            _driverWait.Until(ExpectedConditions.TitleContains("Suppliers Management"));
+        }
+
+        public static void fnMenuCustomers()
+        {
+           
+            IWebElement nav3 = objDriver.FindElement(By.LinkText("ACCOUNTS"));
+            nav3.Click();
+            _driverWait.Until(ExpectedConditions.ElementExists(By.Id("social-sidebar-menu")));
+            _driverWait.Until(ExpectedConditions.ElementExists(By.TagName("li")));
+            _driverWait.Until(ExpectedConditions.ElementExists(By.TagName("a")));
+            _driverWait.Until(ExpectedConditions.ElementExists(By.LinkText("CUSTOMERS")));
+            IWebElement nav4 = objDriver.FindElement(By.LinkText("CUSTOMERS"));
+            nav4.Click();
+            _driverWait.Until(ExpectedConditions.TitleContains("Customers Management"));
+        }
+
+        public static void fnMenuGuestCustomers()
+        {
+          
+            IWebElement nav3 = objDriver.FindElement(By.LinkText("ACCOUNTS"));
+            nav3.Click();
+            _driverWait.Until(ExpectedConditions.ElementExists(By.Id("social-sidebar-menu")));
+            _driverWait.Until(ExpectedConditions.ElementExists(By.TagName("li")));
+            _driverWait.Until(ExpectedConditions.ElementExists(By.TagName("a")));
+            _driverWait.Until(ExpectedConditions.ElementExists(By.LinkText("GUESTCUSTOMERS")));
+            IWebElement nav4 = objDriver.FindElement(By.LinkText("GUESTCUSTOMERS"));
+            nav4.Click();
+            _driverWait.Until(ExpectedConditions.TitleContains("Guest Management"));
+        }
     }
 }
