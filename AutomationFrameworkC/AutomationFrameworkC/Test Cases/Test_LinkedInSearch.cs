@@ -16,7 +16,7 @@ namespace AutomationFrameworkC.Test_Cases
         WebDriverWait wait;
 
 
-        [Test]
+    [Test]
 
         public void M8LinkedIn_SearchPage()
         {
@@ -25,24 +25,26 @@ namespace AutomationFrameworkC.Test_Cases
             {
                 M8LinkedIn_SearchPage objSearchPage = new M8LinkedIn_SearchPage(objDriver);
                 wait = new WebDriverWait(objDriver, new TimeSpan(0, 1, 0));
-                string[] arrTechnologies = { "Java", "C", "Phyton", "Pega", "C#" };
+                string[] technologies = {"C", "Phyton", "Pega", "C#" };
 
+                objSearchPage.fnSearchText("Java");
+                wait.Until(ExpectedConditions.ElementIsVisible(By.Id("ember8")));
+                objSearchPage.fnSearchButton();
+                wait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//button[span[text()='Gente' or text()='People']]")));
+                objSearchPage.fnPeopleButton();
+                wait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//button[span[text()='Ubicaciones' or text()='Locations']]")));
+                objSearchPage.fnAllFiltersButton();
+                wait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//*[label[text()='Mexico' or text()='México']]")));
+                objSearchPage.fnMexicoOpt();
+                objSearchPage.fnEnglishOpt();
+                objSearchPage.fnSpanishOpt();
+                objSearchPage.fnApplyButton();
 
-                for (int i = 0; i < arrTechnologies.Length; i++)
+                for (int i = 0; i < technologies.Length; i++)
                 {
-                    objSearchPage.fnSearchText(arrTechnologies[i]);
-                    wait.Until(ExpectedConditions.ElementIsVisible(By.Id("ember8")));
+                    objSearchPage.fnSearchText(technologies[i]);
+                    wait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//button[span[text()='Contactos' or text()='Connections']]")));
                     objSearchPage.fnSearchButton();
-                    wait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//button[span[text()='Gente' or text()='People']]")));
-                    objSearchPage.fnPeopleButton();
-                    wait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//button[span[text()='Ubicaciones' or text()='Locations']]")));
-                    objSearchPage.fnAllFiltersButton();
-                    wait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//*[label[text()='Mexico' or text()='México']]")));
-                    objSearchPage.fnMexicoOpt();
-                    objSearchPage.fnEnglishOpt();
-                    objSearchPage.fnSpanishOpt();
-                    objSearchPage.fnApplyButton(); ;
-
                 }
 
             }
