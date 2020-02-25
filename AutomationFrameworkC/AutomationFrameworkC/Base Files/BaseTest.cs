@@ -19,9 +19,13 @@ namespace AutomationFrameworkC.Base_Files
         //*                V A R I A B L E S
         //**************************************************
         /*Webdriver instances*/
+        public static clsDriver objclsDriver; //TEST
         public static IWebDriver objDriver;
         /*URL*/
         private static string strUrl = ConfigurationManager.AppSettings.Get("url");
+        /*User information*/
+        public static string strUser = ConfigurationManager.AppSettings.Get("email");
+        public static string strPassword = ConfigurationManager.AppSettings.Get("password");
         /*Extent Reports Instances*/
         public static clsReportManager objRM = new clsReportManager();
         public static ExtentHtmlReporter objHtmlReporter;
@@ -65,6 +69,7 @@ namespace AutomationFrameworkC.Base_Files
             objDriver = new ChromeDriver();
             objDriver.Url = strUrl;
             objDriver.Manage().Window.Maximize();
+            objclsDriver = new clsDriver(objDriver); //TEST
         }
         
         //TearDown After each test case

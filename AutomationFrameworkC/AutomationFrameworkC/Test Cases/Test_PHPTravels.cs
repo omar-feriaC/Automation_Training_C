@@ -17,15 +17,17 @@ namespace AutomationFrameworkC.Test_Cases
         [Test]
         public void Test_M9Exercise()
         {
+            /*Init Nunit Test*/
+            objTest = objExtent.CreateTest(TestContext.CurrentContext.Test.Name);
             //Init objects
             objPHP = new clsPHPTravels_LoginPage(objDriver);
             //Login Action
             Assert.AreEqual(true, objDriver.Title.Contains("Administator Login"), "The Login Page was not loaded correctly.");
-            clsPHPTravels_LoginPage.fnEnterEmail("admin@phptravels.com");
-            clsPHPTravels_LoginPage.fnEnterPassword("demoadmin");
+            clsPHPTravels_LoginPage.fnEnterEmail(strUser);
+            clsPHPTravels_LoginPage.fnEnterPassword(strPassword);
             clsPHPTravels_LoginPage.fnClickLoginButton();
             clsPHPTravels_LoginPage.fnWaitHamburgerMenu();
-            Assert.AreEqual(true, objDriver.Title.Contains("Dashboard."), "The Dashboard was not loaded correctly.");
+            Assert.AreEqual(true, objDriver.Title.Contains("Dashboard"), "The Dashboard was not loaded correctly.");
 
         }
 

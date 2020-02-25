@@ -53,7 +53,7 @@ namespace AutomationFrameworkC.Page_Objects
         {
             clsDriver.fnWaitForElementToExist(By.XPath(STR_EMAIL_TXT));
             //clsDriver.fnWaitForElementToExist(By.objEmailTxt);
-            clsDriver.fnWaitForElementToBeVisible(By.Name(STR_EMAIL_TXT));
+            clsDriver.fnWaitForElementToBeVisible(By.XPath(STR_EMAIL_TXT));
             objEmailTxt.Clear();
             objEmailTxt.SendKeys(pstrEmail);
         }
