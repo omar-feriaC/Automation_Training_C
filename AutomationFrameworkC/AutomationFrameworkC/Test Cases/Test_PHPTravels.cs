@@ -45,7 +45,10 @@ namespace AutomationFrameworkC.Test_Cases
             }
 
             clsPHPTravels_LoginPage.fnClickMenu("UPDATES");
+            clsPHPTravels_LoginPage.fnWaitHamburgerMenu();
             Assert.AreEqual(true, objDriver.Title.Contains("Updates"), "The Updates page was not loaded correctly.");
+
+            clsPHPTravels_LoginPage.fnClickMenu("ACCOUNTS");
             //Check menús
 
 

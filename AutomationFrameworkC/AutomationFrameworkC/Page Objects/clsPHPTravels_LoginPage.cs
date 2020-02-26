@@ -49,6 +49,11 @@ namespace AutomationFrameworkC.Page_Objects
         readonly static string STR_NEWSLETTER_LNK = "//a[substring(@href, string-length(@href) -string-length('newsletter/') +1) = 'newsletter/']";
         readonly static string STR_BOOKINGS_LNK = "//a[substring(@href, string-length(@href) -string-length('bookings') +1) = 'bookings']";
 
+        readonly static string STR_ACCOUNT_ADMINS_LNK = "//ul[@id='ACCOUNTS']//a[contains(text(),'Admins')]";
+        readonly static string STR_ACCOUNT_SUPPLIERS_LNK = "//ul[@id='ACCOUNTS']//a[contains(text(),'Suppliers')]";
+        readonly static string STR_ACCOUNT_CUSTOMERS_LNK = "//ul[@id='ACCOUNTS']//a[contains(text(),'Customers')]";
+        readonly static string STR_ACCOUNT_GCUSTOMERS_LNK = "//ul[@id='ACCOUNTS']//a[contains(text(),'GuestCustomers')]";
+
 
         /*CONSTRUCTOR*/
         public clsPHPTravels_LoginPage(IWebDriver pobjDriver)
@@ -82,7 +87,10 @@ namespace AutomationFrameworkC.Page_Objects
         private static IWebElement objNewsletterLnk => _objDriver.FindElement(By.XPath(STR_NEWSLETTER_LNK));
         private static IWebElement objBookingsLnk => _objDriver.FindElement(By.XPath(STR_BOOKINGS_LNK));
 
-
+        private static IWebElement objAccountAdminsLnk => _objDriver.FindElement(By.XPath(STR_ACCOUNT_ADMINS_LNK));
+        private static IWebElement objAccountSuppliersLnk => _objDriver.FindElement(By.XPath(STR_ACCOUNT_SUPPLIERS_LNK));
+        private static IWebElement objAccountCustomersLnk => _objDriver.FindElement(By.XPath(STR_ACCOUNT_CUSTOMERS_LNK));
+        private static IWebElement objAccountGcustomersLnk => _objDriver.FindElement(By.XPath(STR_ACCOUNT_GCUSTOMERS_LNK));
         //private static IList<IWebElement> objSideMenuListLst = objDriver.FindElements(By.XPath(STR_SIDEMENULIST_LST));
         //FindElements(By.XPath(STR_SIDEMENULIST_LST));
 
