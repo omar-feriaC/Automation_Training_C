@@ -6,17 +6,17 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace AutomationFrameworkC.Test_Cases
 {
     class Test_PHPTravels : BaseTest
     {
-        //private static IWebDriver objDriver;
+        //private static IWebDriver _objDriver;
         clsPHPTravels_LoginPage objPHP;
-
         [Test, Order(0)]
-        public void Test_M9Exercise()
+        public void Test_M9ExercisePart1()
         {
             //Init objects
             objTest = objExtent.CreateTest(TestContext.CurrentContext.Test.Name);
@@ -29,10 +29,21 @@ namespace AutomationFrameworkC.Test_Cases
             clsPHPTravels_LoginPage.fnClickLoginButton();
             clsPHPTravels_LoginPage.fnWaitHamburgerMenu();
             Assert.AreEqual(true, objDriver.Title.Contains("Dashboard"), "The Dashboard was not loaded correctly.");
-            clsPHPTravels_DashboardPage.fnCheckStatsList();
+            clsPHPTravels_LoginPage.fnCheckStatsList();
             objRM.fnAddStepLogWithSnapshot(objTest, objDriver, "After Login.", "LoginEvidence.png", "Pass");
+            clsPHPTravels_LoginPage.fnActivateTheMenu();
         }
 
+        [Test, Order(0)]
+        public void Test_M9ExercisePart2()
+        {
+            //Init objects
+            objTest = objExtent.CreateTest(TestContext.CurrentContext.Test.Name);
+            objPHP = new clsPHPTravels_LoginPage(objDriver);
+            //Login Action
+            clsPHPTravels_LoginPage.fnActivateTheMenu();
+
+        }
 
     }
 }
