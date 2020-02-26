@@ -15,16 +15,20 @@ namespace AutomationFrameworkC.Page_Objects
         /*ATTRIBUTES*/
         public static WebDriverWait _driverWait;
         private static IWebDriver _objDriver;
+        private static By strSideMenus;
+        private static string strSideSubMenus;
 
         /*LOCATORS DESCRIPTION*/
         readonly static string STR_EMAIL_TXT = "//input[@name='email' and @type='text']";
-        readonly static string STR_EMAIL_TXT2 = "email";
+        //readonly static string STR_EMAIL_TXT2 = "email";
         readonly static string STR_PASSWORD_TXT = "password";
         readonly static string STRREMEMBERME_LNK = "//label[@class='checkbox']";
-        readonly static string STRREMEMBERME_LNK2 = "//label[@class='checkbox']";
+        //readonly static string STRREMEMBERME_LNK2 = "//label[@class='checkbox']";
         readonly static string STR_FORGOTPASS_LNK = "//*[text()='Forget Password']";
         readonly static string STR_LOGIN_BTN = "//span[text()='Login']";
         readonly static string STR_HAMBURGER_BTN = "sidebarCollapse";
+
+        //readonly static string STR_SIDEMENULIST_LST = "//ul[@id='social-sidebar-menu']/li";
 
         /*CONSTRUCTOR*/
         public clsPHPTravels_LoginPage(IWebDriver pobjDriver)
@@ -39,6 +43,9 @@ namespace AutomationFrameworkC.Page_Objects
         private static IWebElement objRememberMeLnk = objDriver.FindElement(By.XPath(STRREMEMBERME_LNK));
         private static IWebElement objForgotPassLnk = objDriver.FindElement(By.XPath(STR_FORGOTPASS_LNK));
         private static IWebElement objLoginBtn = objDriver.FindElement(By.XPath(STR_LOGIN_BTN));
+
+        //private static IList<IWebElement> objSideMenuListLst = objDriver.FindElements(By.XPath(STR_SIDEMENULIST_LST));
+            //FindElements(By.XPath(STR_SIDEMENULIST_LST));
 
 
         /*METHODS/FUNCTIONS*/
@@ -93,6 +100,7 @@ namespace AutomationFrameworkC.Page_Objects
             _driverWait.Until(ExpectedConditions.ElementIsVisible(By.Id(STR_HAMBURGER_BTN)));
             _driverWait.Until(ExpectedConditions.ElementToBeClickable(By.Id(STR_HAMBURGER_BTN)));
         }
+
 
 
     }
