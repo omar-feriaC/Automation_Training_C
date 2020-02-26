@@ -18,13 +18,18 @@ namespace AutomationFrameworkC.Base_Files
         //**************************************************
         //*                V A R I A B L E S
         //**************************************************
+        
         /*Webdriver instances*/
         public static IWebDriver objDriver;
+        
+        
         /*URL*/
         private static string strUrl = ConfigurationManager.AppSettings.Get("url");
+        
         /*Extent Reports Instances*/
         public static clsReportManager objRM = new clsReportManager();
         public static ExtentHtmlReporter objHtmlReporter;
+        
         //public static ExtentV3HtmlReporter objHtmlReporter;
         public static ExtentReports objExtent;
         public static ExtentTest objTest;
