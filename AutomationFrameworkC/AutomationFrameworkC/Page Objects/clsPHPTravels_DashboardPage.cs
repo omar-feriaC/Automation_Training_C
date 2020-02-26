@@ -39,13 +39,13 @@ namespace AutomationFrameworkC.Page_Objects
         }
 
         /*OBJECT DEFINITION*/
-        private static IWebElement objEmailTxt => BaseTest.objDriver.FindElement(By.Name(STR_EMAIL_TXT));
-        private static IWebElement objPasswordTxt => BaseTest.objDriver.FindElement(By.Name(STR_PASSWORD_TXT));
-        private static IWebElement objRememberMeLnk => BaseTest.objDriver.FindElement(By.XPath(STRREMEMBERME_LNK));
-        private static IWebElement objForgotPassLnk => BaseTest.objDriver.FindElement(By.XPath(STR_FORGOTPASS_LNK));
-        private static IWebElement objLoginBtn => BaseTest.objDriver.FindElement(By.XPath(STR_LOGIN_BTN));
-        private static IList<IWebElement> objTotalLabelTxt => BaseTest.objDriver.FindElements(By.XPath(STR_TOTAL_LABEL));
-        private static IList<IWebElement> objSideOptionBtn => BaseTest.objDriver.FindElements(By.XPath(STR_SIDE_OPTION));
+        private static IWebElement objEmailTxt => _objDriver.FindElement(By.Name(STR_EMAIL_TXT));
+        private static IWebElement objPasswordTxt => _objDriver.FindElement(By.Name(STR_PASSWORD_TXT));
+        private static IWebElement objRememberMeLnk => _objDriver.FindElement(By.XPath(STRREMEMBERME_LNK));
+        private static IWebElement objForgotPassLnk => _objDriver.FindElement(By.XPath(STR_FORGOTPASS_LNK));
+        private static IWebElement objLoginBtn => _objDriver.FindElement(By.XPath(STR_LOGIN_BTN));
+        private static IList<IWebElement> objTotalLabelTxt => _objDriver.FindElements(By.XPath(STR_TOTAL_LABEL));
+        private static IList<IWebElement> objSideOptionBtn => _objDriver.FindElements(By.XPath(STR_SIDE_OPTION));
 
 
         /*METHODS/FUNCTIONS*/
@@ -244,18 +244,22 @@ namespace AutomationFrameworkC.Page_Objects
                         {
                             case "admins":
                                 intSubMenu = intMenu + 1;
+                                fnWaitHamburgerMenu();
                                 objSideOptionBtn[intSubMenu].Click();
                                 break;
                             case "suppliers":
                                 intSubMenu = intMenu + 2;
+                                fnWaitHamburgerMenu();
                                 objSideOptionBtn[intSubMenu].Click();
                                 break;
                             case "customers":
                                 intSubMenu = intMenu + 3;
+                                fnWaitHamburgerMenu();
                                 objSideOptionBtn[intSubMenu].Click();
                                 break;
                             case "guestcustomers":
                                 intSubMenu = intMenu + 4;
+                                fnWaitHamburgerMenu();
                                 objSideOptionBtn[intSubMenu].Click();
                                 break;
                             default:
@@ -268,10 +272,12 @@ namespace AutomationFrameworkC.Page_Objects
                         {
                             case "pages":
                                 intSubMenu = intMenu + 1;
+                                fnWaitHamburgerMenu();
                                 objSideOptionBtn[intSubMenu].Click();
                                 break;
                             case "menu":
                                 intSubMenu = intMenu + 2;
+                                fnWaitHamburgerMenu();
                                 objSideOptionBtn[intSubMenu].Click();
                                 break; 
                             default:
@@ -284,10 +290,12 @@ namespace AutomationFrameworkC.Page_Objects
                         {
                             case "bookings":
                                 intSubMenu = intMenu + 1;
+                                fnWaitHamburgerMenu();
                                 objSideOptionBtn[intSubMenu].Click();
                                 break;
                             case "settings":
                                 intSubMenu = intMenu + 2;
+                                fnWaitHamburgerMenu();
                                 objSideOptionBtn[intSubMenu].Click();
                                 break;
                             default:
@@ -300,10 +308,12 @@ namespace AutomationFrameworkC.Page_Objects
                         {
                             case "bookings":
                                 intSubMenu = intMenu + 1;
+                                fnWaitHamburgerMenu();
                                 objSideOptionBtn[intSubMenu].Click();
                                 break;
                             case "settings":
                                 intSubMenu = intMenu + 2;
+                                fnWaitHamburgerMenu();
                                 objSideOptionBtn[intSubMenu].Click();
                                 break;
                             default:
@@ -316,6 +326,7 @@ namespace AutomationFrameworkC.Page_Objects
                         {
                             case "viator settings":
                                 intSubMenu = intMenu + 1;
+                                fnWaitHamburgerMenu();
                                 objSideOptionBtn[intSubMenu].Click();
                                 break;
                             default:
@@ -328,6 +339,7 @@ namespace AutomationFrameworkC.Page_Objects
                         {
                             case "cartrawler":
                                 intSubMenu = intMenu + 1;
+                                fnWaitHamburgerMenu();
                                 objSideOptionBtn[intSubMenu].Click();
                                 break;
                             default:
@@ -340,10 +352,12 @@ namespace AutomationFrameworkC.Page_Objects
                         {
                             case "settings":
                                 intSubMenu = intMenu + 1;
+                                fnWaitHamburgerMenu();
                                 objSideOptionBtn[intSubMenu].Click();
                                 break;
                             case "bookings":
                                 intSubMenu = intMenu + 2;
+                                fnWaitHamburgerMenu();
                                 objSideOptionBtn[intSubMenu].Click();
                                 break;
                             default:
@@ -356,14 +370,17 @@ namespace AutomationFrameworkC.Page_Objects
                         {
                             case "posts":
                                 intSubMenu = intMenu + 1;
+                                fnWaitHamburgerMenu();
                                 objSideOptionBtn[intSubMenu].Click();
                                 break;
                             case "blog categories":
                                 intSubMenu = intMenu + 2;
+                                fnWaitHamburgerMenu();
                                 objSideOptionBtn[intSubMenu].Click();
                                 break;
                             case "blog settings":
-                                intSubMenu = intMenu + 2;
+                                intSubMenu = intMenu + 3;
+                                fnWaitHamburgerMenu();
                                 objSideOptionBtn[intSubMenu].Click();
                                 break;
                             default:
@@ -376,6 +393,7 @@ namespace AutomationFrameworkC.Page_Objects
                         {
                             case "locations":
                                 intSubMenu = intMenu + 1;
+                                fnWaitHamburgerMenu();
                                 objSideOptionBtn[intSubMenu].Click();
                                 break;
                             default:
@@ -388,10 +406,12 @@ namespace AutomationFrameworkC.Page_Objects
                         {
                             case "manage offers":
                                 intSubMenu = intMenu + 1;
+                                fnWaitHamburgerMenu();
                                 objSideOptionBtn[intSubMenu].Click();
                                 break;
                             case "offers settings":
                                 intSubMenu = intMenu + 2;
+                                fnWaitHamburgerMenu();
                                 objSideOptionBtn[intSubMenu].Click();
                                 break;
                             default:

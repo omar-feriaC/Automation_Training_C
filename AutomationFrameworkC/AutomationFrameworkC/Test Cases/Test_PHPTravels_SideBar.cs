@@ -35,8 +35,9 @@ namespace AutomationFrameworkC.Test_Cases
             clsPHPTravels_DashboardPage.fnClickLoginButton();
             clsPHPTravels_DashboardPage.fnWaitHamburgerMenu();
             Assert.AreEqual(true, objDriver.Title.Contains("Dashboard"), "The Dashboard was not loaded correctly.");
-            clsPHPTravels_DashboardPage.fnSidebar("general", "currencies");
-            clsPHPTravels_DashboardPage.fnSidebar("general", "widgets");
+            
+            //clsPHPTravels_DashboardPage.fnSidebar("general", "widgets");
+            clsPHPTravels_DashboardPage.fnSidebar("accounts", "customers");
             objRM.fnAddStepLogWithSnapshot(objTest, objDriver, "After Login.", "LoginEvidence.png", "Pass");
         }
 

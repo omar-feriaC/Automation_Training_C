@@ -16,7 +16,7 @@ namespace AutomationFrameworkC.Page_Objects
         /*ATTRIBUTES*/
         public static WebDriverWait _driverWait;
         private static IWebDriver _objDriver;
-        
+
 
 
         /*LOCATORS DESCRIPTION*/
@@ -26,6 +26,17 @@ namespace AutomationFrameworkC.Page_Objects
         readonly static string STR_FORGOTPASS_LNK = "//*[text()='Forget Password']";
         readonly static string STR_LOGIN_BTN = "//span[text()='Login']";
         readonly static string STR_HAMBURGER_BTN = "sidebarCollapse";
+        readonly static string STR_COLUMNFIRSTNAME_BTN = "//th[text()='First Name']";
+        readonly static string STR_COLUMNFIRSTNAMEASC_BTN = "//th[text()='↓ First Name']";
+        readonly static string STR_COLUMNFIRSTNAMEDESC_BTN = "//th[text()='↑ First Name']";
+        readonly static string STR_COLUMNLASTNAME_BTN = "//th[text()='Last Name']";
+        readonly static string STR_COLUMNLASTNAMEASC_BTN = "//th[text()='↓ Last Name']";
+        readonly static string STR_COLUMNLASTNAMEDESC_BTN = "//th[text()='↑ Last Name']";
+        readonly static string STR_COLUMNEMAIL_BTN = "//th[text()='Email']";
+        readonly static string STR_COLUMNEMAILASC_BTN = "//th[text()='↓ Email']";
+        readonly static string STR_COLUMNEMAILDESC_BTN = "//th[text()='↑ Email']";
+
+
 
         /*CONSTRUCTOR*/
         public clsPHPTravels_AccountPage(IWebDriver pobjDriver)
@@ -35,11 +46,21 @@ namespace AutomationFrameworkC.Page_Objects
         }
 
         /*OBJECT DEFINITION*/
-        private static IWebElement objEmailTxt => BaseTest.objDriver.FindElement(By.Name(STR_EMAIL_TXT));
-        private static IWebElement objPasswordTxt => BaseTest.objDriver.FindElement(By.Name(STR_PASSWORD_TXT));
-        private static IWebElement objRememberMeLnk => BaseTest.objDriver.FindElement(By.XPath(STRREMEMBERME_LNK));
-        private static IWebElement objForgotPassLnk => BaseTest.objDriver.FindElement(By.XPath(STR_FORGOTPASS_LNK));
-        private static IWebElement objLoginBtn => BaseTest.objDriver.FindElement(By.XPath(STR_LOGIN_BTN));
+        private static IWebElement objEmailTxt => _objDriver.FindElement(By.Name(STR_EMAIL_TXT));
+        private static IWebElement objPasswordTxt => _objDriver.FindElement(By.Name(STR_PASSWORD_TXT));
+        private static IWebElement objRememberMeLnk => _objDriver.FindElement(By.XPath(STRREMEMBERME_LNK));
+        private static IWebElement objForgotPassLnk => _objDriver.FindElement(By.XPath(STR_FORGOTPASS_LNK));
+        private static IWebElement objLoginBtn => _objDriver.FindElement(By.XPath(STR_LOGIN_BTN));
+        private static IWebElement objColumnFirstNameTxt => _objDriver.FindElement(By.XPath(STR_COLUMNFIRSTNAME_BTN));
+        private static IWebElement objColumnFirstNameAscTxt => _objDriver.FindElement(By.XPath(STR_COLUMNFIRSTNAMEASC_BTN));
+        private static IWebElement objColumnFirstNameDescTxt => _objDriver.FindElement(By.XPath(STR_COLUMNFIRSTNAMEDESC_BTN));
+        private static IWebElement objColumnLastNameTxt => _objDriver.FindElement(By.XPath(STR_COLUMNLASTNAME_BTN));
+        private static IWebElement objColumnLastNameAscTxt => _objDriver.FindElement(By.XPath(STR_COLUMNLASTNAMEASC_BTN));
+        private static IWebElement objColumnLastNameDescTxt => _objDriver.FindElement(By.XPath(STR_COLUMNLASTNAMEDESC_BTN));
+        private static IWebElement objColumnEmailTxt => _objDriver.FindElement(By.XPath(STR_COLUMNEMAIL_BTN));
+        private static IWebElement objColumnEmailAscTxt => _objDriver.FindElement(By.XPath(STR_COLUMNEMAILASC_BTN));
+        private static IWebElement objColumnEmailDescTxt => _objDriver.FindElement(By.XPath(STR_COLUMNEMAILDESC_BTN));
+
 
 
         /*METHODS/FUNCTIONS*/
@@ -53,10 +74,10 @@ namespace AutomationFrameworkC.Page_Objects
         public static void fnEnterEmail(string pstrEmail)
         {
             clsDriver objclsDriver;
-            objclsDriver = new clsDriver(_objDriver);                     
+            objclsDriver = new clsDriver(_objDriver);
             clsDriver.fnWaitForElementToExist(By.Name(STR_EMAIL_TXT));
             clsDriver.fnWaitForElementToBeVisible(By.Name(STR_EMAIL_TXT));
-            
+
             objEmailTxt.Clear();
             objEmailTxt.SendKeys(pstrEmail);
         }
@@ -97,5 +118,60 @@ namespace AutomationFrameworkC.Page_Objects
             _driverWait.Until(ExpectedConditions.ElementToBeClickable(By.Id(STR_HAMBURGER_BTN)));
         }
 
+        /*Sort Column Verification method*/
+        public static void fnSortColumnVerification(string pstrColumnName)
+        {
+            switch (pstrColumnName.ToLower())
+            {
+                case "first name":
+                    _driverWait.Until(ExpectedConditions.ElementExists(By.XPath(STR_COLUMNFIRSTNAME_BTN)));
+                    _driverWait.Until(ExpectedConditions.ElementIsVisible(By.XPath(STR_COLUMNFIRSTNAME_BTN)));
+                    _driverWait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(STR_COLUMNFIRSTNAME_BTN)));
+                    objColumnFirstNameTxt.Click();
+                    _driverWait.Until(ExpectedConditions.ElementExists(By.XPath(STR_COLUMNFIRSTNAMEASC_BTN)));
+                    _driverWait.Until(ExpectedConditions.ElementIsVisible(By.XPath(STR_COLUMNFIRSTNAMEASC_BTN)));
+                    Assert.AreEqual("↓ First Name", objColumnFirstNameAscTxt.Text, "The row order is not working correctly");
+                    objColumnFirstNameAscTxt.Click();
+                    _driverWait.Until(ExpectedConditions.ElementExists(By.XPath(STR_COLUMNFIRSTNAMEDESC_BTN)));
+                    _driverWait.Until(ExpectedConditions.ElementIsVisible(By.XPath(STR_COLUMNFIRSTNAMEDESC_BTN)));
+                    Assert.AreEqual("↑ First Name", objColumnFirstNameDescTxt.Text, "The row order is not working correctly");
+
+
+                    break;
+                case "last name":
+                    _driverWait.Until(ExpectedConditions.ElementExists(By.XPath(STR_COLUMNLASTNAME_BTN)));
+                    _driverWait.Until(ExpectedConditions.ElementIsVisible(By.XPath(STR_COLUMNLASTNAME_BTN)));
+                    _driverWait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(STR_COLUMNLASTNAME_BTN)));
+                    objColumnLastNameTxt.Click();
+                    _driverWait.Until(ExpectedConditions.ElementExists(By.XPath(STR_COLUMNLASTNAMEASC_BTN)));
+                    _driverWait.Until(ExpectedConditions.ElementIsVisible(By.XPath(STR_COLUMNLASTNAMEASC_BTN)));
+                    Assert.AreEqual("↓ Last Name", objColumnLastNameAscTxt.Text, "The row order is not working correctly");
+                    objColumnLastNameAscTxt.Click();
+                    _driverWait.Until(ExpectedConditions.ElementExists(By.XPath(STR_COLUMNLASTNAMEDESC_BTN)));
+                    _driverWait.Until(ExpectedConditions.ElementIsVisible(By.XPath(STR_COLUMNLASTNAMEDESC_BTN)));
+                    Assert.AreEqual("↑ Last Name", objColumnLastNameDescTxt.Text, "The row order is not working correctly");
+                    break;
+                case "email":
+                    _driverWait.Until(ExpectedConditions.ElementExists(By.XPath(STR_COLUMNEMAIL_BTN)));
+                    _driverWait.Until(ExpectedConditions.ElementIsVisible(By.XPath(STR_COLUMNEMAIL_BTN)));
+                    _driverWait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(STR_COLUMNEMAIL_BTN)));
+                    objColumnEmailTxt.Click();
+                    _driverWait.Until(ExpectedConditions.ElementExists(By.XPath(STR_COLUMNEMAILASC_BTN)));
+                    _driverWait.Until(ExpectedConditions.ElementIsVisible(By.XPath(STR_COLUMNEMAILASC_BTN)));
+                    Assert.AreEqual("↓ Email", objColumnEmailAscTxt.Text, "The row order is not working correctly");
+                    objColumnEmailAscTxt.Click();
+                    _driverWait.Until(ExpectedConditions.ElementExists(By.XPath(STR_COLUMNEMAILDESC_BTN)));
+                    _driverWait.Until(ExpectedConditions.ElementIsVisible(By.XPath(STR_COLUMNEMAILDESC_BTN)));
+                    Assert.AreEqual("↑ Email", objColumnEmailDescTxt.Text, "The row order is not working correctly");
+                    break;
+
+            }
+           
+
+        }
+
     }
+
+
+    
 }
