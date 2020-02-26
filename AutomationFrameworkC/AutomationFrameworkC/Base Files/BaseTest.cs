@@ -4,12 +4,7 @@ using AventStack.ExtentReports.Reporter;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
-using System;
-using System.Collections.Generic;
 using System.Configuration;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AutomationFrameworkC.Base_Files
 {
@@ -20,18 +15,17 @@ namespace AutomationFrameworkC.Base_Files
         //**************************************************
         /*Webdriver instances*/
         public static IWebDriver objDriver;
+        
+
         /*URL*/
         private static string strUrl = ConfigurationManager.AppSettings.Get("url");
         protected static string strUserName = ConfigurationManager.AppSettings.Get("email");
         protected static string strPassword = ConfigurationManager.AppSettings.Get("password");
-
         /*Extent Reports Instances*/
         public static clsReportManager objRM = new clsReportManager();
         public static ExtentHtmlReporter objHtmlReporter;
-        //public static ExtentV3HtmlReporter objHtmlReporter;
         public static ExtentReports objExtent;
         public static ExtentTest objTest;
-
 
         //**************************************************
         //                  M E T H O D S 
@@ -44,7 +38,6 @@ namespace AutomationFrameworkC.Base_Files
             if (objHtmlReporter == null)
             {
                 objHtmlReporter = new ExtentHtmlReporter(objRM.fnReportPath());
-                //objHtmlReporter = new ExtentV3HtmlReporter(objRM.fnReportPath());
             }
             /*Init ExtentReports*/
             if (objExtent == null)
@@ -52,6 +45,7 @@ namespace AutomationFrameworkC.Base_Files
                 objExtent = new ExtentReports();
                 objRM.fnReportSetUp(objHtmlReporter, objExtent);
             }
+
         }
 
         //OneTimeTearDown after each class test
@@ -69,7 +63,7 @@ namespace AutomationFrameworkC.Base_Files
             objDriver.Url = strUrl;
             objDriver.Manage().Window.Maximize();
         }
-        
+
         //TearDown After each test case
         [TearDown]
         public static void fnTearDown()
@@ -78,7 +72,6 @@ namespace AutomationFrameworkC.Base_Files
             objDriver.Close();
             objDriver.Quit();
         }
-
 
     }
 }

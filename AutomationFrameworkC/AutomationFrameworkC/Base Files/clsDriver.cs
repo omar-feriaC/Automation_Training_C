@@ -2,11 +2,7 @@
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.WaitHelpers;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace AutomationFrameworkC.Base_Files
 {
@@ -82,7 +78,6 @@ namespace AutomationFrameworkC.Base_Files
                 return false;
             }
         }
-
 
     }
 }
