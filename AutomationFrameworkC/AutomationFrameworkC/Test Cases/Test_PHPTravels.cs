@@ -24,7 +24,7 @@ namespace AutomationFrameworkC.Test_Cases
             objTest = objExtent.CreateTest(TestContext.CurrentContext.Test.Name);
             //Init objects
             objPHP = new clsPHPTravels_LoginPage(objDriver);
-            objDash = new clsPHPTravels_DashboardPage(objDriver);
+           // objDash = new clsPHPTravels_DashboardPage(objDriver);
             //Login Action
             Assert.AreEqual(true, objDriver.Title.Contains("Administator Login"), "The Login Page was not loaded correctly.");
             clsPHPTravels_LoginPage.fnEnterEmail(strUser);
@@ -44,7 +44,7 @@ namespace AutomationFrameworkC.Test_Cases
                 objTest.Log(Status.Info, t.Text);
             }
 
-            clsPHPTravels_DashboardPage.fnClickMenu("UPDATES");
+            clsPHPTravels_LoginPage.fnClickMenu("UPDATES");
             Assert.AreEqual(true, objDriver.Title.Contains("Updates"), "The Updates page was not loaded correctly.");
             //Check menús
 
