@@ -1,4 +1,5 @@
 ﻿using AutomationFrameworkC.Base_Files;
+using AventStack.ExtentReports;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.WaitHelpers;
@@ -6,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace AutomationFrameworkC.Page_Objects
@@ -15,8 +17,8 @@ namespace AutomationFrameworkC.Page_Objects
         /*ATTRIBUTES*/
         public static WebDriverWait _driverWait;
         private static IWebDriver _objDriver;
-        private static By strSideMenus;
-        private static string strSideSubMenus;
+        //private static By strSideMenus;
+        //private static string strSideSubMenus;
 
         /*LOCATORS DESCRIPTION*/
         readonly static string STR_EMAIL_TXT = "//input[@name='email' and @type='text']";
@@ -30,7 +32,7 @@ namespace AutomationFrameworkC.Page_Objects
 
         //readonly static string STR_SIDEMENULIST_LST = "//ul[@id='social-sidebar-menu']/li";
 
-
+        //Side Menu
         readonly static string STR_DASHBOARD_LNK = "//a[substring(@href, string-length(@href) -string-length('admin') +1) = 'admin']";
         readonly static string STR_UPDATES_LNK = "//a[substring(@href, string-length(@href) -string-length('updates/') +1) = 'updates/']";
         readonly static string STR_MODULES_LNK = "//a[substring(@href, string-length(@href) -string-length('modules/') +1) = 'modules/']";
@@ -49,11 +51,18 @@ namespace AutomationFrameworkC.Page_Objects
         readonly static string STR_NEWSLETTER_LNK = "//a[substring(@href, string-length(@href) -string-length('newsletter/') +1) = 'newsletter/']";
         readonly static string STR_BOOKINGS_LNK = "//a[substring(@href, string-length(@href) -string-length('bookings') +1) = 'bookings']";
 
+        //Acccounts Sub-Menus
         readonly static string STR_ACCOUNT_ADMINS_LNK = "//ul[@id='ACCOUNTS']//a[contains(text(),'Admins')]";
         readonly static string STR_ACCOUNT_SUPPLIERS_LNK = "//ul[@id='ACCOUNTS']//a[contains(text(),'Suppliers')]";
         readonly static string STR_ACCOUNT_CUSTOMERS_LNK = "//ul[@id='ACCOUNTS']//a[contains(text(),'Customers')]";
         readonly static string STR_ACCOUNT_GCUSTOMERS_LNK = "//ul[@id='ACCOUNTS']//a[contains(text(),'GuestCustomers')]";
 
+        //Table lables
+        readonly static string STR_FIRSTNAME_LBL = "//th[contains(text(),'First Name')]";//"//th[@data-orderby='pt_accounts.ai_first_name']";
+        readonly static string STR_LASTNAME_LBL = "//th[contains(text(),'Last Name')]";
+        readonly static string STR_EMAIL_LBL = "//th[contains(text(),'Email')]";
+        readonly static string STR_ACTIVE_LBL = "//th[contains(text(),'Active')]";
+        readonly static string STR_LASTLOGIN_LBL = "//th[contains(text(),'Last Login')]";
 
         /*CONSTRUCTOR*/
         public clsPHPTravels_LoginPage(IWebDriver pobjDriver)
@@ -69,6 +78,7 @@ namespace AutomationFrameworkC.Page_Objects
         private static IWebElement objForgotPassLnk = objDriver.FindElement(By.XPath(STR_FORGOTPASS_LNK));
         private static IWebElement objLoginBtn = objDriver.FindElement(By.XPath(STR_LOGIN_BTN));
 
+        //Side Menu
         private static IWebElement objDashboardLnk => _objDriver.FindElement(By.XPath(STR_DASHBOARD_LNK));
         private static IWebElement objUpdatesLnk => _objDriver.FindElement(By.XPath(STR_UPDATES_LNK));
         private static IWebElement objModulesLnk => _objDriver.FindElement(By.XPath(STR_MODULES_LNK));
@@ -87,10 +97,19 @@ namespace AutomationFrameworkC.Page_Objects
         private static IWebElement objNewsletterLnk => _objDriver.FindElement(By.XPath(STR_NEWSLETTER_LNK));
         private static IWebElement objBookingsLnk => _objDriver.FindElement(By.XPath(STR_BOOKINGS_LNK));
 
+        //Accounts Sub-Menus
         private static IWebElement objAccountAdminsLnk => _objDriver.FindElement(By.XPath(STR_ACCOUNT_ADMINS_LNK));
         private static IWebElement objAccountSuppliersLnk => _objDriver.FindElement(By.XPath(STR_ACCOUNT_SUPPLIERS_LNK));
         private static IWebElement objAccountCustomersLnk => _objDriver.FindElement(By.XPath(STR_ACCOUNT_CUSTOMERS_LNK));
         private static IWebElement objAccountGcustomersLnk => _objDriver.FindElement(By.XPath(STR_ACCOUNT_GCUSTOMERS_LNK));
+
+        //Table labels
+        private static IWebElement objFirstNameLbl => _objDriver.FindElement(By.XPath(STR_FIRSTNAME_LBL));
+        private static IWebElement objLastNameLbl => _objDriver.FindElement(By.XPath(STR_LASTNAME_LBL));
+        private static IWebElement objEmailLbl => _objDriver.FindElement(By.XPath(STR_EMAIL_LBL));
+        private static IWebElement objActiveLbl => _objDriver.FindElement(By.XPath(STR_ACTIVE_LBL));
+        private static IWebElement objLastLoginLbl => _objDriver.FindElement(By.XPath(STR_LASTLOGIN_LBL));
+
         //private static IList<IWebElement> objSideMenuListLst = objDriver.FindElements(By.XPath(STR_SIDEMENULIST_LST));
         //FindElements(By.XPath(STR_SIDEMENULIST_LST));
 
@@ -105,9 +124,13 @@ namespace AutomationFrameworkC.Page_Objects
 
         public static void fnEnterEmail(string pstrEmail)
         {
+            //clsDriver objclsDriver;
+            //objclsDriver = new clsDriver(_objDriver);
+            //_driverWait.Until(ExpectedConditions.ElementExists(By.XPath(STR_EMAIL_TXT)));
+            //_driverWait.Until(ExpectedConditions.ElementIsVisible(By.Name(STR_EMAIL_TXT)));
             clsDriver.fnWaitForElementToExist(By.XPath(STR_EMAIL_TXT));
-            //clsDriver.fnWaitForElementToExist(By.objEmailTxt);
             clsDriver.fnWaitForElementToBeVisible(By.XPath(STR_EMAIL_TXT));
+
             objEmailTxt.Clear();
             objEmailTxt.SendKeys(pstrEmail);
         }
@@ -243,6 +266,285 @@ namespace AutomationFrameworkC.Page_Objects
                     break;
             }
         }
+
+
+        public static void fnClickAccountSubMenus(string pstrAccountSubMenus)
+        {
+
+            switch (pstrAccountSubMenus)
+            {
+                case "ADMINS":
+                    _driverWait.Until(ExpectedConditions.ElementExists(By.XPath(STR_ACCOUNT_ADMINS_LNK)));
+                    _driverWait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(STR_ACCOUNT_ADMINS_LNK)));
+                    objAccountAdminsLnk.Click();
+                    break;
+                case "SUPPLIERS":
+                    _driverWait.Until(ExpectedConditions.ElementExists(By.XPath(STR_ACCOUNT_SUPPLIERS_LNK)));
+                    _driverWait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(STR_ACCOUNT_SUPPLIERS_LNK)));
+                    objAccountSuppliersLnk.Click();
+                    break;
+                case "CUSTOMERS":
+                    _driverWait.Until(ExpectedConditions.ElementExists(By.XPath(STR_ACCOUNT_CUSTOMERS_LNK)));
+                    _driverWait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(STR_ACCOUNT_CUSTOMERS_LNK)));
+                    objAccountCustomersLnk.Click();
+                    break;
+                case "GUESTCUSTOMERS":
+                    _driverWait.Until(ExpectedConditions.ElementExists(By.XPath(STR_ACCOUNT_GCUSTOMERS_LNK)));
+                    _driverWait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(STR_ACCOUNT_GCUSTOMERS_LNK)));
+                    objAccountGcustomersLnk.Click();
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        //FistName Data Order
+        public static void fnSortFirstName()
+        {
+            _driverWait.Until(ExpectedConditions.ElementExists(By.XPath(STR_FIRSTNAME_LBL)));
+            _driverWait.Until(ExpectedConditions.ElementIsVisible(By.XPath(STR_FIRSTNAME_LBL)));
+            _driverWait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(STR_FIRSTNAME_LBL)));
+
+
+            //Descending Order
+            Thread.Sleep(1000);
+            //objDriver.FindElement(By.XPath("//th[@data-orderby='pt_accounts.ai_first_name']")).Click();
+            objFirstNameLbl.Click();
+            //_driverWait.Until(ExpectedConditions.ElementExists(By.XPath(STR_FIRSTNAME_LBL)));
+            //_driverWait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(STR_FIRSTNAME_LBL)));
+
+            Thread.Sleep(1000);
+            string dataOrderDesc = _objDriver.FindElement(By.XPath(STR_FIRSTNAME_LBL)).GetAttribute("data-order");
+            if (dataOrderDesc == "asc")
+            {
+                objTest.Log(Status.Pass, "Correct Descending Order");
+            }
+            else
+            {
+                objTest.Log(Status.Fail, "Incorrect Descending Order");
+            }
+
+            // Order
+            _driverWait.Until(ExpectedConditions.ElementExists(By.XPath(STR_FIRSTNAME_LBL)));
+            _driverWait.Until(ExpectedConditions.ElementIsVisible(By.XPath(STR_FIRSTNAME_LBL)));
+            _driverWait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(STR_FIRSTNAME_LBL)));
+            Thread.Sleep(1000);
+            objFirstNameLbl.Click();
+            //_driverWait.Until(ExpectedConditions.ElementExists(By.XPath(STR_FIRSTNAME_LBL)));
+            //_driverWait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(STR_FIRSTNAME_LBL)));
+
+            Thread.Sleep(1000);
+            string dataOrderAsc = _objDriver.FindElement(By.XPath(STR_FIRSTNAME_LBL)).GetAttribute("data-order");
+            if (dataOrderAsc == "desc")
+            {
+                objTest.Log(Status.Pass, "Correct Ascending Order");
+            }
+            else
+            {
+                objTest.Log(Status.Fail, "Incorrect Ascending Order");
+            }
+
+        }
+
+
+        //LastName Data Order
+        public static void fnSortLastName()
+        {
+            _driverWait.Until(ExpectedConditions.ElementExists(By.XPath(STR_LASTNAME_LBL)));
+            _driverWait.Until(ExpectedConditions.ElementIsVisible(By.XPath(STR_LASTNAME_LBL)));
+            _driverWait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(STR_LASTNAME_LBL)));
+
+
+            //Descending Order
+            Thread.Sleep(1000);
+            //objDriver.FindElement(By.XPath("//th[@data-orderby='pt_accounts.ai_first_name']")).Click();
+            objLastNameLbl.Click();
+            //_driverWait.Until(ExpectedConditions.ElementExists(By.XPath(STR_FIRSTNAME_LBL)));
+            //_driverWait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(STR_FIRSTNAME_LBL)));
+
+            Thread.Sleep(1000);
+            string dataOrderDesc = _objDriver.FindElement(By.XPath(STR_LASTNAME_LBL)).GetAttribute("data-order");
+            if (dataOrderDesc == "desc")
+            {
+                objTest.Log(Status.Pass, "Correct Descending Order");
+            }
+            else
+            {
+                objTest.Log(Status.Fail, "Incorrect Descending Order");
+            }
+
+            // Order
+            _driverWait.Until(ExpectedConditions.ElementExists(By.XPath(STR_LASTNAME_LBL)));
+            _driverWait.Until(ExpectedConditions.ElementIsVisible(By.XPath(STR_LASTNAME_LBL)));
+            _driverWait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(STR_LASTNAME_LBL)));
+            Thread.Sleep(1000);
+            objLastNameLbl.Click();
+            //_driverWait.Until(ExpectedConditions.ElementExists(By.XPath(STR_FIRSTNAME_LBL)));
+            //_driverWait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(STR_FIRSTNAME_LBL)));
+
+            Thread.Sleep(1000);
+            string dataOrderAsc = _objDriver.FindElement(By.XPath(STR_LASTNAME_LBL)).GetAttribute("data-order");
+            if (dataOrderAsc == "asc")
+            {
+                objTest.Log(Status.Pass, "Correct Ascending Order");
+            }
+            else
+            {
+                objTest.Log(Status.Fail, "Incorrect Ascending Order");
+            }
+
+        }
+
+
+        //Email Data Order
+        public static void fnSortEmail()
+        {
+            _driverWait.Until(ExpectedConditions.ElementExists(By.XPath(STR_EMAIL_LBL)));
+            _driverWait.Until(ExpectedConditions.ElementIsVisible(By.XPath(STR_EMAIL_LBL)));
+            _driverWait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(STR_EMAIL_LBL)));
+
+
+            //Descending Order
+            Thread.Sleep(1000);
+            //objDriver.FindElement(By.XPath("//th[@data-orderby='pt_accounts.ai_first_name']")).Click();
+            objEmailLbl.Click();
+            //_driverWait.Until(ExpectedConditions.ElementExists(By.XPath(STR_FIRSTNAME_LBL)));
+            //_driverWait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(STR_FIRSTNAME_LBL)));
+
+            Thread.Sleep(1000);
+            string dataOrderDesc = _objDriver.FindElement(By.XPath(STR_EMAIL_LBL)).GetAttribute("data-order");
+            if (dataOrderDesc == "asc")
+            {
+                objTest.Log(Status.Pass, "Correct Descending Order");
+            }
+            else
+            {
+                objTest.Log(Status.Fail, "Incorrect Descending Order");
+            }
+
+            // Order
+            _driverWait.Until(ExpectedConditions.ElementExists(By.XPath(STR_EMAIL_LBL)));
+            _driverWait.Until(ExpectedConditions.ElementIsVisible(By.XPath(STR_EMAIL_LBL)));
+            _driverWait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(STR_EMAIL_LBL)));
+            Thread.Sleep(1000);
+            objEmailLbl.Click();
+            //_driverWait.Until(ExpectedConditions.ElementExists(By.XPath(STR_FIRSTNAME_LBL)));
+            //_driverWait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(STR_FIRSTNAME_LBL)));
+
+            Thread.Sleep(1000);
+            string dataOrderAsc = _objDriver.FindElement(By.XPath(STR_EMAIL_LBL)).GetAttribute("data-order");
+            if (dataOrderAsc == "desc")
+            {
+                objTest.Log(Status.Pass, "Correct Ascending Order");
+            }
+            else
+            {
+                objTest.Log(Status.Fail, "Incorrect Ascending Order");
+            }
+
+        }
+
+
+        //Active Data Order
+        public static void fnSortActive()
+        {
+            _driverWait.Until(ExpectedConditions.ElementExists(By.XPath(STR_ACTIVE_LBL)));
+            _driverWait.Until(ExpectedConditions.ElementIsVisible(By.XPath(STR_ACTIVE_LBL)));
+            _driverWait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(STR_ACTIVE_LBL)));
+
+
+            //Descending Order
+            Thread.Sleep(1000);
+            //objDriver.FindElement(By.XPath("//th[@data-orderby='pt_accounts.ai_first_name']")).Click();
+            objActiveLbl.Click();
+            //_driverWait.Until(ExpectedConditions.ElementExists(By.XPath(STR_FIRSTNAME_LBL)));
+            //_driverWait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(STR_FIRSTNAME_LBL)));
+
+            Thread.Sleep(1000);
+            string dataOrderDesc = _objDriver.FindElement(By.XPath(STR_ACTIVE_LBL)).GetAttribute("data-order");
+            if (dataOrderDesc == "desc")
+            {
+                objTest.Log(Status.Pass, "Correct Descending Order");
+            }
+            else
+            {
+                objTest.Log(Status.Fail, "Incorrect Descending Order");
+            }
+
+            // Order
+            _driverWait.Until(ExpectedConditions.ElementExists(By.XPath(STR_ACTIVE_LBL)));
+            _driverWait.Until(ExpectedConditions.ElementIsVisible(By.XPath(STR_ACTIVE_LBL)));
+            _driverWait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(STR_ACTIVE_LBL)));
+            Thread.Sleep(1000);
+            objActiveLbl.Click();
+            //_driverWait.Until(ExpectedConditions.ElementExists(By.XPath(STR_FIRSTNAME_LBL)));
+            //_driverWait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(STR_FIRSTNAME_LBL)));
+
+            Thread.Sleep(1000);
+            string dataOrderAsc = _objDriver.FindElement(By.XPath(STR_ACTIVE_LBL)).GetAttribute("data-order");
+            if (dataOrderAsc == "asc")
+            {
+                objTest.Log(Status.Pass, "Correct Ascending Order");
+            }
+            else
+            {
+                objTest.Log(Status.Fail, "Incorrect Ascending Order");
+            }
+
+        }
+
+
+        //Last Login Data Order
+        public static void fnSortLastLogin()
+        {
+            _driverWait.Until(ExpectedConditions.ElementExists(By.XPath(STR_LASTLOGIN_LBL)));
+            _driverWait.Until(ExpectedConditions.ElementIsVisible(By.XPath(STR_LASTLOGIN_LBL)));
+            _driverWait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(STR_LASTLOGIN_LBL)));
+
+
+            //Descending Order
+            Thread.Sleep(1000);
+            //objDriver.FindElement(By.XPath("//th[@data-orderby='pt_accounts.ai_first_name']")).Click();
+            objLastLoginLbl.Click();
+            //_driverWait.Until(ExpectedConditions.ElementExists(By.XPath(STR_FIRSTNAME_LBL)));
+            //_driverWait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(STR_FIRSTNAME_LBL)));
+
+            Thread.Sleep(1000);
+            string dataOrderDesc = _objDriver.FindElement(By.XPath(STR_LASTLOGIN_LBL)).GetAttribute("data-order");
+            if (dataOrderDesc == "asc")
+            {
+                objTest.Log(Status.Pass, "Correct Descending Order");
+            }
+            else
+            {
+                objTest.Log(Status.Fail, "Incorrect Descending Order");
+            }
+
+            // Order
+            _driverWait.Until(ExpectedConditions.ElementExists(By.XPath(STR_LASTLOGIN_LBL)));
+            _driverWait.Until(ExpectedConditions.ElementIsVisible(By.XPath(STR_LASTLOGIN_LBL)));
+            _driverWait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(STR_LASTLOGIN_LBL)));
+            Thread.Sleep(1000);
+            objLastLoginLbl.Click();
+            //_driverWait.Until(ExpectedConditions.ElementExists(By.XPath(STR_FIRSTNAME_LBL)));
+            //_driverWait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(STR_FIRSTNAME_LBL)));
+
+            Thread.Sleep(1000);
+            string dataOrderAsc = _objDriver.FindElement(By.XPath(STR_LASTLOGIN_LBL)).GetAttribute("data-order");
+            if (dataOrderAsc == "desc")
+            {
+                objTest.Log(Status.Pass, "Correct Ascending Order");
+            }
+            else
+            {
+                objTest.Log(Status.Fail, "Incorrect Ascending Order");
+            }
+
+        }
+
+
+
+
 
 
 

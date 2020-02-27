@@ -69,6 +69,7 @@ namespace AutomationFrameworkC.Base_Files
             objDriver = new ChromeDriver();
             objDriver.Url = strUrl;
             objDriver.Manage().Window.Maximize();
+            //objDriver = new clsPHPTravels_Login
             objclsDriver = new clsDriver(objDriver); //TEST
         }
         

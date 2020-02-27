@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace AutomationFrameworkC.Test_Cases
@@ -14,19 +15,22 @@ namespace AutomationFrameworkC.Test_Cases
     class Test_PHPTravels : BaseTest
     {
         clsPHPTravels_LoginPage objPHP;
-        clsPHPTravels_DashboardPage objDash;
+        //clsPHPTravels_DashboardPage objDash;
 
 
-        [Test]
+        [Test, Order (0)]
         public void Test_M9Exercise()
         {
-            /*Init Nunit Test*/
-            objTest = objExtent.CreateTest(TestContext.CurrentContext.Test.Name);
             //Init objects
             objPHP = new clsPHPTravels_LoginPage(objDriver);
+
+            /*Init Nunit Test*/
+            objTest = objExtent.CreateTest(TestContext.CurrentContext.Test.Name);
+            
            // objDash = new clsPHPTravels_DashboardPage(objDriver);
             //Login Action
             Assert.AreEqual(true, objDriver.Title.Contains("Administator Login"), "The Login Page was not loaded correctly.");
+            
             clsPHPTravels_LoginPage.fnEnterEmail(strUser);
             clsPHPTravels_LoginPage.fnEnterPassword(strPassword);
             clsPHPTravels_LoginPage.fnClickLoginButton();
@@ -45,10 +49,54 @@ namespace AutomationFrameworkC.Test_Cases
             }
 
             clsPHPTravels_LoginPage.fnClickMenu("UPDATES");
-            clsPHPTravels_LoginPage.fnWaitHamburgerMenu();
-            Assert.AreEqual(true, objDriver.Title.Contains("Updates"), "The Updates page was not loaded correctly.");
+            Thread.Sleep(1000);
 
             clsPHPTravels_LoginPage.fnClickMenu("ACCOUNTS");
+            Thread.Sleep(1000);
+            //clsPHPTravels_LoginPage.fnWaitHamburgerMenu();
+            //Assert.AreEqual(true, objDriver.Title.Contains("Updates"), "The Updates page was not loaded correctly.");
+
+
+            //clsPHPTravels_LoginPage.fnClickMenu("ACCOUNTS");
+            
+
+            clsPHPTravels_LoginPage.fnClickAccountSubMenus("ADMINS");
+            clsPHPTravels_LoginPage.fnSortFirstName();
+            clsPHPTravels_LoginPage.fnSortLastName();
+            clsPHPTravels_LoginPage.fnSortEmail();
+            clsPHPTravels_LoginPage.fnSortActive();
+            clsPHPTravels_LoginPage.fnSortLastLogin();
+            Thread.Sleep(1000);
+
+            clsPHPTravels_LoginPage.fnClickMenu("ACCOUNTS");
+            Thread.Sleep(1000);
+            clsPHPTravels_LoginPage.fnClickAccountSubMenus("SUPPLIERS");
+            clsPHPTravels_LoginPage.fnSortFirstName();
+            clsPHPTravels_LoginPage.fnSortLastName();
+            clsPHPTravels_LoginPage.fnSortEmail();
+            clsPHPTravels_LoginPage.fnSortActive();
+            clsPHPTravels_LoginPage.fnSortLastLogin();
+            Thread.Sleep(1000);
+
+            clsPHPTravels_LoginPage.fnClickMenu("ACCOUNTS");
+            Thread.Sleep(1000);
+            clsPHPTravels_LoginPage.fnClickAccountSubMenus("CUSTOMERS");
+            clsPHPTravels_LoginPage.fnSortFirstName();
+            clsPHPTravels_LoginPage.fnSortLastName();
+            clsPHPTravels_LoginPage.fnSortEmail();
+            clsPHPTravels_LoginPage.fnSortActive();
+            clsPHPTravels_LoginPage.fnSortLastLogin();
+            Thread.Sleep(1000);
+
+            clsPHPTravels_LoginPage.fnClickMenu("ACCOUNTS");
+            Thread.Sleep(1000);
+            clsPHPTravels_LoginPage.fnClickAccountSubMenus("GUESTCUSTOMERS");
+            clsPHPTravels_LoginPage.fnSortFirstName();
+            clsPHPTravels_LoginPage.fnSortLastName();
+            clsPHPTravels_LoginPage.fnSortEmail();
+            clsPHPTravels_LoginPage.fnSortActive();
+            clsPHPTravels_LoginPage.fnSortLastLogin();
+            Thread.Sleep(1000);
             //Check menús
 
 
