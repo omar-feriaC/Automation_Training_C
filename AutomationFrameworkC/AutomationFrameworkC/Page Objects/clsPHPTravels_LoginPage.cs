@@ -17,20 +17,14 @@ namespace AutomationFrameworkC.Page_Objects
         /*ATTRIBUTES*/
         public static WebDriverWait _driverWait;
         private static IWebDriver _objDriver;
-        //private static By strSideMenus;
-        //private static string strSideSubMenus;
 
         /*LOCATORS DESCRIPTION*/
         readonly static string STR_EMAIL_TXT = "//input[@name='email' and @type='text']";
-        //readonly static string STR_EMAIL_TXT2 = "email";
         readonly static string STR_PASSWORD_TXT = "password";
         readonly static string STRREMEMBERME_LNK = "//label[@class='checkbox']";
-        //readonly static string STRREMEMBERME_LNK2 = "//label[@class='checkbox']";
         readonly static string STR_FORGOTPASS_LNK = "//*[text()='Forget Password']";
         readonly static string STR_LOGIN_BTN = "//span[text()='Login']";
         readonly static string STR_HAMBURGER_BTN = "sidebarCollapse";
-
-        //readonly static string STR_SIDEMENULIST_LST = "//ul[@id='social-sidebar-menu']/li";
 
         //Side Menu
         readonly static string STR_DASHBOARD_LNK = "//a[substring(@href, string-length(@href) -string-length('admin') +1) = 'admin']";
@@ -58,7 +52,7 @@ namespace AutomationFrameworkC.Page_Objects
         readonly static string STR_ACCOUNT_GCUSTOMERS_LNK = "//ul[@id='ACCOUNTS']//a[contains(text(),'GuestCustomers')]";
 
         //Table lables
-        readonly static string STR_FIRSTNAME_LBL = "//th[contains(text(),'First Name')]";//"//th[@data-orderby='pt_accounts.ai_first_name']";
+        readonly static string STR_FIRSTNAME_LBL = "//th[contains(text(),'First Name')]";
         readonly static string STR_LASTNAME_LBL = "//th[contains(text(),'Last Name')]";
         readonly static string STR_EMAIL_LBL = "//th[contains(text(),'Email')]";
         readonly static string STR_ACTIVE_LBL = "//th[contains(text(),'Active')]";
@@ -110,10 +104,7 @@ namespace AutomationFrameworkC.Page_Objects
         private static IWebElement objActiveLbl => _objDriver.FindElement(By.XPath(STR_ACTIVE_LBL));
         private static IWebElement objLastLoginLbl => _objDriver.FindElement(By.XPath(STR_LASTLOGIN_LBL));
 
-        //private static IList<IWebElement> objSideMenuListLst = objDriver.FindElements(By.XPath(STR_SIDEMENULIST_LST));
-        //FindElements(By.XPath(STR_SIDEMENULIST_LST));
-
-
+        
         /*METHODS/FUNCTIONS*/
 
         //Email
@@ -124,10 +115,6 @@ namespace AutomationFrameworkC.Page_Objects
 
         public static void fnEnterEmail(string pstrEmail)
         {
-            //clsDriver objclsDriver;
-            //objclsDriver = new clsDriver(_objDriver);
-            //_driverWait.Until(ExpectedConditions.ElementExists(By.XPath(STR_EMAIL_TXT)));
-            //_driverWait.Until(ExpectedConditions.ElementIsVisible(By.Name(STR_EMAIL_TXT)));
             clsDriver.fnWaitForElementToExist(By.XPath(STR_EMAIL_TXT));
             clsDriver.fnWaitForElementToBeVisible(By.XPath(STR_EMAIL_TXT));
 
@@ -308,10 +295,7 @@ namespace AutomationFrameworkC.Page_Objects
 
             //Descending Order
             Thread.Sleep(1000);
-            //objDriver.FindElement(By.XPath("//th[@data-orderby='pt_accounts.ai_first_name']")).Click();
             objFirstNameLbl.Click();
-            //_driverWait.Until(ExpectedConditions.ElementExists(By.XPath(STR_FIRSTNAME_LBL)));
-            //_driverWait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(STR_FIRSTNAME_LBL)));
 
             Thread.Sleep(1000);
             string dataOrderDesc = _objDriver.FindElement(By.XPath(STR_FIRSTNAME_LBL)).GetAttribute("data-order");
@@ -324,14 +308,12 @@ namespace AutomationFrameworkC.Page_Objects
                 objTest.Log(Status.Fail, "Incorrect Descending Order");
             }
 
-            // Order
+            //Ascending Order
             _driverWait.Until(ExpectedConditions.ElementExists(By.XPath(STR_FIRSTNAME_LBL)));
             _driverWait.Until(ExpectedConditions.ElementIsVisible(By.XPath(STR_FIRSTNAME_LBL)));
             _driverWait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(STR_FIRSTNAME_LBL)));
             Thread.Sleep(1000);
             objFirstNameLbl.Click();
-            //_driverWait.Until(ExpectedConditions.ElementExists(By.XPath(STR_FIRSTNAME_LBL)));
-            //_driverWait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(STR_FIRSTNAME_LBL)));
 
             Thread.Sleep(1000);
             string dataOrderAsc = _objDriver.FindElement(By.XPath(STR_FIRSTNAME_LBL)).GetAttribute("data-order");
@@ -357,10 +339,7 @@ namespace AutomationFrameworkC.Page_Objects
 
             //Descending Order
             Thread.Sleep(1000);
-            //objDriver.FindElement(By.XPath("//th[@data-orderby='pt_accounts.ai_first_name']")).Click();
             objLastNameLbl.Click();
-            //_driverWait.Until(ExpectedConditions.ElementExists(By.XPath(STR_FIRSTNAME_LBL)));
-            //_driverWait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(STR_FIRSTNAME_LBL)));
 
             Thread.Sleep(1000);
             string dataOrderDesc = _objDriver.FindElement(By.XPath(STR_LASTNAME_LBL)).GetAttribute("data-order");
@@ -373,14 +352,12 @@ namespace AutomationFrameworkC.Page_Objects
                 objTest.Log(Status.Fail, "Incorrect Descending Order");
             }
 
-            // Order
+            //Ascending Order
             _driverWait.Until(ExpectedConditions.ElementExists(By.XPath(STR_LASTNAME_LBL)));
             _driverWait.Until(ExpectedConditions.ElementIsVisible(By.XPath(STR_LASTNAME_LBL)));
             _driverWait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(STR_LASTNAME_LBL)));
             Thread.Sleep(1000);
             objLastNameLbl.Click();
-            //_driverWait.Until(ExpectedConditions.ElementExists(By.XPath(STR_FIRSTNAME_LBL)));
-            //_driverWait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(STR_FIRSTNAME_LBL)));
 
             Thread.Sleep(1000);
             string dataOrderAsc = _objDriver.FindElement(By.XPath(STR_LASTNAME_LBL)).GetAttribute("data-order");
@@ -406,10 +383,7 @@ namespace AutomationFrameworkC.Page_Objects
 
             //Descending Order
             Thread.Sleep(1000);
-            //objDriver.FindElement(By.XPath("//th[@data-orderby='pt_accounts.ai_first_name']")).Click();
             objEmailLbl.Click();
-            //_driverWait.Until(ExpectedConditions.ElementExists(By.XPath(STR_FIRSTNAME_LBL)));
-            //_driverWait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(STR_FIRSTNAME_LBL)));
 
             Thread.Sleep(1000);
             string dataOrderDesc = _objDriver.FindElement(By.XPath(STR_EMAIL_LBL)).GetAttribute("data-order");
@@ -422,14 +396,12 @@ namespace AutomationFrameworkC.Page_Objects
                 objTest.Log(Status.Fail, "Incorrect Descending Order");
             }
 
-            // Order
+            //Ascending Order
             _driverWait.Until(ExpectedConditions.ElementExists(By.XPath(STR_EMAIL_LBL)));
             _driverWait.Until(ExpectedConditions.ElementIsVisible(By.XPath(STR_EMAIL_LBL)));
             _driverWait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(STR_EMAIL_LBL)));
             Thread.Sleep(1000);
             objEmailLbl.Click();
-            //_driverWait.Until(ExpectedConditions.ElementExists(By.XPath(STR_FIRSTNAME_LBL)));
-            //_driverWait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(STR_FIRSTNAME_LBL)));
 
             Thread.Sleep(1000);
             string dataOrderAsc = _objDriver.FindElement(By.XPath(STR_EMAIL_LBL)).GetAttribute("data-order");
@@ -455,10 +427,7 @@ namespace AutomationFrameworkC.Page_Objects
 
             //Descending Order
             Thread.Sleep(1000);
-            //objDriver.FindElement(By.XPath("//th[@data-orderby='pt_accounts.ai_first_name']")).Click();
             objActiveLbl.Click();
-            //_driverWait.Until(ExpectedConditions.ElementExists(By.XPath(STR_FIRSTNAME_LBL)));
-            //_driverWait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(STR_FIRSTNAME_LBL)));
 
             Thread.Sleep(1000);
             string dataOrderDesc = _objDriver.FindElement(By.XPath(STR_ACTIVE_LBL)).GetAttribute("data-order");
@@ -471,14 +440,12 @@ namespace AutomationFrameworkC.Page_Objects
                 objTest.Log(Status.Fail, "Incorrect Descending Order");
             }
 
-            // Order
+            //Ascending Order
             _driverWait.Until(ExpectedConditions.ElementExists(By.XPath(STR_ACTIVE_LBL)));
             _driverWait.Until(ExpectedConditions.ElementIsVisible(By.XPath(STR_ACTIVE_LBL)));
             _driverWait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(STR_ACTIVE_LBL)));
             Thread.Sleep(1000);
             objActiveLbl.Click();
-            //_driverWait.Until(ExpectedConditions.ElementExists(By.XPath(STR_FIRSTNAME_LBL)));
-            //_driverWait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(STR_FIRSTNAME_LBL)));
 
             Thread.Sleep(1000);
             string dataOrderAsc = _objDriver.FindElement(By.XPath(STR_ACTIVE_LBL)).GetAttribute("data-order");
@@ -504,10 +471,7 @@ namespace AutomationFrameworkC.Page_Objects
 
             //Descending Order
             Thread.Sleep(1000);
-            //objDriver.FindElement(By.XPath("//th[@data-orderby='pt_accounts.ai_first_name']")).Click();
             objLastLoginLbl.Click();
-            //_driverWait.Until(ExpectedConditions.ElementExists(By.XPath(STR_FIRSTNAME_LBL)));
-            //_driverWait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(STR_FIRSTNAME_LBL)));
 
             Thread.Sleep(1000);
             string dataOrderDesc = _objDriver.FindElement(By.XPath(STR_LASTLOGIN_LBL)).GetAttribute("data-order");
@@ -520,14 +484,12 @@ namespace AutomationFrameworkC.Page_Objects
                 objTest.Log(Status.Fail, "Incorrect Descending Order");
             }
 
-            // Order
+            //Ascending Order
             _driverWait.Until(ExpectedConditions.ElementExists(By.XPath(STR_LASTLOGIN_LBL)));
             _driverWait.Until(ExpectedConditions.ElementIsVisible(By.XPath(STR_LASTLOGIN_LBL)));
             _driverWait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(STR_LASTLOGIN_LBL)));
             Thread.Sleep(1000);
             objLastLoginLbl.Click();
-            //_driverWait.Until(ExpectedConditions.ElementExists(By.XPath(STR_FIRSTNAME_LBL)));
-            //_driverWait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(STR_FIRSTNAME_LBL)));
 
             Thread.Sleep(1000);
             string dataOrderAsc = _objDriver.FindElement(By.XPath(STR_LASTLOGIN_LBL)).GetAttribute("data-order");
