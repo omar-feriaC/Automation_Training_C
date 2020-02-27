@@ -20,26 +20,27 @@ namespace AutomationFrameworkC.Base_Files
         #endregion variables
         #region Constructor
         /*CONSTRUCTOR*/
+        //public clsDriver(IWebDriver pobjDriver)
         public clsDriver(IWebDriver pobjDriver)
         {
             _objDriver = pobjDriver;
-            _driverWait = new WebDriverWait(objDriver, new TimeSpan(0, 0, 40));
+            _driverWait = new WebDriverWait(_objDriver, new TimeSpan(0, 0, 40));
         }
         #endregion Constructor
         #region Methods
         /*METHODS*/
-        private static IWebElement fnWaitForElementThread(IWebDriver pobjDriver, By by, string pstrDesc)
+        private IWebElement fnWaitForElementThread(IWebDriver pobjDriver, By by, string pstrDesc)
         {
             objElement = pobjDriver.FindElement(by);
             return objElement;
         }
-        private static IWebElement fnWaitForElementDriver(IWebDriver pobjDriver, By by)
+        private IWebElement fnWaitForElementDriver(IWebDriver pobjDriver, By by)
         {
             objElement = _driverWait.Until(ExpectedConditions.ElementExists(by));
             objElement = _driverWait.Until(ExpectedConditions.ElementIsVisible(by));
             return objElement;
         }
-        private static IWebElement fnWaitForElementDriverFluent(IWebDriver pobjDriver, By by)
+        private IWebElement fnWaitForElementDriverFluent(IWebDriver pobjDriver, By by)
         {
             DefaultWait<IWebDriver> fluentWait = new DefaultWait<IWebDriver>(_objDriver);
             fluentWait.Timeout = TimeSpan.FromSeconds(5);
@@ -48,33 +49,60 @@ namespace AutomationFrameworkC.Base_Files
             IWebElement searchResult = fluentWait.Until(x => x.FindElement(By.Id("search_result")));
             return objElement;
         }
-
-        public static IWebElement fnFindElement(By by)
+        public IWebElement fnFindElement(By by)
+        {
+            objElement = _objDriver.FindElement(by);
+            return objElement;
+        }
+        public string fnPrintTxtElement(By by)
+        {
+            objElement = _objDriver.FindElement(by);
+            return objElement.Text;
+        }
+        public int fnCountElements(string pstrXpath)
+        {
+            int myCount = _objDriver.FindElements(By.XPath(pstrXpath)).Count;
+            return myCount;
+        }
+        public IWebElement fnFindElementThatExist(By by)
         {
             objElement = _driverWait.Until(ExpectedConditions.ElementExists(by));
             return objElement;
         }
-
+        /*Wait for to check the title of the website*/
+        public bool fnWaitWebSiteTitleContains(string pstrUrlExpected)
+        {
+            {
+                if (_driverWait.Until(ExpectedConditions.TitleContains(pstrUrlExpected)))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
         /*Wait for element to Exist*/
-        public static IWebElement fnWaitForElementToExist(By by)
+        public IWebElement fnWaitForElementToExist(By by)
         {
             objElement = _driverWait.Until(ExpectedConditions.ElementExists(by));
             return objElement;
         }
         /*Wait for element to be visible*/
-        public static IWebElement fnWaitForElementToBeVisible(By by)
+        public IWebElement fnWaitForElementToBeVisible(By by)
         {
             objElement = _driverWait.Until(ExpectedConditions.ElementIsVisible(by));
             return objElement;
         }
         /*Wait for element to be clickable*/
-        public static IWebElement fnWaitForElementToBeClickable(By by)
+        public IWebElement fnWaitForElementToBeClickable(By by)
         {
             objElement = _driverWait.Until(ExpectedConditions.ElementToBeClickable(by));
             return objElement;
         }
         /*Wait for element to be selected*/
-        public static bool fnWaitForElementToBeSelected(By by)
+        public bool fnWaitForElementToBeSelected(By by)
         {
             if (_driverWait.Until(ExpectedConditions.ElementToBeSelected(by)))
             {
@@ -85,8 +113,8 @@ namespace AutomationFrameworkC.Base_Files
                 return false;
             }
         }
-        /*Wait for element to check if its in the page*/
-        public static bool fnIsElementPresent(By by)
+        /*return true or false if element is in the page*/
+        public bool fnIsElementPresent(By by)
         {
             try
             {
@@ -98,9 +126,12 @@ namespace AutomationFrameworkC.Base_Files
                 return false;
             }
         }
-        
-
-        
+        /*staleness*/
+        public bool fnStalenessElement(By by)
+        {
+            _driverWait.Until(ExpectedConditions.StalenessOf(fnFindElement(by)));
+            return true;
+        }
         #endregion Methods
     }
 }

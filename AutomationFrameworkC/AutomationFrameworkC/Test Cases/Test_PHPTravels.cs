@@ -8,12 +8,13 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-
 namespace AutomationFrameworkC.Test_Cases
 {
     class Test_PHPTravels : BaseTest
     {
-        //private static IWebDriver _objDriver;
+        //VARIABLES
+        string[] arrSubMenu = { "ADMINS", "SUPPLIERS", "CUSTOMERS", "GUESTCUSTOMERS"};
+        string[] arrWebsiteTitles = { "Admins Management", "Suppliers Management", "Customers Management", "Guest Management" };
         clsPHPTravels_LoginPage objPHP;
         [Test, Order(0)]
         public void Test_M9ExercisePart1()
@@ -24,26 +25,50 @@ namespace AutomationFrameworkC.Test_Cases
             //Login Action
             objRM.fnAddStepLog(objTest, "Before Login.", "Pass");
             Assert.AreEqual(true, objDriver.Title.Contains("Administator Login"), "The Login Page was not loaded correctly.");
-            clsPHPTravels_LoginPage.fnEnterEmail(strUser);
-            clsPHPTravels_LoginPage.fnEnterPassword(strPass);
-            clsPHPTravels_LoginPage.fnClickLoginButton();
-            clsPHPTravels_LoginPage.fnWaitHamburgerMenu();
+            objPHP.fnEnterEmail(strUser);
+            objPHP.fnEnterPassword(strPass);
+            objPHP.fnClickLoginButton();
+            objPHP.fnWaitHamburgerMenu();
             Assert.AreEqual(true, objDriver.Title.Contains("Dashboard"), "The Dashboard was not loaded correctly.");
-            clsPHPTravels_LoginPage.fnCheckStatsList();
+            objPHP.fnCheckStatsList();
             objRM.fnAddStepLogWithSnapshot(objTest, objDriver, "After Login.", "LoginEvidence.png", "Pass");
-            clsPHPTravels_LoginPage.fnActivateTheMenu();
         }
-
-        [Test, Order(0)]
+        [Test, Order(1)]
         public void Test_M9ExercisePart2()
         {
+            Test_M9ExercisePart1();
             //Init objects
             objTest = objExtent.CreateTest(TestContext.CurrentContext.Test.Name);
-            objPHP = new clsPHPTravels_LoginPage(objDriver);
-            //Login Action
-            clsPHPTravels_LoginPage.fnActivateTheMenu();
+            int intAmountOfSubMenu = objPHP.fnAmountofSubmenus(arrSubMenu); //Amount of submenus specified 
+            int intAmountOfHeaders = objPHP.fnAmountofHeaders();//Amount of headers in the table 
+            objPHP.fnActivateTheMenu();
 
+            //foreach (string menu in arrSubMenu.ToList())
+            //{
+            //    objPHP.fnEnterAtMenuSubMenu(strMenu, arrSubMenu, arrWebsiteTitles, i);
+            //    string i = menu; //menu obtains the string
+            //    for (int e = 0; e < objPHP.fnAmountofHeaders(); e++)//Manipulate the headers of the tables
+            //    {
+            //        int a = e + 1;
+            //        objPHP.fnClickTheHeader(a);//Check each of the headers
+            //        objPHP.fnAscOrder();
+            //        objPHP.fnClickTheHeader(a);
+            //        objPHP.fnDescOrder();
+            //    }
+            //}
+
+            //for (int i = 0; i < intAmountOfSubMenu; i++) //Manipulate the Menu
+            //{
+            //    objPHP.fnEnterAtMenuSubMenu(strMenu, arrSubMenu, arrWebsiteTitles, i);
+            //    for (int e = 0; e < objPHP.fnAmountofHeaders(); e++)//Manipulate the headers of the tables
+            //    {
+            //        int a = e + 1;
+            //        objPHP.fnClickTheHeader(a);//Check each of the headers
+            //        objPHP.fnAscOrder();
+            //        objPHP.fnClickTheHeader(a);
+            //        objPHP.fnDescOrder();
+            //    }
+            //}
         }
-
     }
 }

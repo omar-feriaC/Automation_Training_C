@@ -19,13 +19,17 @@ namespace AutomationFrameworkC.Base_Files
         //*                V A R I A B L E S
         //**************************************************
         /*Webdriver instances*/
-        public static IWebDriver objDriver;
+        public IWebDriver objDriver;
         /*URL*/
         private static string strUrl = ConfigurationManager.AppSettings.Get("url");
         /*USER AND PASSWORD*/
         public static readonly string strUser = ConfigurationManager.AppSettings.Get("email");
         public static readonly string strPass = ConfigurationManager.AppSettings.Get("password");
         public static readonly string strApplication = ConfigurationManager.AppSettings.Get("application");
+        /*AFTER LOGIN*/
+        public static readonly string strMenu = ConfigurationManager.AppSettings.Get("menu");
+        public static readonly string strSubMenu = ConfigurationManager.AppSettings.Get("submenu");
+        public static readonly string strWebSiteTitleExpected = ConfigurationManager.AppSettings.Get("sitetitleexpected");
         /*Extent Reports Instances*/
         public static clsReportManager objRM = new clsReportManager();
         public static ExtentHtmlReporter objHtmlReporter;
@@ -61,7 +65,7 @@ namespace AutomationFrameworkC.Base_Files
         }
         //SetUp Before each test case
         [SetUp]
-        public static void fnSetUp()
+        public void fnSetUp()
         {
             objDriver = new ChromeDriver();
             objDriver.Url = strUrl;
@@ -69,7 +73,7 @@ namespace AutomationFrameworkC.Base_Files
         }
         //TearDown After each test case
         [TearDown]
-        public static void fnTearDown()
+        public void fnTearDown()
         {
             objRM.fnTestCaseResult(objTest, objExtent, objDriver);
             objDriver.Close();
