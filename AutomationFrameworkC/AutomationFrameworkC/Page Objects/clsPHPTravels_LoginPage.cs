@@ -15,36 +15,30 @@ namespace AutomationFrameworkC.Page_Objects
     {
         /*ATTRIBUTES*/
         public static WebDriverWait _driverWait;
-        
         private static IWebDriver _objDriver;
 
         /*LOCATORS DESCRIPTION*/
         readonly static string STR_EMAIL_TXT = "email";
-    
         readonly static string STR_PASSWORD_TXT = "password";
         readonly static string STRREMEMBERME_LNK = "//label[@class='checkbox']";
-        
         readonly static string STR_FORGOTPASS_LNK = "//*[text()='Forget Password']";
         readonly static string  STR_LOGIN_BTN = "//span[text()='Login']";
         readonly static string STR_HAMBURGER_BTN = "sidebarCollapse";
-
-        private static Base_Files.clsDriver clsdrivers;
-
 
         /*CONSTRUCTOR*/
         public clsPHPTravels_LoginPage(IWebDriver pobjDriver)
         {
             _objDriver = pobjDriver;
             _driverWait = new WebDriverWait(_objDriver, new TimeSpan(0,0,40));
-            clsdrivers = new Base_Files.clsDriver(objDriver);
+            Base_Files.clsDriver clsDriver = new clsDriver(objDriver);
         }
 
         /*OBJECT DEFINITION*/
-        private static IWebElement objEmailTxt => objDriver.FindElement(By.Name(STR_EMAIL_TXT));
-        private static IWebElement objPasswordTxt => objDriver.FindElement(By.Name(STR_PASSWORD_TXT));
-        private static IWebElement objRememberMeLnk => objDriver.FindElement(By.XPath(STRREMEMBERME_LNK)); 
-        private static IWebElement objForgotPassLnk => objDriver.FindElement(By.XPath(STR_FORGOTPASS_LNK));
-        private static IWebElement objLoginBtn => objDriver.FindElement(By.XPath(STR_LOGIN_BTN));
+        private static IWebElement objEmailTxt = objDriver.FindElement(By.Name(STR_EMAIL_TXT));
+        private static IWebElement objPasswordTxt = objDriver.FindElement(By.Name(STR_PASSWORD_TXT));
+        private static IWebElement objRememberMeLnk = objDriver.FindElement(By.XPath(STRREMEMBERME_LNK)); 
+        private static IWebElement objForgotPassLnk = objDriver.FindElement(By.XPath(STR_FORGOTPASS_LNK));
+        private static IWebElement objLoginBtn = objDriver.FindElement(By.XPath(STR_LOGIN_BTN));
 
 
         /*METHODS/FUNCTIONS*/
@@ -80,7 +74,7 @@ namespace AutomationFrameworkC.Page_Objects
         //Login Button
         private IWebElement GetLoginButton()
         {
-            return objRememberMeLnk;
+            return objLoginBtn;
         }
 
         public static void fnClickLoginButton()
@@ -105,61 +99,46 @@ namespace AutomationFrameworkC.Page_Objects
             Console.WriteLine(ul.Text);
         }
 
-
-        public static void fnMenuAdmins()
-
+        public static void fnSubMenu(String submenu,String title)
         {
-        
-            _driverWait.Until(ExpectedConditions.ElementExists(By.Id("social-sidebar-menu")));
-            IWebElement nav = objDriver.FindElement(By.LinkText("ACCOUNTS"));
-            nav.Click();
-            IWebElement nav2 = objDriver.FindElement(By.LinkText("ADMINS"));
-            nav2.Click();
-            _driverWait.Until(ExpectedConditions.TitleContains("Admins Management"));
-
-
-
-
-        }
-        public static void fnMenuSuppliers()
-        {
-            
-            IWebElement nav3 = objDriver.FindElement(By.LinkText("ACCOUNTS"));
-            nav3.Click();
+            String[] array = submenu.Split('.');
+            IWebElement menu = objDriver.FindElement(By.LinkText(array[0]));
+            menu.Click();
             _driverWait.Until(ExpectedConditions.ElementExists(By.Id("social-sidebar-menu")));
             _driverWait.Until(ExpectedConditions.ElementExists(By.TagName("li")));
             _driverWait.Until(ExpectedConditions.ElementExists(By.TagName("a")));
-            IWebElement nav4 = objDriver.FindElement(By.LinkText("SUPPLIERS"));
-            nav4.Click();
-            _driverWait.Until(ExpectedConditions.TitleContains("Suppliers Management"));
+            _driverWait.Until(ExpectedConditions.ElementExists(By.LinkText(array[1])));
+            IWebElement subMenu= objDriver.FindElement(By.LinkText(array[1]));
+            subMenu.Click();
+            _driverWait.Until(ExpectedConditions.TitleContains(title));
+            fnOrder("//th[@data-orderby='pt_accounts.ai_first_name']");
+            _driverWait.Until(ExpectedConditions.InvisibilityOfElementLocated(By.ClassName("xcrud-overlay")));
+            fnOrder("//th[@data-orderby='pt_accounts.ai_last_name']");
+            _driverWait.Until(ExpectedConditions.InvisibilityOfElementLocated(By.ClassName("xcrud-overlay")));
+            fnOrder("//th[@data-orderby='pt_accounts.accounts_email']");
+            _driverWait.Until(ExpectedConditions.InvisibilityOfElementLocated(By.ClassName("xcrud-overlay")));
+            fnOrder("//th[@data-orderby='pt_accounts.accounts_status']");
+            _driverWait.Until(ExpectedConditions.InvisibilityOfElementLocated(By.ClassName("xcrud-overlay")));
+            fnOrder("//th[@data-orderby='pt_accounts.accounts_last_login']");
         }
 
-        public static void fnMenuCustomers()
+        public static void fnOrder(String path)
         {
-           
-            IWebElement nav3 = objDriver.FindElement(By.LinkText("ACCOUNTS"));
-            nav3.Click();
-            _driverWait.Until(ExpectedConditions.ElementExists(By.Id("social-sidebar-menu")));
-            _driverWait.Until(ExpectedConditions.ElementExists(By.TagName("li")));
-            _driverWait.Until(ExpectedConditions.ElementExists(By.TagName("a")));
-            _driverWait.Until(ExpectedConditions.ElementExists(By.LinkText("CUSTOMERS")));
-            IWebElement nav4 = objDriver.FindElement(By.LinkText("CUSTOMERS"));
-            nav4.Click();
-            _driverWait.Until(ExpectedConditions.TitleContains("Customers Management"));
-        }
+            _driverWait.Until(ExpectedConditions.ElementExists(By.XPath(path)));
+            _driverWait.Until(ExpectedConditions.ElementIsVisible(By.XPath(path)));
+            _driverWait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(path)));
+            IWebElement order = objDriver.FindElement(By.XPath(path));
+            order.Click();
 
-        public static void fnMenuGuestCustomers()
-        {
-          
-            IWebElement nav3 = objDriver.FindElement(By.LinkText("ACCOUNTS"));
-            nav3.Click();
-            _driverWait.Until(ExpectedConditions.ElementExists(By.Id("social-sidebar-menu")));
-            _driverWait.Until(ExpectedConditions.ElementExists(By.TagName("li")));
-            _driverWait.Until(ExpectedConditions.ElementExists(By.TagName("a")));
-            _driverWait.Until(ExpectedConditions.ElementExists(By.LinkText("GUESTCUSTOMERS")));
-            IWebElement nav4 = objDriver.FindElement(By.LinkText("GUESTCUSTOMERS"));
-            nav4.Click();
-            _driverWait.Until(ExpectedConditions.TitleContains("Guest Management"));
+         
+            _driverWait.Until(ExpectedConditions.InvisibilityOfElementLocated(By.ClassName("xcrud-overlay")));
+            _driverWait.Until(ExpectedConditions.ElementExists(By.XPath(path)));
+            _driverWait.Until(ExpectedConditions.ElementIsVisible(By.XPath(path)));
+            _driverWait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(path)));
+            IWebElement order1 = objDriver.FindElement(By.XPath(path));
+            order1.Click();
+
         }
+     
     }
 }

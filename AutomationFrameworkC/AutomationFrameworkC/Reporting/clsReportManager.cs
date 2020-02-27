@@ -17,9 +17,7 @@ namespace AutomationFrameworkC.Reporting
     {
         //Variables
         private DateTime time = DateTime.Now;
-        private string strImagePath;
-
-        
+       
         //Method to get report path
         public string fnReportPath()
         {
@@ -34,20 +32,18 @@ namespace AutomationFrameworkC.Reporting
         }
 
         //Method to set up the report
-        public void fnReportSetUp(ExtentHtmlReporter phtmlReporter, ExtentReports pExtent)
-        //public void fnReportSetUp(ExtentV3HtmlReporter phtmlReporter, ExtentReports pExtent)
+        public void fnReportSetUp(ExtentV3HtmlReporter phtmlReporter, ExtentReports pExtent)
         {
             phtmlReporter.Config.Theme = AventStack.ExtentReports.Reporter.Configuration.Theme.Dark;
             phtmlReporter.Config.DocumentTitle = "Automation Framework Report";
             pExtent.AttachReporter(phtmlReporter);
             pExtent.AddSystemInfo("Project Name:", "Automation Framework");
-            pExtent.AddSystemInfo("Application:", "LinkedIn");
+            pExtent.AddSystemInfo("Application:", "PHPTRAVELS");
             pExtent.AddSystemInfo("Environment:", "QA");
             pExtent.AddSystemInfo("Browser:", ConfigurationManager.AppSettings.Get("browser"));
             pExtent.AddSystemInfo("Date:", time.ToShortDateString());
             pExtent.AddSystemInfo("Version:", "v1.0");
         }
-
         //Method to take image and returns screen path
         public string fnCaptureImage(IWebDriver pobjDriver, string pstrScreenName)
         {
@@ -77,13 +73,10 @@ namespace AutomationFrameworkC.Reporting
             {
                 case TestStatus.Failed:
                     logStatus = Status.Fail;
-                    //DateTime time = DateTime.Now;
-                    //string strFileName = "Screenshot_" + time.ToShortDateString() + ".png";
                     string strFileName = "Screenshot_" + time.ToString("hh_mm_ss") + ".png";
                     var strImagePath = fnCaptureImage(pobjDriver, strFileName);
                     pobjTest.Log(Status.Fail, "Fail ");
                     pobjTest.Fail("Snapshot below: ", MediaEntityBuilder.CreateScreenCaptureFromPath(strImagePath).Build());
-                    //pobjTest.Log(Status.Fail, "Snapshot below: " + pobjTest.AddScreenCaptureFromPath("Screenshots\\" + strFileName));
                     break;
                 case TestStatus.Skipped:
                     logStatus = Status.Skip;
@@ -170,6 +163,8 @@ namespace AutomationFrameworkC.Reporting
                     break;
             }
         }
+
+
 
     }
 
