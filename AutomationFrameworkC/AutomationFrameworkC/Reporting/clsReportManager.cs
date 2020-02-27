@@ -28,7 +28,7 @@ namespace AutomationFrameworkC.Reporting
         }
 
         //Method to set up the report
-        public void fnReportSetUp(ExtentHtmlReporter phtmlReporter, ExtentReports pExtent)
+        public void fnReportSetUp(ExtentV3HtmlReporter phtmlReporter, ExtentReports pExtent)
         {
             phtmlReporter.Config.Theme = AventStack.ExtentReports.Reporter.Configuration.Theme.Dark;
             phtmlReporter.Config.DocumentTitle = "Automation Framework Report";
@@ -46,12 +46,10 @@ namespace AutomationFrameworkC.Reporting
         {
             ITakesScreenshot objITake = (ITakesScreenshot)pobjDriver;
             Screenshot objSS = objITake.GetScreenshot();
-
             var strSSPath = System.Reflection.Assembly.GetCallingAssembly().CodeBase;
             var strActualPath = strSSPath.Substring(0, strSSPath.LastIndexOf("bin"));
             var strReportPath = new Uri(strActualPath).LocalPath;
             Directory.CreateDirectory(strReportPath.ToString() + "ExtentReports\\Screenshots");
-
             var strFullPath = strSSPath.Substring(0, strSSPath.LastIndexOf("bin")) + "ExtentReports\\Screenshots\\" + pstrScreenName;
             var strLocalPath = new Uri(strFullPath).LocalPath;
             objSS.SaveAsFile(strLocalPath, ScreenshotImageFormat.Png);
@@ -70,7 +68,6 @@ namespace AutomationFrameworkC.Reporting
             {
                 case TestStatus.Failed:
                     logStatus = Status.Fail;
-                    //DateTime time = DateTime.Now;
                     string strFileName = "Screenshot_" + time.ToString("hh_mm_ss") + ".png";
                     var strImagePath = fnCaptureImage(pobjDriver, strFileName);
                     pobjTest.Log(Status.Fail, "Fail ");
@@ -161,7 +158,5 @@ namespace AutomationFrameworkC.Reporting
                     break;
             }
         }
-
     }
-
 }

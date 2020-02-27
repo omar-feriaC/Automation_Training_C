@@ -8,8 +8,8 @@ namespace AutomationFrameworkC.Test_Cases
 {
     class Test_PHPTravels : BaseTest
     {
-        clsPHPTravels_LoginPage objPHP;
-        string sreenPath;
+        public static clsPHPTravels_LoginPage objPHP;
+        private string screenPath;
 
         [Test]
         public void Test_M9Exercise()
@@ -18,40 +18,33 @@ namespace AutomationFrameworkC.Test_Cases
             {
                 //Init objects
                 objPHP = new clsPHPTravels_LoginPage(objDriver);
+                objTest = objTest.CreateNode("PHP Travels", "Login");
                 //Login Action
-                Assert.AreEqual(true, objDriver.Title.Contains("Administrador Login."), "The Login Page was not loaded correctly.");
+                Assert.AreEqual(true, objDriver.Title.Contains("Administator Login"), "The Login Page was not loaded correctly.");
                 clsPHPTravels_LoginPage.fnEnterEmail(strUserName);
                 clsPHPTravels_LoginPage.fnEnterPassword(strPassword);
                 clsPHPTravels_LoginPage.fnClickLoginButton();
                 clsPHPTravels_LoginPage.fnWaitHamburgerMenu();
-                objPHP.fnDashboardRedBox();
-                sreenPath = objRM.fnCaptureImage(objDriver, "Screenshot.png");
-                objTest.Log(AventStack.ExtentReports.Status.Pass, "Step ScreenShot :", MediaEntityBuilder.CreateScreenCaptureFromPath(sreenPath).Build());
+                clsPHPTravels_LoginPage.fnHeader();
+                objTest.Pass("Dashboard results are displayed correctly.");
+                objTest = objTest.CreateNode("PHPTRAVELS", "Menu & Sorting");
+                Assert.AreEqual(true, objDriver.Title.Contains("Dashboard"), "The Dashboard was not loaded correctly.");
+                clsPHPTravels_LoginPage.fnMenuDisp("ACCOUNTS.ADMINS", "Admins Management");
+                Assert.AreEqual(true, objDriver.Title.Contains("Admins Management"), "The Admins Management was not loaded correctly.");
+                clsPHPTravels_LoginPage.fnMenuDisp("ACCOUNTS.SUPPLIERS", "Suppliers Management");
+                Assert.AreEqual(true, objDriver.Title.Contains("Suppliers Management"), "The Suppliers Management was not loaded correctly.");
+                clsPHPTravels_LoginPage.fnMenuDisp("ACCOUNTS.CUSTOMERS", "Customers Management");
+                Assert.AreEqual(true, objDriver.Title.Contains("Customers Management"), "The Customers Management was not loaded correctly.");
+                clsPHPTravels_LoginPage.fnMenuDisp("ACCOUNTS.GUESTCUSTOMERS", "Guest Management");
+                Assert.AreEqual(true, objDriver.Title.Contains("Guest Management"), "The Guest Management was not loaded correctly.");
+                objTest.Pass("Menu & Sorting results are displayed correctly.");
             }
             catch
             {
                 Assert.AreEqual(true, objDriver.Title.Contains("Dashboard."), "The Dashboard was not loaded correctly.");
-                sreenPath = objRM.fnCaptureImage(objDriver, "Screenshot.png");
-                objTest.Log(AventStack.ExtentReports.Status.Error, "Step has failed with SS", MediaEntityBuilder.CreateScreenCaptureFromPath(sreenPath).Build());
+                screenPath = objRM.fnCaptureImage(objDriver, "Screenshot.png");
+                objTest.Log(AventStack.ExtentReports.Status.Error, "Step has failed with SS", MediaEntityBuilder.CreateScreenCaptureFromPath(screenPath).Build());
                 Console.WriteLine("It was an error");
-                Assert.Fail();
-            }
-        }
-        public void Test_SortAccountsOption()
-        {
-            Test_M9Exercise();
-            try
-            {
-                objPHP = new clsPHPTravels_LoginPage(objDriver);
-                objPHP.fnSortAccountSubMenu();
-                sreenPath = objRM.fnCaptureImage(objDriver, "Menu.png");
-                objTest.Log(AventStack.ExtentReports.Status.Pass, "Step ScreenShot :", MediaEntityBuilder.CreateScreenCaptureFromPath(sreenPath).Build());
-            }
-            catch
-            {
-                Assert.AreEqual(true, objDriver.Title.Contains("Customer Management"), "Customer Management was not loaded correctly.");
-                objTest.Log(AventStack.ExtentReports.Status.Error, "Step has failed with SS", MediaEntityBuilder.CreateScreenCaptureFromPath(sreenPath).Build());
-                Console.WriteLine("Test Case Failed");
                 Assert.Fail();
             }
         }

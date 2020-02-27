@@ -78,6 +78,5 @@ namespace AutomationFrameworkC.Base_Files
                 return false;
             }
         }
-
     }
 }
