@@ -45,6 +45,7 @@ namespace AutomationFrameworkC.Page_Objects
         /*LOCATORS FOR MENU PAGES*/
         readonly static string STR_ACCOUNTS = "ACCOUNTS";
         readonly static string STR_PANELHEADERS = "//table[@class='xcrud-list table table-striped table-hover']/thead/tr/th[contains(@data-orderby, 'pt_accounts')]";
+        readonly static string STR_PANELBODY = "//table[@class='xcrud-list table table-striped table-hover']/tbody";
         readonly static string STR_HEADERSASC = "//table[@class='xcrud-list table table-striped table-hover']/thead/tr/th[contains(@data-orderby, 'pt_accounts')and (@data-order='asc')]";
         readonly static string STR_HEADERSDESC = "//table[@class='xcrud-list table table-striped table-hover']/thead/tr/th[contains(@data-orderby, 'pt_accounts')and (@data-order='desc')]";
         /*OBJECT DEFINITION FOR LOGIN PAGE*/
@@ -100,7 +101,6 @@ namespace AutomationFrameworkC.Page_Objects
         }
         #endregion Methods for Login
         #region Methods after login - Dashboard
-        /*METHODS/FUNCTIONS - FOR DASHBOARD PAGE*/
         /*This function allows to check if the Menu is expanded or Not*/
         public void fnActivateTheMenu()
         {
@@ -115,14 +115,17 @@ namespace AutomationFrameworkC.Page_Objects
                 Console.WriteLine("This is already opened");
             }
         }
-        public void fnCheckStatsList()
+        public int fnCountStatsList()
         {
-            for (int j = 0; j < objStatsList.Count; j++)
-            {
-                Console.WriteLine(objStatsList[j].Text);
-            }
+            int a = objStatsList.Count;
+            return a;
         }
-
+        public string fnCheckStatsList(int pintIndex)
+        {
+            string a;
+            a = objStatsList[pintIndex].Text;
+            return a;
+        }
         /*This function confirm that the Account tables exist*/
         public void fnCheckTheManagementTablesExist()
         {
@@ -161,12 +164,13 @@ namespace AutomationFrameworkC.Page_Objects
             {
                 objHeaderElement = _objDriver.FindElement(By.XPath(fnIndexForHeader(pintIndex)));
                 objHeaderElement.Click();
+                objClsDriver.fnWaitForElementToExist(By.XPath(STR_PANELBODY));
             }
             catch(StaleElementReferenceException)
             {
-                //_objDriverWait.Until(ExpectedConditions.StalenessOf(_objDriver.FindElement(By.XPath(fnIndexForHeader(pintIndex)))));
                 objHeaderElement = _objDriver.FindElement(By.XPath(fnIndexForHeader(pintIndex)));
                 objHeaderElement.Click();
+                objClsDriver.fnWaitForElementToExist(By.XPath(STR_PANELBODY));
             }
             catch (Exception e)
             {
@@ -181,7 +185,6 @@ namespace AutomationFrameworkC.Page_Objects
                 if (objClsDriver.fnIsElementPresent(By.XPath(STR_HEADERSASC)) == true)
                 {
                     objClsDriver.fnWaitForElementToExist(By.XPath(STR_HEADERSASC));
-                    Console.WriteLine("Asc " + objClsDriver.fnPrintTxtElement(By.XPath(STR_HEADERSASC)) + " In " + _objDriver.Title);
                 }
             }
             catch (Exception e)
@@ -197,7 +200,6 @@ namespace AutomationFrameworkC.Page_Objects
                 if (objClsDriver.fnIsElementPresent(By.XPath(STR_HEADERSDESC)) == true)
                 {
                     objClsDriver.fnWaitForElementToExist(By.XPath(STR_HEADERSDESC));
-                    Console.WriteLine("Desc " + objClsDriver.fnPrintTxtElement(By.XPath(STR_HEADERSDESC)) + " In " + _objDriver.Title);
                 }
             }
             catch (Exception e)
