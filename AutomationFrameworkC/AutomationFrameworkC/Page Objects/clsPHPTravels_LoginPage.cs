@@ -90,7 +90,7 @@ namespace AutomationFrameworkC.Page_Objects
                 }
             }
             public void fnEnterPassword(string pstrPass)//This function waits and fill the password field
-        {
+            {
                 try
                 {
                     objClsDriver.fnWaitExistVisibleClickable(By.XPath(STR_PASSWORD_TXT));

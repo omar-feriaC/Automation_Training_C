@@ -23,28 +23,6 @@ namespace AutomationFrameworkC.Base_Files
         #region METHODS
             #region WAITERS
                 #region WAITERS RETURNING OBJECT
-                #region NOTUSING
-                //private IWebElement fnWaitForElementThread(IWebDriver pobjDriver, By by, string pstrDesc)
-                //{
-                //    objElement = pobjDriver.FindElement(by);
-                //    return objElement;
-                //}
-                //private IWebElement fnWaitForElementDriver(IWebDriver pobjDriver, By by)
-                //{
-                //    objElement = _driverWait.Until(ExpectedConditions.ElementExists(by));
-                //    objElement = _driverWait.Until(ExpectedConditions.ElementIsVisible(by));
-                //    return objElement;
-                //}
-                //private IWebElement fnWaitForElementDriverFluent(IWebDriver pobjDriver, By by)
-                //{
-                //    DefaultWait<IWebDriver> fluentWait = new DefaultWait<IWebDriver>(_objDriver);
-                //    fluentWait.Timeout = TimeSpan.FromSeconds(5);
-                //    fluentWait.PollingInterval = TimeSpan.FromMilliseconds(250);
-                //    fluentWait.IgnoreExceptionTypes(typeof(NoSuchElementException));
-                //    IWebElement searchResult = fluentWait.Until(x => x.FindElement(By.Id("search_result")));
-                //    return objElement;
-                //}
-                #endregion NOTUSING
                 public IWebElement fnWaitForElementToExist(By by)//This waits an element to exist
                 {
                     objElement = _driverWait.Until(ExpectedConditions.ElementExists(by));
@@ -130,12 +108,12 @@ namespace AutomationFrameworkC.Base_Files
                     objElement = _objDriver.FindElement(by);
                     return objElement;
                 }
-                public IList<IWebElement> fnFindElements(By by)//This find a list of elements
-                {
-                    objElements = _objDriver.FindElements(by);
-                    return objElements;
-                }
-                #endregion FINDELEMENTS
+            public IList<IWebElement> fnFindElements(By by)//This find a list of elements
+            {
+                objElements = _objDriver.FindElements(by);
+                return objElements;
+            }
+            #endregion FINDELEMENTS
             #region MANIPULATE ELEMENTS
             public string fnPrintTxtElement(By by)//This turns the element into a string
             {
