@@ -32,30 +32,35 @@ namespace AutomationFrameworkC.Test_Cases
         [Test, Order(1)]
         public void Test_M9ExercisePart2_MenuSubMenu_OrderBy()
         {
-            //Init objects
-            objPHP = new clsPHPTravels_LoginPage(objDriver);
-            objPHP.fnCompleteLogin(strUser, strPass); //Login Before start the test
-            objTest = objExtent.CreateTest(TestContext.CurrentContext.Test.Name);
-            objRM.fnAddStepLog(objTest, "After Login.", "Pass");
-            int intAmountOfMenu = arrMenu.Length;
-            int intAmountOfHeaders = objPHP.fnAmountofHeaders();//Amount of headers in the table 
-            for (int i = 0; i < intAmountOfMenu; i++) //Do based on the Amount of MENUS
+            //Init objects and elements needed before start the test
+            objTest = objExtent.CreateTest(TestContext.CurrentContext.Test.Name);//We Specify the name of the test case
+            objPHP = new clsPHPTravels_LoginPage(objDriver); //Initialization of an OBJECT of the PHPTravelLogin  class
+            int intAmountOfMenu = arrMenu.Length; //Get amount of values in the array "arrMenu"
+            int intAmountOfSubMenu = arrSubMenu.Length; //Get amount of values in the array "arrSubMenu"
+            //STEP [1] - Login
+            objPHP.fnCompleteLogin(strUser, strPass);
+            objRM.fnAddStepLog(objTest, "After Success Login.", "Pass");
+            //STEP [2] - Click on Menu, this will be done based on the amount of the SubMenus in the array "arrMenu"
+            for (int i = 0; i < intAmountOfMenu; i++)
             {
-                objPHP.fnEnterAtMenu(arrMenu[i]);// Click in the Menu
+                objPHP.fnEnterAtMenu(arrMenu[i]);// Click on the Menu Specified in the array "arrMenu"
                 objRM.fnAddStepLogWithSnapshot(objTest, objDriver, "Click in Menu " + arrMenu[i], "Menu_" + arrMenu[i] + ".png", "Pass");
-                int intAmountOfSubMenu = arrSubMenu.Length;
-                for (int j = 0; j < intAmountOfSubMenu; j++) //Do based on the Amount of SUBMENUS
+                //STEP [3] - Click on SubMenu, this will be done based on the amount of the SubMenus in the array "arrSubMenu"
+                for (int j = 0; j < intAmountOfSubMenu; j++)
                 {
-                    objPHP.fnEnterAtSubMenu(arrSubMenu[j], arrWebsiteTitles[j]);
+                    objPHP.fnEnterAtSubMenu(arrSubMenu[j], arrWebsiteTitles[j]);// Click on the Menu Specified in the array "arrSubMenu"
                     objRM.fnAddStepLogWithSnapshot(objTest, objDriver, "Click in SubMenu " + arrSubMenu[j], "SubMenu_" + arrSubMenu[j] + ".png", "Pass");
-                    for (int e = 0; e < objPHP.fnAmountofHeaders(); e++)//Manipulate the headers of the tables
+                    //STEP [4] - Manipulate the Headers at table
+                    for (int e = 0; e < objPHP.fnAmountofHeaders(); e++)
                     {
                         int a = e + 1;
-                        string strNameIndex = arrMenu[i] + "_" + arrSubMenu[j] + "_" + a;
-                        objPHP.fnClickTheHeader(a);//Check each of the headers
+                        string strNameIndex = arrMenu[i] + "_" + arrSubMenu[j] + "_" + a; // Concatenate to generate the title of the Test Step
+                        //STEP [5] - Validate the Ascendant Order
+                        objPHP.fnClickTheHeader(a);
                         objRM.fnAddStepLogWithSnapshot(objTest, objDriver, "Ascendent." + strNameIndex, "ASC_" + strNameIndex + ".png", "Pass");
                         objPHP.fnValidateAscOrder();
                         objDriver.SwitchTo().DefaultContent();
+                        //STEP [6] - Validate the Descendant Order
                         objPHP.fnClickTheHeader(a);
                         objRM.fnAddStepLogWithSnapshot(objTest, objDriver, "Descendent." + strNameIndex, "DESC_" + strNameIndex + ".png", "Pass");
                         objPHP.fnValidateDescOrder();

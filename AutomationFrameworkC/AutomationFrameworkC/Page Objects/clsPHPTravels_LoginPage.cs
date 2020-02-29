@@ -10,16 +10,13 @@ namespace AutomationFrameworkC.Page_Objects
     class clsPHPTravels_LoginPage
     {
         #region ATTRIBUTES
-        public WebDriverWait _objDriverWait;
         private static IWebDriver _objDriver; //"_objDriver" used only to intizialize the clsDriver in the constructor
-        private static IWebElement _objElement; //Used to manipulate results type IWebElement in functions when needed
         private clsDriver objClsDriver; //Initialization of clsDriver to re use elements
         #endregion ATTRIBUTES
         #region CONSTRUCTOR
         public clsPHPTravels_LoginPage(IWebDriver pobjDriver)
         {
             _objDriver = pobjDriver;
-            _objDriverWait = new WebDriverWait(pobjDriver, new TimeSpan(0, 0, 40));
             objClsDriver = new clsDriver(_objDriver);
         }
         #endregion CONSTRUCTOR
@@ -57,7 +54,7 @@ namespace AutomationFrameworkC.Page_Objects
             private IWebElement objPasswordTxt => objClsDriver.fnFindElement(By.XPath(STR_PASSWORD_TXT));
             private IWebElement objForgotPassLnk => objClsDriver.fnFindElement(By.XPath(STR_FORGOTPASS_LNK));
             private IWebElement objLoginBtn => objClsDriver.fnFindElement(By.XPath(STR_LOGIN_BTN));
-        #endregion OBJECT DEFINITION FOR LOGIN PAGE
+            #endregion OBJECT DEFINITION FOR LOGIN PAGE
             #region OBJECT DEFINITION FOR MENU
             private IList<IWebElement> objStatsList => objClsDriver.fnFindElements(By.XPath(STR_STATS_LIST));
             private IWebElement objTheMenuTxt => objClsDriver.fnFindElement(By.XPath(STR_THEMENU));
@@ -77,29 +74,61 @@ namespace AutomationFrameworkC.Page_Objects
         #endregion ELEMENTS
         #region METHODS/FUNCTIONS
         #region Methods for Login
-        public void fnEnterEmail(string pstrEmail)
+        public void fnEnterEmail(string pstrEmail)//This function waits for the username field and provide the email
         {
-            objClsDriver.fnWaitExistVisibleClickable(By.XPath(STR_EMAIL_TXT));
-            objEmailTxt.Clear();
-            objEmailTxt.SendKeys(pstrEmail);
+            try
+            {
+                objClsDriver.fnWaitExistVisibleClickable(By.XPath(STR_EMAIL_TXT));
+                objEmailTxt.Clear();
+                objEmailTxt.SendKeys(pstrEmail);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("The Email Field is not available - " + e.Message);
+                Assert.Fail();
+            }
         }
-        public void fnEnterPassword(string pstrPass)
+        public void fnEnterPassword(string pstrPass)//This function waits for the password field and provide the password
         {
-            objClsDriver.fnWaitExistVisibleClickable(By.XPath(STR_PASSWORD_TXT));
-            objPasswordTxt.Clear();
-            objPasswordTxt.SendKeys(pstrPass);
+            try
+            {
+                objClsDriver.fnWaitExistVisibleClickable(By.XPath(STR_PASSWORD_TXT));
+                objPasswordTxt.Clear();
+                objPasswordTxt.SendKeys(pstrPass);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("The Password Field is not available - " + e.Message);
+                Assert.Fail();
+            }
         }
-        public void fnClickLoginButton()
+        public void fnClickLoginButton()//This function waits for the Login Button and Clicks on it
         {
-            objClsDriver.fnWaitExistVisibleClickable(By.XPath(STR_LOGIN_BTN));
-            objLoginBtn.Click();
+            try
+            {
+                objClsDriver.fnWaitExistVisibleClickable(By.XPath(STR_LOGIN_BTN));
+                objLoginBtn.Click();
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine("The Login Button is not available - " + e.Message);
+                Assert.Fail();
+            }
         }
         public void fnWaitHamburgerMenu() //This function validates that login has been success
         {
-            objClsDriver.fnWaitExistVisibleClickable(By.Id(STR_HAMBURGER_BTN));
+            try
+            {
+                objClsDriver.fnWaitExistVisibleClickable(By.Id(STR_HAMBURGER_BTN));
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("The Hamburger Menu is not available - " + e.Message);
+                Assert.Fail();
+            }
         }
         public void fnCompleteLogin(string pstrEmail, string pstrPass) // This function Does a complete Login
-        {
+        { // This function does not need a try catch, because each of those already have one
             fnEnterEmail(pstrEmail);
             fnEnterPassword(pstrPass);
             fnClickLoginButton();
@@ -107,26 +136,20 @@ namespace AutomationFrameworkC.Page_Objects
         }
         public string fnPrintTheListOfStatus()//This function print the values of the Satuses List
         {
+            objClsDriver.fnWaitExistVisibleClickable(By.XPath(STR_STATS_LIST));//Wait to confirm that the stats panel exist
             int i;
-            int pintIndexforArray = objStatsList.Count(); // The amount of Objects in the List
-            string[] arrResult = new string[pintIndexforArray]; // The size of the array
-            for (i = 0; i < pintIndexforArray; i++)
+            int intArraySize = objStatsList.Count; //We check the amoun of the elements in the stats panel exist
+            string[] arrResult = new string[intArraySize];
+            for (i = 0; i < intArraySize; i++)
             {
-                arrResult[i] = objStatsList[i].Text; //Getting The string of array
+                arrResult[i] = objStatsList.ToArray()[i].Text; // Printing the string of the List
             }
-            for (i = 0; i < pintIndexforArray; i++)
-            {
-                Console.WriteLine(arrResult[i]); // Inserting the string into the array= "arrResult"
-            }
-            string result = string.Join("<br/>\r\n", arrResult);
-            string titleOfResult = "The result of the Dashboard Statistics is";
-            string allResults = titleOfResult + "<br/>\r\n" + result;
-            return allResults;
+            return "The result of the Dashboard Statistics is <br/>\r\n" + string.Join("<br/>\r\n", arrResult);
         }
         #endregion Methods for Login
         #region Methods after login - Dashboard
-            #region Methods for Menu and Submenu
-            public void fnActivateTheMenu()//This function check if Menu is Expanded or Not
+        #region Methods for Menu and Submenu
+        public void fnActivateTheMenu()//This function check if Menu is Expanded or Not
             {
                 objClsDriver.fnWaitExistVisibleClickable(By.XPath(STR_THEMENU));
                 if (objClsDriver.fnCountElements(By.XPath(STR_MENUCLOSED)) == 1)
