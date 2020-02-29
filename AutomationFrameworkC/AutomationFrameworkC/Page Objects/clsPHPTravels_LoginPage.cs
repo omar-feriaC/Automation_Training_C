@@ -2,14 +2,9 @@
 using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
-using SeleniumExtras.WaitHelpers;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 namespace AutomationFrameworkC.Page_Objects
 {
     class clsPHPTravels_LoginPage
@@ -103,23 +98,30 @@ namespace AutomationFrameworkC.Page_Objects
         {
             objClsDriver.fnWaitExistVisibleClickable(By.Id(STR_HAMBURGER_BTN));
         }
-        public int fnCountStatsList()//return number of Elements in Status list after login
-        {
-            int a = objStatsList.Count;
-            return a;
-        }
-        public string fnCheckStatsList(int pintIndex)//This function return in a string each element of Status List
-        {
-            string a;
-            a = objStatsList[pintIndex].Text;
-            return a;
-        }
         public void fnCompleteLogin(string pstrEmail, string pstrPass) // This function Does a complete Login
         {
             fnEnterEmail(pstrEmail);
             fnEnterPassword(pstrPass);
             fnClickLoginButton();
             fnWaitHamburgerMenu();
+        }
+        public string fnPrintTheListOfStatus()//This function print the values of the Satuses List
+        {
+            int i;
+            int pintIndexforArray = objStatsList.Count(); // The amount of Objects in the List
+            string[] arrResult = new string[pintIndexforArray]; // The size of the array
+            for (i = 0; i < pintIndexforArray; i++)
+            {
+                arrResult[i] = objStatsList[i].Text; //Getting The string of array
+            }
+            for (i = 0; i < pintIndexforArray; i++)
+            {
+                Console.WriteLine(arrResult[i]); // Inserting the string into the array= "arrResult"
+            }
+            string result = string.Join("<br/>\r\n", arrResult);
+            string titleOfResult = "The result of the Dashboard Statistics is";
+            string allResults = titleOfResult + "<br/>\r\n" + result;
+            return allResults;
         }
         #endregion Methods for Login
         #region Methods after login - Dashboard
@@ -208,6 +210,7 @@ namespace AutomationFrameworkC.Page_Objects
             {
                 try
                 {
+                    fnValidateHeadersExist();
                     objClsDriver.fnWaitExistVisibleClickable(By.XPath(fnIndexForHeader(pintIndex)));
                     objClsDriver.fnFindElement(By.XPath(fnIndexForHeader(pintIndex)));
                     objClsDriver.fnClickTheElement(By.XPath(fnIndexForHeader(pintIndex)));
@@ -215,6 +218,7 @@ namespace AutomationFrameworkC.Page_Objects
                 }
                 catch (StaleElementReferenceException)
                 {
+                    fnValidateHeadersExist();
                     objClsDriver.fnFindElement(By.XPath(fnIndexForHeader(pintIndex)));
                     objClsDriver.fnClickTheElement(By.XPath(fnIndexForHeader(pintIndex)));
                     objClsDriver.fnWaitForElementToExist(By.XPath(STR_PANELBODY));
