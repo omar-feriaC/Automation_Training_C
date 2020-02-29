@@ -8,10 +8,10 @@ namespace AutomationFrameworkC.Base_Files
     class clsDriver
     {
         #region ATTRIBUTES
-        private static IWebDriver _objDriver;
-        private static WebDriverWait _driverWait;
-        private static IWebElement objElement;
-        private IList<IWebElement> objElements;
+        private static IWebDriver _objDriver; //Used for our constructor and used in all the class
+        private static WebDriverWait _driverWait; //Used for our constructor and used in all the class
+        private static IWebElement objElement; //Used to return one Element
+        private IList<IWebElement> objElements; //Used to return a List of Elements
         #endregion ATTRIBUTES
         #region CONSTRUCTOR
         public clsDriver(IWebDriver pobjDriver)
@@ -23,26 +23,28 @@ namespace AutomationFrameworkC.Base_Files
         #region METHODS
             #region WAITERS
                 #region WAITERS RETURNING OBJECT
-                private IWebElement fnWaitForElementThread(IWebDriver pobjDriver, By by, string pstrDesc)
-                {
-                    objElement = pobjDriver.FindElement(by);
-                    return objElement;
-                }
-                private IWebElement fnWaitForElementDriver(IWebDriver pobjDriver, By by)
-                {
-                    objElement = _driverWait.Until(ExpectedConditions.ElementExists(by));
-                    objElement = _driverWait.Until(ExpectedConditions.ElementIsVisible(by));
-                    return objElement;
-                }
-                private IWebElement fnWaitForElementDriverFluent(IWebDriver pobjDriver, By by)
-                {
-                    DefaultWait<IWebDriver> fluentWait = new DefaultWait<IWebDriver>(_objDriver);
-                    fluentWait.Timeout = TimeSpan.FromSeconds(5);
-                    fluentWait.PollingInterval = TimeSpan.FromMilliseconds(250);
-                    fluentWait.IgnoreExceptionTypes(typeof(NoSuchElementException));
-                    IWebElement searchResult = fluentWait.Until(x => x.FindElement(By.Id("search_result")));
-                    return objElement;
-                }
+                #region NOTUSING
+                //private IWebElement fnWaitForElementThread(IWebDriver pobjDriver, By by, string pstrDesc)
+                //{
+                //    objElement = pobjDriver.FindElement(by);
+                //    return objElement;
+                //}
+                //private IWebElement fnWaitForElementDriver(IWebDriver pobjDriver, By by)
+                //{
+                //    objElement = _driverWait.Until(ExpectedConditions.ElementExists(by));
+                //    objElement = _driverWait.Until(ExpectedConditions.ElementIsVisible(by));
+                //    return objElement;
+                //}
+                //private IWebElement fnWaitForElementDriverFluent(IWebDriver pobjDriver, By by)
+                //{
+                //    DefaultWait<IWebDriver> fluentWait = new DefaultWait<IWebDriver>(_objDriver);
+                //    fluentWait.Timeout = TimeSpan.FromSeconds(5);
+                //    fluentWait.PollingInterval = TimeSpan.FromMilliseconds(250);
+                //    fluentWait.IgnoreExceptionTypes(typeof(NoSuchElementException));
+                //    IWebElement searchResult = fluentWait.Until(x => x.FindElement(By.Id("search_result")));
+                //    return objElement;
+                //}
+                #endregion NOTUSING
                 public IWebElement fnWaitForElementToExist(By by)//This waits an element to exist
                 {
                     objElement = _driverWait.Until(ExpectedConditions.ElementExists(by));
@@ -120,11 +122,6 @@ namespace AutomationFrameworkC.Base_Files
                         return false;
                     }
                 }
-                public bool fnStalenessElement(By by)//Check the staleness of an element
-                {
-                    _driverWait.Until(ExpectedConditions.StalenessOf(fnFindElement(by)));
-                    return true;
-                }
                 #endregion BOOLEAN WAITERS
             #endregion WAITERS
             #region FINDELEMENTS
@@ -155,7 +152,13 @@ namespace AutomationFrameworkC.Base_Files
                 objElement = fnFindElement(by);
                 objElement.Click();
             }
-            #endregion MANIPULATE ELEMENTS
+            public void fnWaitFindAndClick(By by)//This clicks the element
+            {
+                fnWaitExistVisibleClickable(by);
+                objElement = fnFindElement(by);
+                objElement.Click();
+            }
+        #endregion MANIPULATE ELEMENTS
         #endregion METHODS
     }
 }

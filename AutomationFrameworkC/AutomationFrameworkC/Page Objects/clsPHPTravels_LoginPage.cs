@@ -12,6 +12,7 @@ namespace AutomationFrameworkC.Page_Objects
         #region ATTRIBUTES
         private static IWebDriver _objDriver; //"_objDriver" used only to intizialize the clsDriver in the constructor
         private clsDriver objClsDriver; //Initialization of clsDriver to re use elements
+        public string strGenericString; //This will be used for those methods that return a string
         #endregion ATTRIBUTES
         #region CONSTRUCTOR
         public clsPHPTravels_LoginPage(IWebDriver pobjDriver)
@@ -73,217 +74,222 @@ namespace AutomationFrameworkC.Page_Objects
         #endregion DEFINITION FOR HEADER
         #endregion ELEMENTS
         #region METHODS/FUNCTIONS
-        #region Methods for Login
-        public void fnEnterEmail(string pstrEmail)//This function waits for the username field and provide the email
-        {
-            try
-            {
-                objClsDriver.fnWaitExistVisibleClickable(By.XPath(STR_EMAIL_TXT));
-                objEmailTxt.Clear();
-                objEmailTxt.SendKeys(pstrEmail);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("The Email Field is not available - " + e.Message);
-                Assert.Fail();
-            }
-        }
-        public void fnEnterPassword(string pstrPass)//This function waits for the password field and provide the password
-        {
-            try
-            {
-                objClsDriver.fnWaitExistVisibleClickable(By.XPath(STR_PASSWORD_TXT));
-                objPasswordTxt.Clear();
-                objPasswordTxt.SendKeys(pstrPass);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("The Password Field is not available - " + e.Message);
-                Assert.Fail();
-            }
-        }
-        public void fnClickLoginButton()//This function waits for the Login Button and Clicks on it
-        {
-            try
-            {
-                objClsDriver.fnWaitExistVisibleClickable(By.XPath(STR_LOGIN_BTN));
-                objLoginBtn.Click();
-            }
-            catch(Exception e)
-            {
-                Console.WriteLine("The Login Button is not available - " + e.Message);
-                Assert.Fail();
-            }
-        }
-        public void fnWaitHamburgerMenu() //This function validates that login has been success
-        {
-            try
-            {
-                objClsDriver.fnWaitExistVisibleClickable(By.Id(STR_HAMBURGER_BTN));
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("The Hamburger Menu is not available - " + e.Message);
-                Assert.Fail();
-            }
-        }
-        public void fnCompleteLogin(string pstrEmail, string pstrPass) // This function Does a complete Login
-        { // This function does not need a try catch, because each of those already have one
-            fnEnterEmail(pstrEmail);
-            fnEnterPassword(pstrPass);
-            fnClickLoginButton();
-            fnWaitHamburgerMenu();
-        }
-        public string fnPrintTheListOfStatus()//This function print the values of the Satuses List
-        {
-            objClsDriver.fnWaitExistVisibleClickable(By.XPath(STR_STATS_LIST));//Wait to confirm that the stats panel exist
-            int i;
-            int intArraySize = objStatsList.Count; //We check the amoun of the elements in the stats panel exist
-            string[] arrResult = new string[intArraySize];
-            for (i = 0; i < intArraySize; i++)
-            {
-                arrResult[i] = objStatsList.ToArray()[i].Text; // Printing the string of the List
-            }
-            return "The result of the Dashboard Statistics is <br/>\r\n" + string.Join("<br/>\r\n", arrResult);
-        }
-        #endregion Methods for Login
-        #region Methods after login - Dashboard
-        #region Methods for Menu and Submenu
-        public void fnActivateTheMenu()//This function check if Menu is Expanded or Not
-            {
-                objClsDriver.fnWaitExistVisibleClickable(By.XPath(STR_THEMENU));
-                if (objClsDriver.fnCountElements(By.XPath(STR_MENUCLOSED)) == 1)
-                {
-                    objMenuClosedTxt.Click();
-                }
-                else
-                {
-                    Console.WriteLine("This is already opened");
-                }
-            }
-            public void fnEnterAtMenu(string pstrMenulable)//This method allows to get into Menu
+            #region Methods for Login
+            public void fnEnterEmail(string pstrEmail)//This function waits and fill the username field
             {
                 try
                 {
-                    objClsDriver.fnWaitExistVisibleClickable(By.LinkText(pstrMenulable));
-                    objClsDriver.fnFindElementThatExist(By.LinkText(pstrMenulable));
-                    objClsDriver.fnClickTheElement(By.LinkText(pstrMenulable));
-                    objClsDriver.fnWaitForElementToExist(By.Id("social-sidebar-menu"));
-                    objClsDriver.fnWaitForElementToExist(By.TagName("li"));
-                    objClsDriver.fnWaitForElementToExist(By.TagName("a"));
-                    objClsDriver.fnWaitURLContains(pstrMenulable);
+                    objClsDriver.fnWaitExistVisibleClickable(By.XPath(STR_EMAIL_TXT));
+                    objEmailTxt.Clear();
+                    objEmailTxt.SendKeys(pstrEmail);
                 }
                 catch (Exception e)
                 {
-                    Assert.Fail("The Menu is not elegible " + e.Message);
-                }
-            }
-            public void fnEnterAtSubMenu(string pstrSubMenuLable, string pstrUrlExpected)//This method wait for the headers
-            {
-                try
-                {
-                    objClsDriver.fnWaitExistVisibleClickable(By.LinkText(pstrSubMenuLable));
-                    objClsDriver.fnClickTheElement(By.LinkText(pstrSubMenuLable));
-                    objClsDriver.fnWaitWebSiteTitleContains(pstrUrlExpected);
-                }
-                catch (Exception e)
-                {
-                    Assert.Fail("The SubMenu is not elegible " + e.Message);
-                }
-            }
-            public int fnAmountofHeaders()//return number Headers in the table
-            {
-                int numberOfHeaders = objHeaders.Count();
-                return numberOfHeaders;
-            }
-            #endregion Methods for Menu and Submenu
-            #region Methods for Tables
-            public void fnCheckTheManagementTablesExist()//This function Confirms that the Account Table exist
-            {
-                try
-                {
-                    objClsDriver.fnWaitForElementToExist(By.XPath(STR_PANELHEADERS));
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine("The Panel Body does not exist: " + e.Message);
+                    Console.WriteLine("The Email Field is not available - " + e.Message);
                     Assert.Fail();
                 }
             }
-            public void fnValidateHeadersExist()//This method waits all the headers in the account tables
+            public void fnEnterPassword(string pstrPass)//This function waits and fill the password field
+        {
+                try
+                {
+                    objClsDriver.fnWaitExistVisibleClickable(By.XPath(STR_PASSWORD_TXT));
+                    objPasswordTxt.Clear();
+                    objPasswordTxt.SendKeys(pstrPass);
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("The Password Field is not available - " + e.Message);
+                    Assert.Fail();
+                }
+            }
+            public void fnClickLoginButton()//This function waits and clicks the Login Button
             {
                 try
                 {
-                    for (int j = 0; j < arrHeadersXpaths.Length; j++)
+                    objClsDriver.fnWaitFindAndClick(By.XPath(STR_LOGIN_BTN));
+                }
+                catch(Exception e)
+                {
+                    Console.WriteLine("The Login Button is not available - " + e.Message);
+                    Assert.Fail();
+                }
+            }
+            public void fnWaitHamburgerMenu() //This function waits the hamburger button
+            {
+                try
+                {
+                    objClsDriver.fnWaitExistVisibleClickable(By.Id(STR_HAMBURGER_BTN));
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("The Hamburger Menu is not available - " + e.Message);
+                    Assert.Fail();
+                }
+            }
+            public void fnCompleteLogin(string pstrEmail, string pstrPass) //This function Does a complete Login
+            { // This function does not need a try catch, because each of those already have one
+                fnEnterEmail(pstrEmail);
+                fnEnterPassword(pstrPass);
+                fnClickLoginButton();
+                fnWaitHamburgerMenu();
+            }
+            public string fnPrintTheListOfStatus()//This function prints the values of the Satuses List
+            {
+                objClsDriver.fnWaitExistVisibleClickable(By.XPath(STR_STATS_LIST));//Wait to confirm that the stats panel exist
+                int i;
+                int intArraySize = objStatsList.Count; //We check the amount of the elements in the stats panel exist
+                string[] arrResult = new string[intArraySize];
+                for (i = 0; i < intArraySize; i++)
+                {
+                    arrResult[i] = objStatsList.ToArray()[i].Text; //Printing the string of the List
+                }
+                return string.Join("<br/>\r\n", arrResult);
+            }
+            #endregion Methods for Login
+            #region Methods after login - Dashboard
+                #region Methods for Menu and Submenu
+                    public void fnActivateTheMenu()//This function check if Menu is Expanded or Not
                     {
-                        objClsDriver.fnWaitExistVisibleClickable(By.XPath(arrHeadersXpaths[j]));
+                        objClsDriver.fnWaitExistVisibleClickable(By.XPath(STR_THEMENU));
+                        if (objClsDriver.fnCountElements(By.XPath(STR_MENUCLOSED)) == 1)
+                        {
+                            objMenuClosedTxt.Click();
+                        }
+                        else
+                        {
+                            Console.WriteLine("This is already opened");
+                        }
+                    }
+                    public void fnEnterAtMenu(string pstrMenulable)//This method allows to get into Menu
+                    {
+                        try
+                        {
+                            objClsDriver.fnWaitFindAndClick(By.LinkText(pstrMenulable));
+                            objClsDriver.fnWaitForElementToExist(By.Id("social-sidebar-menu"));
+                            objClsDriver.fnWaitForElementToExist(By.TagName("li"));
+                            objClsDriver.fnWaitForElementToExist(By.TagName("a"));
+                            objClsDriver.fnWaitURLContains(pstrMenulable);
+                        }
+                        catch (Exception e)
+                        {
+                            Assert.Fail("The Menu is not elegible " + e.Message);
+                        }
+                    }
+                    public void fnEnterAtSubMenu(string pstrSubMenuLable, string pstrUrlExpected)//This method wait for the headers
+                    {
+                        try
+                        {
+                            objClsDriver.fnWaitFindAndClick(By.LinkText(pstrSubMenuLable));
+                            objClsDriver.fnWaitWebSiteTitleContains(pstrUrlExpected);
+                        }
+                        catch (Exception e)
+                        {
+                            Assert.Fail("The SubMenu is not elegible " + e.Message);
+                        }
+                    }
+                    public int fnAmountofHeaders()//return number Headers in the table
+                    {
+                        return objHeaders.Count();
+                    }
+                    #endregion Methods for Menu and Submenu
+                #region Methods for Tables
+                public void fnCheckTheManagementTablesExist()//This function Confirms that the Account Table exist
+                {
+                    try
+                    {
+                        objClsDriver.fnWaitForElementToExist(By.XPath(STR_PANELHEADERS));
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine("The Panel Body does not exist: " + e.Message);
+                        Assert.Fail();
                     }
                 }
-                catch (Exception e)
+                public void fnValidateHeadersExist()//This method waits all the headers in the account tables
                 {
-                    Assert.Fail("The header is not elegible " + e.Message);
-                }
-            }
-            public string fnIndexForHeader(int pintIndex)//This function add an index for each header in account tables
-            {
-                string pstrHeaderIndex = STR_PANELHEADERS + "["+ pintIndex + "]";
-                return pstrHeaderIndex;
-            }
-            public void fnClickTheHeader(int pintIndex)//This function Clicks the Headers
-            {
-                try
-                {
-                    fnValidateHeadersExist();
-                    objClsDriver.fnWaitExistVisibleClickable(By.XPath(fnIndexForHeader(pintIndex)));
-                    objClsDriver.fnFindElement(By.XPath(fnIndexForHeader(pintIndex)));
-                    objClsDriver.fnClickTheElement(By.XPath(fnIndexForHeader(pintIndex)));
-                    objClsDriver.fnWaitForElementToExist(By.XPath(STR_PANELBODY));
-                }
-                catch (StaleElementReferenceException)
-                {
-                    fnValidateHeadersExist();
-                    objClsDriver.fnFindElement(By.XPath(fnIndexForHeader(pintIndex)));
-                    objClsDriver.fnClickTheElement(By.XPath(fnIndexForHeader(pintIndex)));
-                    objClsDriver.fnWaitForElementToExist(By.XPath(STR_PANELBODY));
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine("The Header is not elegible in page " + e.Message);
-                    Assert.Fail();
-                }
-            }
-            public void fnValidateAscOrder()//This function validates if the order is Ascendent
-            {
-                try
-                {
-                    if (objClsDriver.fnIsElementPresent(By.XPath(STR_HEADERSASC)) == true)
+                    try
                     {
-                        objClsDriver.fnWaitForElementToExist(By.XPath(STR_HEADERSASC));
+                        for (int j = 0; j < arrHeadersXpaths.Length; j++)
+                        {
+                            objClsDriver.fnWaitExistVisibleClickable(By.XPath(arrHeadersXpaths[j]));
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        Assert.Fail("The header is not elegible " + e.Message);
                     }
                 }
-                catch (Exception e)
+                public string fnIndexForHeader(int pintIndex)//This function add an index for each header in account tables
                 {
-                    Console.WriteLine("Error " + e.Message);
-                    Assert.Fail();
+                    return STR_PANELHEADERS + "["+ pintIndex + "]";
                 }
-            }
-            public void fnValidateDescOrder()//This function validates if the order is Descendent
-            {
-                try
+                public void fnClickTheHeader(int pintIndex)//This function Clicks the Headers
                 {
-                    if (objClsDriver.fnIsElementPresent(By.XPath(STR_HEADERSDESC)) == true)
+                    try
                     {
-                        objClsDriver.fnWaitForElementToExist(By.XPath(STR_HEADERSDESC));
+                        fnValidateHeadersExist();
+                        objClsDriver.fnWaitFindAndClick(By.XPath(fnIndexForHeader(pintIndex)));
+                        objClsDriver.fnWaitForElementToExist(By.XPath(STR_PANELBODY));
+                    }
+                    catch (StaleElementReferenceException)
+                    {
+                        fnValidateHeadersExist();
+                        objClsDriver.fnWaitFindAndClick(By.XPath(fnIndexForHeader(pintIndex)));
+                        objClsDriver.fnWaitForElementToExist(By.XPath(STR_PANELBODY));
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine("The Header is not elegible in page " + e.Message);
+                        Assert.Fail();
                     }
                 }
-                catch (Exception e)
-                {
-                    Console.WriteLine("Error " + e.Message);
-                    Assert.Fail();
+                public string fnGetTheHeaderName(int pintIndex)//This function Print the Text of the Headers
+                { //We use the global string "strGenericString" to return the value
+                try
+                    { 
+                        objClsDriver.fnWaitForElementToExist(By.XPath(STR_PANELBODY));
+                        strGenericString = objClsDriver.fnPrintTxtElement(By.XPath(fnIndexForHeader(pintIndex)));
+                    }
+                    catch (StaleElementReferenceException)
+                    {
+                        objClsDriver.fnWaitForElementToExist(By.XPath(STR_PANELBODY));
+                        strGenericString = objClsDriver.fnPrintTxtElement(By.XPath(fnIndexForHeader(pintIndex)));
+                    }
+                    return strGenericString;
                 }
-            }
-            #endregion Methods for Tables
-        #endregion Methods after login - Dashboard
+                public void fnValidateAscOrder()//This function validates if the order is Ascendent
+                {
+                    try
+                    {
+                        if (objClsDriver.fnIsElementPresent(By.XPath(STR_HEADERSASC)) == true)
+                        {
+                            objClsDriver.fnWaitForElementToExist(By.XPath(STR_HEADERSASC));
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine("Error " + e.Message);
+                        Assert.Fail();
+                    }
+                }
+                public void fnValidateDescOrder()//This function validates if the order is Descendent
+                {
+                    try
+                    {
+                        if (objClsDriver.fnIsElementPresent(By.XPath(STR_HEADERSDESC)) == true)
+                        {
+                            objClsDriver.fnWaitForElementToExist(By.XPath(STR_HEADERSDESC));
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine("Error " + e.Message);
+                        Assert.Fail();
+                    }
+                }
+                #endregion Methods for Tables
+            #endregion Methods after login - Dashboard
         #endregion METHODS/FUNCTIONS
     }
 }
