@@ -10,17 +10,17 @@ using System.Threading;
 using System.Threading.Tasks;
 namespace AutomationFrameworkC.Base_Files
 {
-    class clsDriver : BaseTest
+    class clsDriver //: BaseTest
     {
         #region variables
         /*ATTRIBUTES*/
         private static IWebDriver _objDriver;
         private static WebDriverWait _driverWait;
         private static IWebElement objElement;
+        private IList<IWebElement> objElements;
         #endregion variables
         #region Constructor
         /*CONSTRUCTOR*/
-        //public clsDriver(IWebDriver pobjDriver)
         public clsDriver(IWebDriver pobjDriver)
         {
             _objDriver = pobjDriver;
@@ -49,19 +49,30 @@ namespace AutomationFrameworkC.Base_Files
             IWebElement searchResult = fluentWait.Until(x => x.FindElement(By.Id("search_result")));
             return objElement;
         }
+        public void fnWaitExistVisibleClickable (By by)
+        {
+            fnWaitForElementToExist(by);
+            fnWaitForElementToBeVisible(by);
+            fnWaitForElementToBeClickable(by);
+        }
         public IWebElement fnFindElement(By by)
         {
             objElement = _objDriver.FindElement(by);
             return objElement;
+        }
+        public IList<IWebElement> fnFindElements(By by)
+        {
+            objElements = _objDriver.FindElements(by);
+            return objElements;
         }
         public string fnPrintTxtElement(By by)
         {
             objElement = _objDriver.FindElement(by);
             return objElement.Text;
         }
-        public int fnCountElements(string pstrXpath)
+        public int fnCountElements(By by)
         {
-            int myCount = _objDriver.FindElements(By.XPath(pstrXpath)).Count;
+            int myCount = _objDriver.FindElements(by).Count;
             return myCount;
         }
         public IWebElement fnFindElementThatExist(By by)
@@ -74,6 +85,21 @@ namespace AutomationFrameworkC.Base_Files
         {
             {
                 if (_driverWait.Until(ExpectedConditions.TitleContains(pstrUrlExpected)))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+        /*Wait for to check the url contains*/
+        public bool fnWaitURLContains(string pstrUrlExpected)
+        {
+            {
+                //if (_driverWait.Until(ExpectedConditions.TitleContains(pstrUrlExpected)))
+                if (_driverWait.Until(ExpectedConditions.UrlContains(pstrUrlExpected)))
                 {
                     return true;
                 }
@@ -101,6 +127,13 @@ namespace AutomationFrameworkC.Base_Files
             objElement = _driverWait.Until(ExpectedConditions.ElementToBeClickable(by));
             return objElement;
         }
+        /*Click the element*/
+        public void fnClickTheElement(By by)
+        {
+            objElement = fnFindElement(by);
+            objElement.Click();
+        }
+
         /*Wait for element to be selected*/
         public bool fnWaitForElementToBeSelected(By by)
         {

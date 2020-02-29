@@ -26,10 +26,6 @@ namespace AutomationFrameworkC.Base_Files
         public static readonly string strUser = ConfigurationManager.AppSettings.Get("email");
         public static readonly string strPass = ConfigurationManager.AppSettings.Get("password");
         public static readonly string strApplication = ConfigurationManager.AppSettings.Get("application");
-        /*AFTER LOGIN*/
-        public static readonly string strMenu = ConfigurationManager.AppSettings.Get("menu");
-        public static readonly string strSubMenu = ConfigurationManager.AppSettings.Get("submenu");
-        public static readonly string strWebSiteTitleExpected = ConfigurationManager.AppSettings.Get("sitetitleexpected");
         /*Extent Reports Instances*/
         public static clsReportManager objRM = new clsReportManager();
         public static ExtentHtmlReporter objHtmlReporter;

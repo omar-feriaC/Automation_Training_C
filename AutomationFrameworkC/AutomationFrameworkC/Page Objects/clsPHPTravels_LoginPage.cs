@@ -5,230 +5,258 @@ using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.WaitHelpers;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 namespace AutomationFrameworkC.Page_Objects
 {
-    class clsPHPTravels_LoginPage 
+    class clsPHPTravels_LoginPage
     {
-        #region variables
-        /*ATTRIBUTES*/
+        #region ATTRIBUTES
         public WebDriverWait _objDriverWait;
-        private IWebDriver _objDriver;
-        private static IWebElement _objElement;
+        private static IWebDriver _objDriver; //"_objDriver" used only to intizialize the clsDriver in the constructor
+        private static IWebElement _objElement; //Used to manipulate results type IWebElement in functions when needed
         private clsDriver objClsDriver; //Initialization of clsDriver to re use elements
-        #endregion variables
-        #region Constructor
-        /*CONSTRUCTOR*/
+        #endregion ATTRIBUTES
+        #region CONSTRUCTOR
         public clsPHPTravels_LoginPage(IWebDriver pobjDriver)
         {
             _objDriver = pobjDriver;
             _objDriverWait = new WebDriverWait(pobjDriver, new TimeSpan(0, 0, 40));
             objClsDriver = new clsDriver(_objDriver);
         }
-        #endregion Constructor
-        #region Elements
-        /*LOCATORS FOR LOGIN PAGE*/
-        readonly static string STR_EMAIL_TXT = "//input[@name='email']";
-        readonly static string STR_PASSWORD_TXT = "//input[@name='password']";
-        readonly static string STRREMEMBERME_LNK = "///label[@class='checkbox']";
-        readonly static string STR_FORGOTPASS_LNK = "//*[text()='Forget Password']";
-        readonly static string STR_LOGIN_BTN = "//span[text()='Login']";
-        readonly static string STR_HAMBURGER_BTN = "sidebarCollapse";
-        /*LOCATORS FOR DASHBOARD PAGE*/
-        readonly static string STR_STATS_LIST = "//div/ul[@class='serverHeader__statsList']/li/a";
-        readonly static string STR_THEMENU = "//div[contains(@class, 'container-fluid')]";
-        readonly static string STR_MENUCLOSED = "//div[@class='container-fluid go_left']/div/a[@id='sidebarCollapse']";
-        readonly static string STR_MENUOPENED = "//div[@class='container-fluid']/div/a[@id='sidebarCollapse']";
-        /*LOCATORS FOR MENU PAGES*/
-        readonly static string STR_ACCOUNTS = "ACCOUNTS";
-        readonly static string STR_PANELHEADERS = "//table[@class='xcrud-list table table-striped table-hover']/thead/tr/th[contains(@data-orderby, 'pt_accounts')]";
-        readonly static string STR_PANELBODY = "//table[@class='xcrud-list table table-striped table-hover']/tbody";
-        readonly static string STR_HEADERSASC = "//table[@class='xcrud-list table table-striped table-hover']/thead/tr/th[contains(@data-orderby, 'pt_accounts')and (@data-order='asc')]";
-        readonly static string STR_HEADERSDESC = "//table[@class='xcrud-list table table-striped table-hover']/thead/tr/th[contains(@data-orderby, 'pt_accounts')and (@data-order='desc')]";
-        /*OBJECT DEFINITION FOR LOGIN PAGE*/
-        private IWebElement objEmailTxt => _objDriver.FindElement(By.XPath(STR_EMAIL_TXT));
-        private IWebElement objPasswordTxt => _objDriver.FindElement(By.XPath(STR_PASSWORD_TXT));
-        private IWebElement objRememberMeLnk => _objDriver.FindElement(By.XPath(STRREMEMBERME_LNK));
-        private IWebElement objForgotPassLnk => _objDriver.FindElement(By.XPath(STR_FORGOTPASS_LNK));
-        private IWebElement objLoginBtn => _objDriver.FindElement(By.XPath(STR_LOGIN_BTN));
-        /*OBJECT DEFINITION FOR MENU*/
-        private IList<IWebElement> objStatsList => _objDriver.FindElements(By.XPath(STR_STATS_LIST));
-        private IWebElement objTheMenuTxt => _objDriver.FindElement(By.XPath(STR_THEMENU));
-        private IWebElement objMenuClosedTxt => _objDriver.FindElement(By.XPath(STR_MENUCLOSED));
-        private IWebElement objMenuOpenedTxt => _objDriver.FindElement(By.XPath(STR_MENUOPENED));
-        private IWebElement objMenuClicked => _objDriver.FindElement(By.LinkText(STR_ACCOUNTS));
-        private IList<IWebElement> objHeaders => _objDriver.FindElements(By.XPath(STR_PANELHEADERS));
-        #endregion Elements
-        #region Methods
-        /*METHODS/FUNCTIONS*/
+        #endregion CONSTRUCTOR
+        #region ELEMENTS
+            #region LOCATORS FOR LOGIN PAGE
+            readonly static string STR_EMAIL_TXT = "//input[@name='email']";
+            readonly static string STR_PASSWORD_TXT = "//input[@name='password']";
+            readonly static string STR_FORGOTPASS_LNK = "//*[text()='Forget Password']";
+            readonly static string STR_LOGIN_BTN = "//span[text()='Login']";
+            readonly static string STR_HAMBURGER_BTN = "sidebarCollapse";
+            #endregion LOCATORS FOR LOGIN PAGE
+            #region LOCATORS FOR DASHBOARD PAGE
+            readonly static string STR_STATS_LIST = "//div/ul[@class='serverHeader__statsList']/li/a";
+            readonly static string STR_THEMENU = "//div[contains(@class, 'container-fluid')]";
+            readonly static string STR_MENUCLOSED = "//div[@class='container-fluid go_left']/div/a[@id='sidebarCollapse']";
+            readonly static string STR_MENUOPENED = "//div[@class='container-fluid']/div/a[@id='sidebarCollapse']";
+            #endregion LOCATORS FOR DASHBOARD PAGE
+            #region LOCATORS FOR MENU PAGES
+            readonly static string STR_ACCOUNTS = "ACCOUNTS";
+            readonly static string STR_PANELHEADERS = "//table[@class='xcrud-list table table-striped table-hover']/thead/tr/th[contains(@data-orderby, 'pt_accounts')]";
+            readonly static string STR_PANELBODY = "//table[@class='xcrud-list table table-striped table-hover']/tbody";
+            readonly static string STR_HEADERSASC = "//table[@class='xcrud-list table table-striped table-hover']/thead/tr/th[contains(@data-orderby, 'pt_accounts')and (@data-order='asc')]";
+            readonly static string STR_HEADERSDESC = "//table[@class='xcrud-list table table-striped table-hover']/thead/tr/th[contains(@data-orderby, 'pt_accounts')and (@data-order='desc')]";
+            #endregion LOCATORS FOR MENU PAGES
+            # region LOCATORS FOR HEADERS
+            readonly static string STR_FIRSTNAME_TABLE = "//th[contains(@data-orderby, 'pt_accounts.ai_first_name')]";
+            readonly static string STR_LASTNAME_TABLE = "//th[contains(@data-orderby, 'pt_accounts.ai_last_name')]";
+            readonly static string STR_EMAIL_TABLE = "//th[contains(@data-orderby, 'pt_accounts.accounts_email')]";
+            readonly static string STR_ACTIVE_TABLE = "//th[contains(@data-orderby, 'pt_accounts.accounts_status')]";
+            readonly static string STR_LASTLOGIN_TABLE = "//th[contains(@data-orderby, 'pt_accounts.accounts_last_login')]";
+            readonly static string[] arrHeadersXpaths = { STR_FIRSTNAME_TABLE, STR_LASTNAME_TABLE, STR_EMAIL_TABLE, STR_ACTIVE_TABLE, STR_LASTLOGIN_TABLE };
+        #endregion LOCATORS FOR HEADERS
+            #region OBJECT DEFINITION FOR LOGIN PAGE
+            private IWebElement objEmailTxt => objClsDriver.fnFindElement(By.XPath(STR_EMAIL_TXT));
+            private IWebElement objPasswordTxt => objClsDriver.fnFindElement(By.XPath(STR_PASSWORD_TXT));
+            private IWebElement objForgotPassLnk => objClsDriver.fnFindElement(By.XPath(STR_FORGOTPASS_LNK));
+            private IWebElement objLoginBtn => objClsDriver.fnFindElement(By.XPath(STR_LOGIN_BTN));
+        #endregion OBJECT DEFINITION FOR LOGIN PAGE
+            #region OBJECT DEFINITION FOR MENU
+            private IList<IWebElement> objStatsList => objClsDriver.fnFindElements(By.XPath(STR_STATS_LIST));
+            private IWebElement objTheMenuTxt => objClsDriver.fnFindElement(By.XPath(STR_THEMENU));
+            private IWebElement objMenuClosedTxt => objClsDriver.fnFindElement(By.XPath(STR_MENUCLOSED));
+            private IWebElement objMenuOpenedTxt => objClsDriver.fnFindElement(By.XPath(STR_MENUOPENED));
+            private IWebElement objMenuClicked => objClsDriver.fnFindElement(By.LinkText(STR_ACCOUNTS));
+            private IList<IWebElement> objHeaders => objClsDriver.fnFindElements(By.XPath(STR_PANELHEADERS));
+            private IList<IWebElement> objHeadersIndex => objClsDriver.fnFindElements(By.XPath(STR_PANELHEADERS + "[" + fnAmountofHeaders() + "]"));
+            #endregion OBJECT DEFINITION FOR MENU
+            #region DEFINITION FOR HEADERS
+            private IWebElement objFirstNameTableTxt => objClsDriver.fnFindElement(By.XPath(STR_FIRSTNAME_TABLE));
+            private IWebElement objLastNameTableTxt => objClsDriver.fnFindElement(By.XPath(STR_LASTNAME_TABLE));
+            private IWebElement objEmailTableTxt => objClsDriver.fnFindElement(By.XPath(STR_EMAIL_TABLE));
+            private IWebElement objActiveTableTxt => objClsDriver.fnFindElement(By.XPath(STR_ACTIVE_TABLE));
+            private IWebElement objLastLoginTableTxt => objClsDriver.fnFindElement(By.XPath(STR_LASTLOGIN_TABLE));
+        #endregion DEFINITION FOR HEADER
+        #endregion ELEMENTS
+        #region METHODS/FUNCTIONS
         #region Methods for Login
-        //Email
         public void fnEnterEmail(string pstrEmail)
         {
-            objClsDriver.fnWaitForElementToExist(By.XPath(STR_EMAIL_TXT));
-            objClsDriver.fnWaitForElementToBeVisible(By.XPath(STR_EMAIL_TXT));
+            objClsDriver.fnWaitExistVisibleClickable(By.XPath(STR_EMAIL_TXT));
             objEmailTxt.Clear();
             objEmailTxt.SendKeys(pstrEmail);
         }
         public void fnEnterPassword(string pstrPass)
         {
-            objClsDriver.fnWaitForElementToExist(By.XPath(STR_PASSWORD_TXT));
-            objClsDriver.fnWaitForElementToBeVisible(By.XPath(STR_PASSWORD_TXT));
+            objClsDriver.fnWaitExistVisibleClickable(By.XPath(STR_PASSWORD_TXT));
             objPasswordTxt.Clear();
             objPasswordTxt.SendKeys(pstrPass);
         }
-        //Login Button
-        private IWebElement GetLoginButton()
-        {
-            return objRememberMeLnk;
-        }
         public void fnClickLoginButton()
         {
-            objClsDriver.fnWaitForElementToExist(By.XPath(STR_LOGIN_BTN));
-            objClsDriver.fnWaitForElementToBeClickable(By.XPath(STR_LOGIN_BTN));
-            objClsDriver.fnWaitForElementToBeVisible(By.XPath(STR_LOGIN_BTN));
+            objClsDriver.fnWaitExistVisibleClickable(By.XPath(STR_LOGIN_BTN));
             objLoginBtn.Click();
         }
-        /*Hamburger Button*/
-        public void fnWaitHamburgerMenu()
+        public void fnWaitHamburgerMenu() //This function validates that login has been success
         {
-            _objDriverWait.Until(ExpectedConditions.ElementExists(By.Id(STR_HAMBURGER_BTN)));
-            _objDriverWait.Until(ExpectedConditions.ElementIsVisible(By.Id(STR_HAMBURGER_BTN)));
-            _objDriverWait.Until(ExpectedConditions.ElementToBeClickable(By.Id(STR_HAMBURGER_BTN)));
+            objClsDriver.fnWaitExistVisibleClickable(By.Id(STR_HAMBURGER_BTN));
         }
-        #endregion Methods for Login
-        #region Methods after login - Dashboard
-        /*This function allows to check if the Menu is expanded or Not*/
-        public void fnActivateTheMenu()
-        {
-            objClsDriver.fnWaitForElementToExist(By.XPath(STR_THEMENU));
-            /*If the Menu is closed, this part will make it open*/
-            if (_objDriver.FindElements(By.XPath(STR_MENUCLOSED)).Count == 1)
-            {
-                objMenuClosedTxt.Click();
-            }
-            else
-            {
-                Console.WriteLine("This is already opened");
-            }
-        }
-        public int fnCountStatsList()
+        public int fnCountStatsList()//return number of Elements in Status list after login
         {
             int a = objStatsList.Count;
             return a;
         }
-        public string fnCheckStatsList(int pintIndex)
+        public string fnCheckStatsList(int pintIndex)//This function return in a string each element of Status List
         {
             string a;
             a = objStatsList[pintIndex].Text;
             return a;
         }
-        /*This function confirm that the Account tables exist*/
-        public void fnCheckTheManagementTablesExist()
+        public void fnCompleteLogin(string pstrEmail, string pstrPass) // This function Does a complete Login
         {
-            try
-            {
-                objClsDriver.fnWaitForElementToExist(By.XPath(STR_PANELHEADERS));
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("The Panel Body does not exist: " + e.Message);
-                Assert.Fail();
-            }
+            fnEnterEmail(pstrEmail);
+            fnEnterPassword(pstrPass);
+            fnClickLoginButton();
+            fnWaitHamburgerMenu();
         }
-        /*NUMBER of submenus provided*/
-        public int fnAmountofSubmenus(string[] pstrSubMenuLable)
-        {
-            int numberOfSubmenus = pstrSubMenuLable.Length;
-            return numberOfSubmenus;
-        }
-        /*NUMBER of Headers in the table*/
-        public int fnAmountofHeaders()
-        {
-            int numberOfHeaders = objHeaders.Count();
-            return numberOfHeaders;
-        }
-        /*This function add an index for each header in account tables*/
-        public string fnIndexForHeader(int pintIndex)
-        {
-            string pstrHeaderIndex = STR_PANELHEADERS + "["+ pintIndex + "]";
-            return pstrHeaderIndex;
-        }
-        public void fnClickTheHeader(int pintIndex)
-        {
-            IWebElement objHeaderElement;
-            try
+        #endregion Methods for Login
+        #region Methods after login - Dashboard
+            #region Methods for Menu and Submenu
+            public void fnActivateTheMenu()//This function check if Menu is Expanded or Not
             {
-                objHeaderElement = _objDriver.FindElement(By.XPath(fnIndexForHeader(pintIndex)));
-                objHeaderElement.Click();
-                objClsDriver.fnWaitForElementToExist(By.XPath(STR_PANELBODY));
-            }
-            catch(StaleElementReferenceException)
-            {
-                objHeaderElement = _objDriver.FindElement(By.XPath(fnIndexForHeader(pintIndex)));
-                objHeaderElement.Click();
-                objClsDriver.fnWaitForElementToExist(By.XPath(STR_PANELBODY));
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("The Header is not elegible in page " + _objDriver.Title + " " + e.Message);
-                Assert.Fail();
-            }
-        }
-        public void fnAscOrder()
-        {
-            try
-            {
-                if (objClsDriver.fnIsElementPresent(By.XPath(STR_HEADERSASC)) == true)
+                objClsDriver.fnWaitExistVisibleClickable(By.XPath(STR_THEMENU));
+                if (objClsDriver.fnCountElements(By.XPath(STR_MENUCLOSED)) == 1)
                 {
-                    objClsDriver.fnWaitForElementToExist(By.XPath(STR_HEADERSASC));
+                    objMenuClosedTxt.Click();
+                }
+                else
+                {
+                    Console.WriteLine("This is already opened");
                 }
             }
-            catch (Exception e)
+            public void fnEnterAtMenu(string pstrMenulable)//This method allows to get into Menu
             {
-                Console.WriteLine("Error " + e.Message);
-                Assert.Fail();
-            }
-        }
-        public void fnDescOrder()
-        {
-            try
-            {
-                if (objClsDriver.fnIsElementPresent(By.XPath(STR_HEADERSDESC)) == true)
+                try
                 {
-                    objClsDriver.fnWaitForElementToExist(By.XPath(STR_HEADERSDESC));
+                    objClsDriver.fnWaitExistVisibleClickable(By.LinkText(pstrMenulable));
+                    objClsDriver.fnFindElementThatExist(By.LinkText(pstrMenulable));
+                    objClsDriver.fnClickTheElement(By.LinkText(pstrMenulable));
+                    objClsDriver.fnWaitForElementToExist(By.Id("social-sidebar-menu"));
+                    objClsDriver.fnWaitForElementToExist(By.TagName("li"));
+                    objClsDriver.fnWaitForElementToExist(By.TagName("a"));
+                    objClsDriver.fnWaitURLContains(pstrMenulable);
+                }
+                catch (Exception e)
+                {
+                    Assert.Fail("The Menu is not elegible " + e.Message);
                 }
             }
-            catch (Exception e)
+            public void fnEnterAtSubMenu(string pstrSubMenuLable, string pstrUrlExpected)//This method wait for the headers
             {
-                Console.WriteLine("Error " + e.Message);
-                Assert.Fail();
+                try
+                {
+                    objClsDriver.fnWaitExistVisibleClickable(By.LinkText(pstrSubMenuLable));
+                    objClsDriver.fnClickTheElement(By.LinkText(pstrSubMenuLable));
+                    objClsDriver.fnWaitWebSiteTitleContains(pstrUrlExpected);
+                }
+                catch (Exception e)
+                {
+                    Assert.Fail("The SubMenu is not elegible " + e.Message);
+                }
             }
-        }
-        //This method allows to get into Menu and SubMenu
-        public void fnEnterAtMenuSubMenu(string pstrMenulable, string[] pstrSubMenuLable, string[] pstrUrlExpected, int pintIndex)
-        {
-            try
+            public int fnAmountofHeaders()//return number Headers in the table
             {
-                objClsDriver.fnFindElementThatExist(By.LinkText(pstrMenulable));
-                objClsDriver.fnFindElementThatExist(By.LinkText(pstrMenulable)).Click();
-                objClsDriver.fnWaitForElementToExist(By.Id("social-sidebar-menu"));
-                objClsDriver.fnWaitForElementToExist(By.TagName("li"));
-                objClsDriver.fnWaitForElementToExist(By.TagName("a"));
-                objClsDriver.fnWaitForElementToExist(By.LinkText(pstrSubMenuLable[pintIndex]));
-                objClsDriver.fnWaitForElementToExist(By.LinkText(pstrSubMenuLable[pintIndex])).Click();
-                objClsDriver.fnWaitWebSiteTitleContains(pstrUrlExpected[pintIndex]);
+                int numberOfHeaders = objHeaders.Count();
+                return numberOfHeaders;
             }
-            catch(Exception e)
+            #endregion Methods for Menu and Submenu
+            #region Methods for Tables
+            public void fnCheckTheManagementTablesExist()//This function Confirms that the Account Table exist
             {
-                //Console.WriteLine("The Menu is not elegible " + e.Message);
-                Assert.Fail("The Menu is not elegible " + e.Message);
+                try
+                {
+                    objClsDriver.fnWaitForElementToExist(By.XPath(STR_PANELHEADERS));
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("The Panel Body does not exist: " + e.Message);
+                    Assert.Fail();
+                }
             }
-        }
+            public void fnValidateHeadersExist()//This method waits all the headers in the account tables
+            {
+                try
+                {
+                    for (int j = 0; j < arrHeadersXpaths.Length; j++)
+                    {
+                        objClsDriver.fnWaitExistVisibleClickable(By.XPath(arrHeadersXpaths[j]));
+                    }
+                }
+                catch (Exception e)
+                {
+                    Assert.Fail("The header is not elegible " + e.Message);
+                }
+            }
+            public string fnIndexForHeader(int pintIndex)//This function add an index for each header in account tables
+            {
+                string pstrHeaderIndex = STR_PANELHEADERS + "["+ pintIndex + "]";
+                return pstrHeaderIndex;
+            }
+            public void fnClickTheHeader(int pintIndex)//This function Clicks the Headers
+            {
+                try
+                {
+                    objClsDriver.fnWaitExistVisibleClickable(By.XPath(fnIndexForHeader(pintIndex)));
+                    objClsDriver.fnFindElement(By.XPath(fnIndexForHeader(pintIndex)));
+                    objClsDriver.fnClickTheElement(By.XPath(fnIndexForHeader(pintIndex)));
+                    objClsDriver.fnWaitForElementToExist(By.XPath(STR_PANELBODY));
+                }
+                catch (StaleElementReferenceException)
+                {
+                    objClsDriver.fnFindElement(By.XPath(fnIndexForHeader(pintIndex)));
+                    objClsDriver.fnClickTheElement(By.XPath(fnIndexForHeader(pintIndex)));
+                    objClsDriver.fnWaitForElementToExist(By.XPath(STR_PANELBODY));
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("The Header is not elegible in page " + e.Message);
+                    Assert.Fail();
+                }
+            }
+            public void fnValidateAscOrder()//This function validates if the order is Ascendent
+            {
+                try
+                {
+                    if (objClsDriver.fnIsElementPresent(By.XPath(STR_HEADERSASC)) == true)
+                    {
+                        objClsDriver.fnWaitForElementToExist(By.XPath(STR_HEADERSASC));
+                    }
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("Error " + e.Message);
+                    Assert.Fail();
+                }
+            }
+            public void fnValidateDescOrder()//This function validates if the order is Descendent
+            {
+                try
+                {
+                    if (objClsDriver.fnIsElementPresent(By.XPath(STR_HEADERSDESC)) == true)
+                    {
+                        objClsDriver.fnWaitForElementToExist(By.XPath(STR_HEADERSDESC));
+                    }
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("Error " + e.Message);
+                    Assert.Fail();
+                }
+            }
+            #endregion Methods for Tables
         #endregion Methods after login - Dashboard
-        #endregion Methods
+        #endregion METHODS/FUNCTIONS
     }
 }
