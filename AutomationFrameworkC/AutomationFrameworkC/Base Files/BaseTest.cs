@@ -14,18 +14,16 @@ using System.Threading.Tasks;
 namespace AutomationFrameworkC.Base_Files
 {
     class BaseTest
-    {
-        //**************************************************
-        //*                V A R I A B L E S
-        //**************************************************
-        
+    {       
         /*Webdriver instances*/
         public static IWebDriver objDriver;
         
         
-        /*URL*/
+        /*Variables*/
         private static string strUrl = ConfigurationManager.AppSettings.Get("url");
-        
+        public static string strUserName = ConfigurationManager.AppSettings.Get("email");
+        public static string strPassword = ConfigurationManager.AppSettings.Get("password");
+
         /*Extent Reports Instances*/
         public static clsReportManager objRM = new clsReportManager();
         public static ExtentHtmlReporter objHtmlReporter;

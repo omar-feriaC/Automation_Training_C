@@ -17,7 +17,7 @@ namespace AutomationFrameworkC.Reporting
     {
         //Variables
         private DateTime time = DateTime.Now;
-        private string strImagePath;
+
 
         
         //Method to get report path
@@ -40,8 +40,8 @@ namespace AutomationFrameworkC.Reporting
             phtmlReporter.Config.Theme = AventStack.ExtentReports.Reporter.Configuration.Theme.Dark;
             phtmlReporter.Config.DocumentTitle = "Automation Framework Report";
             pExtent.AttachReporter(phtmlReporter);
-            pExtent.AddSystemInfo("Project Name:", "Automation Framework");
-            pExtent.AddSystemInfo("Application:", "LinkedIn");
+            pExtent.AddSystemInfo("Project Name:", "Automation Framework M9 Exercise");
+            pExtent.AddSystemInfo("Application:", "PhpTravels");
             pExtent.AddSystemInfo("Environment:", "QA");
             pExtent.AddSystemInfo("Browser:", ConfigurationManager.AppSettings.Get("browser"));
             pExtent.AddSystemInfo("Date:", time.ToShortDateString());

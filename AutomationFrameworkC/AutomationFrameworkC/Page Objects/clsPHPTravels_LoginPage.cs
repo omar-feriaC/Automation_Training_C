@@ -10,7 +10,7 @@ using AutomationFrameworkC.Base_Files;
 
 namespace AutomationFrameworkC.Page_Objects
 {
-    class clsPHPTravels_LoginPage : BaseTest
+    class clsPHPTravels_LoginPage 
     {
         /*ATTRIBUTES*/
         public static WebDriverWait _driverWait;
@@ -32,6 +32,8 @@ namespace AutomationFrameworkC.Page_Objects
         readonly static string STR_FORGOTPASS_LNK = "//*[text()='Forget Password']";
         readonly static string STR_LOGIN_BTN = "//span[text()='Login']";
         readonly static string STR_HAMBURGER_BTN = "sidebarCollapse";
+
+        //Dashboard//
         readonly static string STR_STATS_LIST = "//div/ul[@class='serverHeader__statsList']/li/a";
 
 
@@ -41,18 +43,12 @@ namespace AutomationFrameworkC.Page_Objects
         private static IWebElement objRememberMeLnk => _objDriver.FindElement(By.XPath(STRREMEMBERME_LNK));
         private static IWebElement objForgotPassLnk => _objDriver.FindElement(By.XPath(STR_FORGOTPASS_LNK));
         private static IWebElement objLoginBtn => _objDriver.FindElement(By.XPath(STR_LOGIN_BTN));
-        private static IList<IWebElement> objStatsList => objDriver.FindElements(By.XPath(STR_STATS_LIST));
+
+        //Dashboard//
+        private static IList<IWebElement> objStatsList => _objDriver.FindElements(By.XPath(STR_STATS_LIST));
 
         /*METHOD/ FUNCTIONS*/
-       public static void fnCheckStatsList()
-        {
-            for (int j = 0; j < objStatsList.Count; j++)
-            {
-                Console.WriteLine(objStatsList[j].Text);
-            }
-        }
-
-
+       
         //Enter Email
         public static void fnEnterEmail(string pstrEmail)
         {
@@ -89,13 +85,13 @@ namespace AutomationFrameworkC.Page_Objects
             _driverWait.Until(ExpectedConditions.ElementToBeClickable(By.Id(STR_HAMBURGER_BTN)));
         }
 
-        /*Count Elements*/
-        public static void fnCounTheElements()
+        //Dashboard//
+        public static void fnCheckStatsList()
         {
-            clsDriver.fnWaitForElementToExist(By.XPath(STR_LOGIN_BTN));
-            clsDriver.fnWaitForElementToBeClickable(By.XPath(STR_LOGIN_BTN));
-            clsDriver.fnWaitForElementToBeVisible(By.XPath(STR_LOGIN_BTN));
-            objLoginBtn.Click();
+            for (int j = 0; j < objStatsList.Count; j++)
+            {
+                Console.WriteLine(objStatsList[j].Text);
+            }
         }
 
 

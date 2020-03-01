@@ -23,16 +23,17 @@ namespace AutomationFrameworkC.Test_Cases
 
             //Login Action
             objRM.fnAddStepLog(objTest, "Before Login.", "Pass");
-            Assert.AreEqual(true, objDriver.Url.Contains("https://www.phptravels.net/admin"), "The Login Page was loaded correctly.");
-            clsPHPTravels_LoginPage.fnEnterEmail("admin@phptravels.com");
-            clsPHPTravels_LoginPage.fnEnterPassword("demoadmin");
+            Assert.AreEqual(true, objDriver.Url.Contains("https://www.phptravels.net/admin"), "The Login Page was not loaded correctly.");
+            clsPHPTravels_LoginPage.fnEnterEmail(strUserName);
+            clsPHPTravels_LoginPage.fnEnterPassword(strPassword);
             clsPHPTravels_LoginPage.fnClickLoginButton();
             clsPHPTravels_LoginPage.fnWaitHamburgerMenu();
             Assert.AreEqual(true, objDriver.Title.Contains("Dashboard"), "The Dashboard was not loaded correctly.");
+           
+            //Dashboard//
             clsPHPTravels_LoginPage.fnCheckStatsList();
-            objRM.fnAddStepLogWithSnapshot(objTest, objDriver, "After Login.", "LoginEvidence.png", "Pass");
+           
         }
-
 
     }
 }
