@@ -27,28 +27,40 @@ namespace AutomationFrameworkC.Page_Objects
 
         /*LOCATORS*/
         readonly static string STR_EMAIL_TXT = "//input[@name='email']";
-        readonly static string STR_PASSWORD_TXT = "//input[@name='password']";
-        readonly static string STRREMEMBERME_LNK = "//label[@class='checkbox']";
-        readonly static string STR_FORGOTPASS_LNK = "//*[text()='Forget Password']";
+        readonly static string STR_PASSWORD_TXT = "//input[@name='password']";      
         readonly static string STR_LOGIN_BTN = "//span[text()='Login']";
         readonly static string STR_HAMBURGER_BTN = "sidebarCollapse";
 
         //Dashboard//
         readonly static string STR_STATS_LIST = "//div/ul[@class='serverHeader__statsList']/li/a";
 
+        //Sub Menu Navigation//
+        readonly static string STR_MENU = "array[0]";
+        readonly static string STR_SIDE_BAR = "social-sidebar-menu";
+        readonly static string STR_TOP_BAR = "xcrud-overlay";
+        readonly static string STR_SUB_MENU = "array[1]";
+        readonly static string STR_FIRST_NAME = "//th[@data-orderby='pt_accounts.ai_first_name']";
+        readonly static string STR_LAST_NAME = "//th[@data-orderby='pt_accounts.ai_last_name']";
+        readonly static string STR_EMAIL_ACCOUNT = "//th[@data-orderby='pt_accounts.accounts_email']";
+        readonly static string STR_ACCOUNT_STATUS = "//th[@data-orderby='pt_accounts.accounts_status']";
+        readonly static string STR_ACCOUNT_LASTLOGIN = "//th[@data-orderby='pt_accounts.accounts_last_login']";
+
 
         /*PAGE ELEMENT OBJECTS*/
         private static IWebElement objEmailTxt => _objDriver.FindElement(By.XPath(STR_EMAIL_TXT));
         private static IWebElement objPasswordTxt => _objDriver.FindElement(By.XPath(STR_PASSWORD_TXT));
-        private static IWebElement objRememberMeLnk => _objDriver.FindElement(By.XPath(STRREMEMBERME_LNK));
-        private static IWebElement objForgotPassLnk => _objDriver.FindElement(By.XPath(STR_FORGOTPASS_LNK));
         private static IWebElement objLoginBtn => _objDriver.FindElement(By.XPath(STR_LOGIN_BTN));
 
         //Dashboard//
         private static IList<IWebElement> objStatsList => _objDriver.FindElements(By.XPath(STR_STATS_LIST));
 
+        //Sub Menu Navigation//
+        private static IWebElement objMenu = _objDriver.FindElement(By.LinkText(STR_MENU));
+
+        private static IWebElement objSubMenu = _objDriver.FindElement(By.LinkText(STR_SUB_MENU));
+
         /*METHOD/ FUNCTIONS*/
-       
+
         //Enter Email
         public static void fnEnterEmail(string pstrEmail)
         {
@@ -94,6 +106,45 @@ namespace AutomationFrameworkC.Page_Objects
             }
         }
 
+        //Menu Navigation//
+        public static void fnNavMenu(String submenu, String title)
+        {
+            String[] array = submenu.Split('.');
+            objMenu.Click();
+            clsDriver.fnWaitForElementToExist(By.Id(STR_SIDE_BAR));
+            clsDriver.fnWaitForElementToExist(By.TagName("li"));
+            clsDriver.fnWaitForElementToExist(By.TagName("a"));
+            clsDriver.fnWaitForElementToExist(By.LinkText(STR_SUB_MENU));
+            objSubMenu.Click();
+            _driverWait.Until(ExpectedConditions.TitleContains(title));
+            FnSort(STR_FIRST_NAME);
+            _driverWait.Until(ExpectedConditions.InvisibilityOfElementLocated(By.ClassName(STR_TOP_BAR)));
+            FnSort(STR_LAST_NAME);
+            _driverWait.Until(ExpectedConditions.InvisibilityOfElementLocated(By.ClassName(STR_TOP_BAR)));
+            FnSort(STR_EMAIL_ACCOUNT);
+            _driverWait.Until(ExpectedConditions.InvisibilityOfElementLocated(By.ClassName(STR_TOP_BAR)));
+            FnSort(STR_ACCOUNT_STATUS);
+            _driverWait.Until(ExpectedConditions.InvisibilityOfElementLocated(By.ClassName(STR_TOP_BAR)));
+            FnSort(STR_ACCOUNT_LASTLOGIN);
+        }
+
+        public static void FnSort(String path)
+        {
+            _driverWait.Until(ExpectedConditions.ElementExists(By.XPath(path)));
+            _driverWait.Until(ExpectedConditions.ElementIsVisible(By.XPath(path)));
+            _driverWait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(path)));
+            IWebElement orderasc = _objDriver.FindElement(By.XPath(path));
+            orderasc.Click();
+
+
+            _driverWait.Until(ExpectedConditions.InvisibilityOfElementLocated(By.ClassName(STR_TOP_BAR)));
+            _driverWait.Until(ExpectedConditions.ElementExists(By.XPath(path)));
+            _driverWait.Until(ExpectedConditions.ElementIsVisible(By.XPath(path)));
+            _driverWait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(path)));
+            IWebElement orderdsc = _objDriver.FindElement(By.XPath(path));
+            orderdsc.Click();
+
+        }
 
     }
 }

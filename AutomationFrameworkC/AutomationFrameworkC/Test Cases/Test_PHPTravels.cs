@@ -32,7 +32,17 @@ namespace AutomationFrameworkC.Test_Cases
            
             //Dashboard//
             clsPHPTravels_LoginPage.fnCheckStatsList();
-           
+
+            //SubMenu Navigation//
+            clsPHPTravels_LoginPage.fnNavMenu("ADMINS", "Admins Management");
+            Assert.AreEqual(true, objDriver.Title.Contains("Admins Management"), "The Admins Management fail");
+            clsPHPTravels_LoginPage.fnNavMenu("SUPPLIERS", "Suppliers Management");
+            Assert.AreEqual(true, objDriver.Title.Contains("Suppliers Management"), "The Suppliers Management fail");
+            clsPHPTravels_LoginPage.fnNavMenu(".CUSTOMERS", "Customers Management");
+            Assert.AreEqual(true, objDriver.Title.Contains("Customers Management"), "The Customers Management fail");
+            clsPHPTravels_LoginPage.fnNavMenu("GUESTCUSTOMERS", "Guest Management");
+            Assert.AreEqual(true, objDriver.Title.Contains("Guest Management"), "The Guest Management fail.");
+
         }
 
     }
