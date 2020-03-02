@@ -29,20 +29,22 @@ namespace AutomationFrameworkC.Test_Cases
             clsPHPTravels_LoginPage.fnClickLoginButton();
             clsPHPTravels_LoginPage.fnWaitHamburgerMenu();
             Assert.AreEqual(true, objDriver.Title.Contains("Dashboard"), "The Dashboard was not loaded correctly.");
-           
+
             //Dashboard//
+            objRM.fnAddStepLog(objTest, "Report Information", "Pass");
             clsPHPTravels_LoginPage.fnCheckStatsList();
 
             //SubMenu Navigation//
-            clsPHPTravels_LoginPage.fnNavMenu("ADMINS", "Admins Management");
+            objRM.fnAddStepLog(objTest, "Menu Navigation", "Pass");
+            clsPHPTravels_LoginPage.fnNavMenu("ACCOUNTS.ADMINS", "Admins Management");
             Assert.AreEqual(true, objDriver.Title.Contains("Admins Management"), "The Admins Management fail");
-            clsPHPTravels_LoginPage.fnNavMenu("SUPPLIERS", "Suppliers Management");
+            clsPHPTravels_LoginPage.fnNavMenu("ACCOUNTS.SUPPLIERS", "Suppliers Management");
             Assert.AreEqual(true, objDriver.Title.Contains("Suppliers Management"), "The Suppliers Management fail");
-            clsPHPTravels_LoginPage.fnNavMenu(".CUSTOMERS", "Customers Management");
+            clsPHPTravels_LoginPage.fnNavMenu("ACCOUNTS.CUSTOMERS", "Customers Management");
             Assert.AreEqual(true, objDriver.Title.Contains("Customers Management"), "The Customers Management fail");
-            clsPHPTravels_LoginPage.fnNavMenu("GUESTCUSTOMERS", "Guest Management");
+            clsPHPTravels_LoginPage.fnNavMenu("ACCOUNTS.GUESTCUSTOMERS", "Guest Management");
             Assert.AreEqual(true, objDriver.Title.Contains("Guest Management"), "The Guest Management fail.");
-
+            objTest.Pass("Test Passed");
         }
 
     }

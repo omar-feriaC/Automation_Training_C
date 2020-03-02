@@ -10,7 +10,7 @@ using AutomationFrameworkC.Base_Files;
 
 namespace AutomationFrameworkC.Page_Objects
 {
-    class clsPHPTravels_LoginPage 
+    class clsPHPTravels_LoginPage
     {
         /*ATTRIBUTES*/
         public static WebDriverWait _driverWait;
@@ -23,6 +23,7 @@ namespace AutomationFrameworkC.Page_Objects
             _objDriver = pobjDriver;
             _driverWait = new WebDriverWait(_objDriver, new TimeSpan(0, 0, 40));
             objClsDriver = new clsDriver(_objDriver);
+            
         }
 
         /*LOCATORS*/
@@ -35,10 +36,8 @@ namespace AutomationFrameworkC.Page_Objects
         readonly static string STR_STATS_LIST = "//div/ul[@class='serverHeader__statsList']/li/a";
 
         //Sub Menu Navigation//
-        readonly static string STR_MENU = "array[0]";
         readonly static string STR_SIDE_BAR = "social-sidebar-menu";
         readonly static string STR_TOP_BAR = "xcrud-overlay";
-        readonly static string STR_SUB_MENU = "array[1]";
         readonly static string STR_FIRST_NAME = "//th[@data-orderby='pt_accounts.ai_first_name']";
         readonly static string STR_LAST_NAME = "//th[@data-orderby='pt_accounts.ai_last_name']";
         readonly static string STR_EMAIL_ACCOUNT = "//th[@data-orderby='pt_accounts.accounts_email']";
@@ -53,11 +52,6 @@ namespace AutomationFrameworkC.Page_Objects
 
         //Dashboard//
         private static IList<IWebElement> objStatsList => _objDriver.FindElements(By.XPath(STR_STATS_LIST));
-
-        //Sub Menu Navigation//
-        private static IWebElement objMenu = _objDriver.FindElement(By.LinkText(STR_MENU));
-
-        private static IWebElement objSubMenu = _objDriver.FindElement(By.LinkText(STR_SUB_MENU));
 
         /*METHOD/ FUNCTIONS*/
 
@@ -110,11 +104,13 @@ namespace AutomationFrameworkC.Page_Objects
         public static void fnNavMenu(String submenu, String title)
         {
             String[] array = submenu.Split('.');
+            IWebElement objMenu = _objDriver.FindElement(By.LinkText(array[0]));
             objMenu.Click();
             clsDriver.fnWaitForElementToExist(By.Id(STR_SIDE_BAR));
             clsDriver.fnWaitForElementToExist(By.TagName("li"));
             clsDriver.fnWaitForElementToExist(By.TagName("a"));
-            clsDriver.fnWaitForElementToExist(By.LinkText(STR_SUB_MENU));
+            clsDriver.fnWaitForElementToExist(By.LinkText(array[1]));
+            IWebElement objSubMenu = _objDriver.FindElement(By.LinkText(array[1]));
             objSubMenu.Click();
             _driverWait.Until(ExpectedConditions.TitleContains(title));
             FnSort(STR_FIRST_NAME);
