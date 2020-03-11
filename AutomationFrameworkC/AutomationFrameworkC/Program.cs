@@ -19,6 +19,7 @@ namespace AutomationFrameworkC
         {
 
 
+            Console.WriteLine("");
 
             string phrase = "Accounts;SubMenu1";
             string[] words = phrase.Split(';');
