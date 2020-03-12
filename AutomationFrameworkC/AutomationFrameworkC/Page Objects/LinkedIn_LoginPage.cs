@@ -1,79 +1,153 @@
 ﻿using AutomationFrameworkC.Base_Files;
+using NUnit.Framework;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Support.UI;
+using SeleniumExtras.WaitHelpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using NUnit.Framework;
 
 namespace AutomationFrameworkC.Page_Objects
 {
-    class M8LinkedIn_Page : BaseTest
+    class LinkedIn_LoginPage : BaseTest
     {
-        //DRIVER REFERENCE
+        #region variables
+        
+        private static WebDriverWait objWait;
         private static IWebDriver _objDriver;
-        public M8LinkedIn_Page(IWebDriver driver)
+        #endregion variables
+        #region Constructor
+        
+        //Constructor
+        public LinkedIn_LoginPage(IWebDriver pobjDriver)
         {
-            _objDriver = driver;
+            _objDriver = pobjDriver;
+            objWait = new WebDriverWait(objDriver, new TimeSpan(0, 0, 30));
         }
+        #endregion Constructor
+        #region Elements
 
-        //ELEMENT LOCATORS
-        private static readonly string STR_USERNAME_TEXTFIELD = "username";
-        private static readonly string STR_PASSWORD_TEXTFIELD = "password";
-        private static readonly string STR_LOGIN_BUTTON = "//*[text()='Iniciar sesión' or text()='Sign in']";
-
-        // <-- Relative
-        // button <-- element type
-        // [] <-- start filter
-        // @ class <-- tag
-
-
-        //PAGE ELEMENT OBJECTS
-        private static IWebElement objUsername => _objDriver.FindElement(By.Id(STR_USERNAME_TEXTFIELD));
-        private static IWebElement objPassword => _objDriver.FindElement(By.Id(STR_PASSWORD_TEXTFIELD));
-        private static IWebElement objLoginButton => _objDriver.FindElement(By.XPath(STR_LOGIN_BUTTON));
-
-
-
-        //GET ELEMENT METHODS
-        public IWebElement GetUsernameField()
+        readonly static string STR_USERNAME = "//input[@id='username']";
+        readonly static string STR_PASSWORD = "//input[@id='password']";
+        readonly static string STR_SIGNIN = "//button[@class='btn__primary--large from__button--floating']";
+        readonly static string STR_ERRORUSERNAME = "//div[@id='error-for-username']";
+        readonly static string STR_ERRORPASSWORD = "//div[@id='error-for-password']";
+        
+        private static IWebElement objUserNameTxt => _objDriver.FindElement(By.XPath(STR_USERNAME));
+        private static IWebElement objPasswordTxt => _objDriver.FindElement(By.XPath(STR_PASSWORD));
+        private static IWebElement objSignInBtn => _objDriver.FindElement(By.XPath(STR_SIGNIN));
+        private static IWebElement objUserNameErrorTxt => _objDriver.FindElement(By.XPath(STR_ERRORUSERNAME));
+        private static IWebElement objPasswordErrorTxt => _objDriver.FindElement(By.XPath(STR_ERRORPASSWORD));
+        
+        
+        #endregion Elements
+        
+        #region Methods
+        
+        #region UserName Methods
+        private IWebElement fnGetUserName()
         {
-            return objUsername;
+            return objUserNameTxt;
         }
-
-        public IWebElement GetPasswordField()
+        public static void fnUserName(string pstrUserName)
         {
-            return objPassword;
+            try
+            {
+                objWait.Until(ExpectedConditions.ElementExists(By.XPath(STR_USERNAME)));
+                objWait.Until(ExpectedConditions.ElementIsVisible(By.XPath(STR_USERNAME)));
+                objUserNameTxt.Clear();
+                objUserNameTxt.SendKeys(pstrUserName);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("The Element username does not exist: " + e.Message);
+                Assert.Fail();
+            }
         }
-
-        public IWebElement GetLoginButton()
+        
+        #endregion UserName Methods
+        #region Password Methods
+        
+        private IWebElement fnGetPassowrd()
         {
-            return objLoginButton;
+            return objPasswordTxt;
         }
-
-        //PAGE ELEMENT ACTIONS
-        public void fnUsernameText(string strUsername)
+        public static void fnPassword(string pstrPassword)
         {
-            objUsername.Clear();
-            objUsername.SendKeys(strUsername);
+            try
+            {
+                objWait.Until(ExpectedConditions.ElementExists(By.XPath(STR_PASSWORD)));
+                objWait.Until(ExpectedConditions.ElementIsVisible(By.XPath(STR_PASSWORD)));
+                objWait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(STR_PASSWORD)));
+                objPasswordTxt.Clear();
+                objPasswordTxt.SendKeys(pstrPassword);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("The Element Password doesnt exist: " + e.Message);
+                Assert.Fail();
+            }
         }
-
-        public void fnPasswordText(string strPassword)
+        #endregion Password Methods
+        #region SignIn Buton Methods
+        
+        private IWebElement fnGetSignIn()
         {
-            objPassword.Clear();
-            objPassword.SendKeys(strPassword);
+            return objSignInBtn;
         }
-
-        public void fnLoginButton()
+        public static void fnClickSignIn()
         {
-            objLoginButton.Click();
+            try
+            {
+                objWait.Until(ExpectedConditions.ElementExists(By.XPath(STR_SIGNIN)));
+                objWait.Until(ExpectedConditions.ElementIsVisible(By.XPath(STR_SIGNIN)));
+                objWait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(STR_SIGNIN)));
+                objSignInBtn.Click();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("The Element SignIn Button doesnt exist: " + e.Message);
+                Assert.Fail();
+            }
         }
-
+        #endregion SignIn Buton Methods
+        #region Confirm the login in feed page
+        
+        public static void fnConfirmFeedPage()
+        {
+            if (_objDriver.Url.Contains("feed"))
+            {
+                Console.WriteLine($"The Login was done as expected");
+            }
+            else
+            {
+                Assert.Fail("The page is not the one expected");
+            }
+        }
+        #endregion Confirm the login in feed page
+        #region MergeMethods
+        
+        public static void fnLoginPage(string pstrUser, string pstrPass)
+        {
+            try
+            {
+                fnUserName(pstrUser);
+                fnPassword(pstrPass);
+                fnClickSignIn();
+                fnConfirmFeedPage();
+            }
+            catch (SuccessException e)
+            {
+                Console.WriteLine($"The Login was done as expected");
+            }
+            catch (Exception e)
+            {
+                Assert.Fail($"There is an error {e.Message}");
+            }
+        }
+        #endregion MergeMethods
+        #endregion Methods
     }
-
-
-
 }
-

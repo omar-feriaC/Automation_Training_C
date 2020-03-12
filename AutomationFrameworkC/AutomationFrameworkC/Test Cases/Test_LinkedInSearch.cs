@@ -1,4 +1,5 @@
-﻿using AutomationFrameworkC.Page_Objects;
+﻿using AutomationFrameworkC.Base_Files;
+using AutomationFrameworkC.Page_Objects;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
@@ -11,55 +12,24 @@ using System.Threading.Tasks;
 
 namespace AutomationFrameworkC.Test_Cases
 {
-    class M8LinkedIn_Test2 : M8LinkedIn_Test
+    class M8LinkedIn_Test2 : BaseTest
     {
-        WebDriverWait wait;
+        clsLinkedIn_SearchPage objSearch;
+        Test_LinkedIn objTestLogin = new Test_LinkedIn();
+        string[] arrTechnologies = { "Java", "C", "Phyton","C#", "Pega" };
+        string[] arrLanguages = { "Spanish", "English" };
 
-
-    [Test]
-
-        public void M8LinkedIn_SearchPage()
+        [Test, Order(1)]
+        public void fnSearch_LinkedIn()
         {
-            M8LinkedIn_Login();
-            try
-            {
-                M8LinkedIn_SearchPage objSearchPage = new M8LinkedIn_SearchPage(objDriver);
-                wait = new WebDriverWait(objDriver, new TimeSpan(0, 1, 0));
-                string[] technologies = {"C", "Phyton", "Pega", "C#" };
-
-                objSearchPage.fnSearchText("Java");
-                wait.Until(ExpectedConditions.ElementIsVisible(By.Id("ember8")));
-                objSearchPage.fnSearchButton();
-                wait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//button[span[text()='Gente' or text()='People']]")));
-                objSearchPage.fnPeopleButton();
-                wait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//button[span[text()='Ubicaciones' or text()='Locations']]")));
-                objSearchPage.fnAllFiltersButton();
-                wait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//*[label[text()='Mexico' or text()='México']]")));
-                objSearchPage.fnMexicoOpt();
-                objSearchPage.fnEnglishOpt();
-                objSearchPage.fnSpanishOpt();
-                objSearchPage.fnApplyButton();
-
-                for (int i = 0; i < technologies.Length; i++)
-                {
-                    objSearchPage.fnSearchText(technologies[i]);
-                    wait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//button[span[text()='Contactos' or text()='Connections']]")));
-                    objSearchPage.fnSearchButton();
-                }
-
-            }
-
-            catch (Exception x)
-            {
-                Console.WriteLine("Failed on: ");
-                Console.WriteLine(x.Message);
-                Assert.Fail();
-            }
-
-            finally
-            {
-
-            }
+            objTestLogin.fnLogin_LinkedIn();
+            objSearch = new clsLinkedIn_SearchPage(objDriver);
+            clsLinkedIn_SearchPage.fnSearchData(strSearch);
+            clsLinkedIn_SearchPage.fnClickPeopleBtn();
+            clsLinkedIn_SearchPage.fnClickAllFiltersBtn();
+            clsLinkedIn_SearchPage.fnAddCountryRegion(listCountries);
+            clsLinkedIn_SearchPage.fnClickApplyFilters();
+            clsLinkedIn_SearchPage.fnMultipleSearch(arrTechnologies);
         }
     }
 }

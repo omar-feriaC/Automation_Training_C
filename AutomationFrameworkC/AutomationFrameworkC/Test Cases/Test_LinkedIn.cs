@@ -13,44 +13,17 @@ using SeleniumExtras.WaitHelpers;
 
 namespace AutomationFrameworkC.Test_Cases
 {
-    class M8LinkedIn_Test : BaseTest
+
+    class Test_LinkedIn : BaseTest
     {
-        M8LinkedIn_Page objLoginPage;
-        WebDriverWait _objDriverWait;
+        public LinkedIn_LoginPage objLogin;
 
-        [Test]
-
-        public void M8LinkedIn_Login()
+        [Test, Order(1)]
+        public void fnLogin_LinkedIn()
         {
-            try
-            {
-                _objDriverWait = new WebDriverWait(objDriver, new TimeSpan(0, 0, 30));
-
-                objDriver.Manage().Window.Maximize();
-                objLoginPage = new M8LinkedIn_Page(objDriver);
-                objLoginPage.fnUsernameText(strUserName);
-                objLoginPage.fnPasswordText(strPassword);
-                objLoginPage.fnLoginButton();
-
-
-                _objDriverWait.Until(ExpectedConditions.UrlContains("feed"));
-                Assert.AreEqual("https://www.linkedin.com/feed/", objDriver.Url);
-
-
-            }
-
-            catch (Exception x)
-            {
-                Console.WriteLine("TEST CASE FAILED");
-                Console.WriteLine(x.Message);
-                Assert.Fail();
-            }
-
-            finally
-            {
-
-
-            }
+            objLogin = new LinkedIn_LoginPage(objDriver);
+            objDriver.Url = "https://www.linkedin.com/login?";
+            LinkedIn_LoginPage.fnLoginPage(strUser, strPass);
         }
     }
 }
