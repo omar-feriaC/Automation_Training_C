@@ -101,6 +101,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Base Files\BaseTest.cs" />
+    <Compile Include="Exercise 7\IShape.cs" />
+    <Compile Include="Exercise 7\Prism.cs" />
+    <Compile Include="Exercise 7\Shape_2D.cs" />
+    <Compile Include="Exercise 7\Shape_3D.cs" />
+    <Compile Include="Exercise 7\Square.cs" />
     <Compile Include="Exercise2\clsAnimals.cs" />
     <Compile Include="Exercise2\clsDogs.cs" />
     <Compile Include="Exercise2\IAnimals.cs" />

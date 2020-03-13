@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AutomationFrameworkC.Exercise_7;
 
 namespace AutomationFrameworkC
 {
@@ -17,80 +18,30 @@ namespace AutomationFrameworkC
     {
         static void Main(string[] args)
         {
+            double pSide;//Variable to insert the value of the Side of the Square
+            double pHigh;
+            //Objects to access to methods
+            Shape_2D objShape_2D = new Shape_2D();
+            Shape_3D objShape_3D = new Shape_3D();
+
+            objShape_2D.DisplayInfo();
+            objShape_3D.DisplayInfo();
+
+            //Square class 2D
+            Console.WriteLine("\n\n Please insert a numeric value for the Side: ");
+            pSide = Convert.ToDouble(Console.ReadLine());
+            Square objSquare = new Square(pSide);
+            objSquare.DisplayInfo();
 
 
-            Console.WriteLine("");
-            Console.WriteLine("");
-
-            string phrase = "Accounts;SubMenu1";
-            string[] words = phrase.Split(';');
-
-
-            for (int i=0; i<= words.Length -1 ; i++)
-            {
-                System.Console.WriteLine($"<{words[i]}>");
-
-            }
-
-            foreach (var word in words)
-            {
-                System.Console.WriteLine($"<{word}>");
-            }
-
-
-            clsReportManager objReport = new clsReportManager();
-            string strTemp = objReport.fnReportPath();
-
-            clsEmployee objEmployee = new clsEmployee("1ABC", "Programmer", "Sr", 1000.00);
-            Console.WriteLine("Employee Class");
-            objEmployee.fnGetInfo();
-            Console.WriteLine();
-
-            clsBaseEmployee objBEmployee = new clsBaseEmployee();
-            objBEmployee.strID = "LLLLL";
-            objBEmployee.strPosition = "";
-            Console.WriteLine("Base Employee Class");
-            objBEmployee.fnCalculateSalary();
-            objBEmployee.fnGetInfo();
-            Console.WriteLine();
-
-
-
-
-
-            //clsDogs objDog = new clsDogs("Poodle", "MyDog", "Howl", "Small", "Male", "Home", "Medium", 10);
-            //objDog.fnDisplayInfo();
-
-            //Console.WriteLine("");
-            //Console.WriteLine("Constructor without parameters");
-            //clsClassicCar objCCar = new clsClassicCar();
-            //objCCar.fnBrake();
-            //objCCar.fnParking();
-            //objCCar.fnStart();
-            //objCCar.fnCalculateKM();
-            //objCCar.fnDisplayInfo();
-
-            //Console.WriteLine("");
-            //Console.WriteLine("Constructor with parameters");
-            //clsClassicCar objCCar2 = new clsClassicCar("A", "B", "C", "D", "E");
-            //objCCar2.fnBrake();
-            //objCCar2.fnParking();
-            //objCCar2.fnStart();
-            //objCCar2.fnCalculateKM();
-            //objCCar2.fnDisplayInfo();
-
-
-            //Console.WriteLine("");
-            //Console.WriteLine("Constructor with parameters");
-            //clsVW objCCar3 = new clsVW("A", "B", "C", "D", "E");
-            //objCCar3.fnBrake();
-            //objCCar3.fnParking();
-            //objCCar3.fnStart();
-            //objCCar3.fnCalculateKM();
-            //objCCar3.fnDisplayInfo();
+            //Square class 3D
+            Console.WriteLine("\n Calculate the Volume of a prism with same Size of previous 2D shape");
+            Console.WriteLine("Please insert a numeric value for the Heigh of the prism: ");
+            pHigh = Convert.ToDouble(Console.ReadLine());
+            Prism objPrism = new Prism(pHigh, pSide);
+            objPrism.DisplayInfo();
 
             Console.ReadKey();
-
         }
     }
 }
