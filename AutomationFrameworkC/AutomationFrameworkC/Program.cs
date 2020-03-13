@@ -28,15 +28,16 @@ namespace AutomationFrameworkC
             objShape_3D.DisplayInfo();
 
             //Square class 2D
-            Console.WriteLine("\n\n Please insert a numeric value for the Side: ");
-            pSide = Convert.ToDouble(Console.ReadLine());
+            Console.WriteLine("\n\n Please insert a number for the Side: ");
+            pSide = Convert.ToDouble(Con
+                sole.ReadLine());
             Square objSquare = new Square(pSide);
             objSquare.DisplayInfo();
 
 
             //Square class 3D
-            Console.WriteLine("\n Calculate the Volume of a prism with same Size of previous 2D shape");
-            Console.WriteLine("Please insert a numeric value for the Heigh of the prism: ");
+            Console.WriteLine("\n Calculate the Volume of the prism with same Size of previous 2D shape");
+            Console.WriteLine("Please insert a number for the Heigh of the prism: ");
             pHigh = Convert.ToDouble(Console.ReadLine());
             Prism objPrism = new Prism(pHigh, pSide);
             objPrism.DisplayInfo();
