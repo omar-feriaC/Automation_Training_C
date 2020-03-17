@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AutomationFrameworkC.Page_Objects
+namespace AutomationFrameworkC.Test_Cases
 {
-    class LinkedIn_SearchPage
+    class OrangeHRM_Test
     {
     }
 }

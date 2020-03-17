@@ -98,12 +98,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Base Files\BaseTest.cs" />
-    <Compile Include="Page Objects\LinkedIn_LoginPage.cs" />
-    <Compile Include="Page Objects\LinkedIn_SearchPage.cs" />
+    <Compile Include="Page Objects\OrangeHRM_POM.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Test Cases\Test_LinkedIn.cs" />
-    <Compile Include="Test Cases\Test_LinkedInSearch.cs" />
+    <Compile Include="Test Cases\OrangeHRM_Test.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">
