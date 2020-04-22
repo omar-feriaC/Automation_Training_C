@@ -21,7 +21,7 @@ namespace AutomationFrameworkC.Jorge_Pilotzi_M8_Excercise.Page_Objects
         readonly static string STR_PEOPLE_BTN = "//span[text()='People' or text()='Gente']";
         readonly static string STR_ALLFILTERS_BTN = "//span[text()='All Filters' or text()='Todos los filtros']";
         readonly static string STR_REGIONMEXICO_CHECKBOX = "//label[text()='Mexico' or text()='México']";
-        readonly static string STR_LANGUAGE_ENG_CHECKBOX = "//label[text()='English' or text()='Ingles']";
+        readonly static string STR_LANGUAGE_ENG_CHECKBOX = "//label[text()='English' or text()='Inglés']";
         readonly static string STR_LANGUAGE_ESP_CHECKBOX = "//label[text()='Spanish' or text()='Español']";
         readonly static string STR_APPLY_BTN = "//button[@data-control-name='all_filters_apply']";
         readonly static string STR_ADDCOUNTTRY_TEXT = "//input[@aria-label='Add a country/region' or @aria-label='Añadir un país o región']";
@@ -118,6 +118,15 @@ namespace AutomationFrameworkC.Jorge_Pilotzi_M8_Excercise.Page_Objects
         public static void FnGetLanguageSpanish()
         {
             objLangEspCheckBox.Click();
+        }
+        private IWebElement GetLanguageEnslish()
+        {
+            return objLangEngCheckBox;
+        }
+
+        public static void FnGetLanguageEnglish()
+        {
+            objLangEngCheckBox.Click();
         }
 
         //Filters Apply

@@ -16,10 +16,11 @@ namespace AutomationFrameworkC.Jorge_Pilotzi_M8_Excercise.Test_Cases
     class Linkedin_Test : BaseTest 
     {
         Linkedin_Login objLoginPage;
-
+        
         [Test]
         public void Linkedin_LoginPage()
         {
+            driver.Manage().Window.Maximize();
             objLoginPage = new Linkedin_Login(driver);
             Assert.AreEqual(true, driver.Title.Contains("Login"), "Title Don't mach");
             Linkedin_Login.FnGetUserNameField(ConfigurationManager.AppSettings.Get("username"));

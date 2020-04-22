@@ -25,7 +25,7 @@ namespace AutomationFrameworkC.Jorge_Pilotzi_M8_Excercise.Test_Cases
         {
             //Variables
             Wait = new WebDriverWait(driver, new TimeSpan(0, 1, 20));
-            string [] arrTechnologies = { "Java", "C", "Python", "Pega", "C#" };
+            string [] arrTechnologies = { "Java", "Python", "Pega", "C#", "C Language" };
             
             // Step 1 - Login
 
@@ -61,6 +61,7 @@ namespace AutomationFrameworkC.Jorge_Pilotzi_M8_Excercise.Test_Cases
             // Step 5- Select Languages
 
             LinkedIn_Search.FnSelectLanguages();
+
             
             // Step 6 - Apply Filters
 
@@ -70,7 +71,7 @@ namespace AutomationFrameworkC.Jorge_Pilotzi_M8_Excercise.Test_Cases
 
             foreach (string Technologies in arrTechnologies)
             {
-                LinkedIn_Search.FnGetSrchBtn();
+                LinkedIn_Search.FnGetSrchFld(Technologies);
                 Wait.Until(ExpectedConditions.ElementExists(By.XPath("//p[@class='subline-level-1 t-14 t-black t-normal search-result__truncate']")));
                 LinkedIn_Search.FnGetTechnology();
             }
