@@ -88,6 +88,10 @@ namespace AutomationFrameworkC.Jorge_Pilotzi_M8_Excercise.Page_Objects
         }
         public static void fnGetRegionMexico()
         {
+            WebDriverWait Wait;
+            Wait = new WebDriverWait(driver, new TimeSpan(0, 1, 20));
+            Wait.Until(ExpectedConditions.ElementExists(By.XPath("//input[@aria-label='Add a country/region' or @aria-label='Añadir un país o región']")));
+            Wait.Until(ExpectedConditions.ElementExists(By.XPath("//label[text()='Mexico' or text()='México']")));
             objRegionMexicoCheckBox.Click();
         }
         //Language spanish
@@ -128,6 +132,10 @@ namespace AutomationFrameworkC.Jorge_Pilotzi_M8_Excercise.Page_Objects
         }
         public static void fnGetItaly()
         {
+            WebDriverWait Wait;
+            Wait = new WebDriverWait(driver, new TimeSpan(0, 1, 20));
+            Wait.Until(ExpectedConditions.ElementExists(By.XPath("//div[@class='basic-typeahead__triggered-content search-s-add-facet__typeahead-tray']")));
+            Wait.Until(ExpectedConditions.TextToBePresentInElement(LinkedIn_Search.GetItalyDropDown(), "Italy"));
             objSelectITalyDropDown.Click();
         }
         public static void fnSelectLanguages()
@@ -142,6 +150,9 @@ namespace AutomationFrameworkC.Jorge_Pilotzi_M8_Excercise.Page_Objects
         //Select TEchnology
         public static void fnGetTechnology()
         {
+            WebDriverWait Wait;
+            Wait = new WebDriverWait(driver, new TimeSpan(0, 1, 20));
+            Wait.Until(ExpectedConditions.ElementExists(By.XPath("//p[@class='subline-level-1 t-14 t-black t-normal search-result__truncate']")));
             IList<IWebElement> objName = _objSrchDriver.FindElements(By.XPath("//span[@class='actor-name']"));
             IList<IWebElement> objRole = _objSrchDriver.FindElements(By.XPath("//p[@class='subline-level-1 t-14 t-black t-normal search-result__truncate']"));
             IList<IWebElement> objURL = _objSrchDriver.FindElements(By.XPath("//div[@class='search-result__info pt3 pb4 ph0']//a[@href]"));

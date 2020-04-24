@@ -38,12 +38,8 @@ namespace AutomationFrameworkC.Jorge_Pilotzi_M8_Excercise.Test_Cases
             Wait.Until(ExpectedConditions.UrlContains("people"));
             // Step 4 - Select Location
             LinkedIn_Search.fnGetAllFiltersBtn();
-            Wait.Until(ExpectedConditions.ElementExists(By.XPath("//input[@aria-label='Add a country/region' or @aria-label='Añadir un país o región']")));
-            Wait.Until(ExpectedConditions.ElementExists(By.XPath("//label[text()='Mexico' or text()='México']")));
             LinkedIn_Search.fnGetRegionMexico();
             LinkedIn_Search.fnGetAddCountry("Italy");
-            Wait.Until(ExpectedConditions.ElementExists(By.XPath("//div[@class='basic-typeahead__triggered-content search-s-add-facet__typeahead-tray']")));
-            Wait.Until(ExpectedConditions.TextToBePresentInElement(LinkedIn_Search.GetItalyDropDown(), "Italy"));
             LinkedIn_Search.fnGetItaly();
             // Step 5- Select Languages
             LinkedIn_Search.fnGetLanguageEnglish();
@@ -54,7 +50,6 @@ namespace AutomationFrameworkC.Jorge_Pilotzi_M8_Excercise.Test_Cases
             foreach (string Technologies in arrTechnologies)
             {
                 LinkedIn_Search.fnGetSrchFld(Technologies);
-                Wait.Until(ExpectedConditions.ElementExists(By.XPath("//p[@class='subline-level-1 t-14 t-black t-normal search-result__truncate']")));
                 LinkedIn_Search.fnGetTechnology();
             }
         }
