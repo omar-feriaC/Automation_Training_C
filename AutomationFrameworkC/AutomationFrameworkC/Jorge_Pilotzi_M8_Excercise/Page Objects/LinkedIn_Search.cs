@@ -153,7 +153,7 @@ namespace AutomationFrameworkC.Jorge_Pilotzi_M8_Excercise.Page_Objects
             WebDriverWait Wait;
             Wait = new WebDriverWait(driver, new TimeSpan(0, 1, 20));
             Wait.Until(ExpectedConditions.ElementExists(By.XPath("//p[@class='subline-level-1 t-14 t-black t-normal search-result__truncate']")));
-            IList<IWebElement> objName = _objSrchDriver.FindElements(By.XPath("//span[@class='actor-name']"));
+            IList<IWebElement> objName = _objSrchDriver.FindElements(By.XPath("//span[@class='name-and-distance']//span[contains(@class, 'actor-name')]"));
             IList<IWebElement> objRole = _objSrchDriver.FindElements(By.XPath("//p[@class='subline-level-1 t-14 t-black t-normal search-result__truncate']"));
             IList<IWebElement> objURL = _objSrchDriver.FindElements(By.XPath("//div[@class='search-result__info pt3 pb4 ph0']//a[@href]"));
             for (int i = 0; i < objName.Count; i++ )
