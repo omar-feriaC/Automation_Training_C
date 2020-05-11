@@ -48,6 +48,11 @@ namespace AutomationFrameworkC.Reporting
             pExtent.AddSystemInfo("Version:", "v1.0");
         }
 
+        internal void fnReportSetUp(ExtentV3HtmlReporter objHtmlReporter, ExtentReports objExtent)
+        {
+            throw new NotImplementedException();
+        }
+
         //Method to take image and returns screen path
         public string fnCaptureImage(IWebDriver pobjDriver, string pstrScreenName)
         {

@@ -18,17 +18,19 @@ namespace AutomationFrameworkC.Base_Files
         //**************************************************
         //*                V A R I A B L E S
         //**************************************************
-        /*Webdriver instances*/
+
+        /*Webdriver Intance*/
         public static IWebDriver objDriver;
-        /*URL*/
-        private static string strUrl = ConfigurationManager.AppSettings.Get("url");
-        /*Extent Reports Instances*/
+        /*browser, URL, email and pass */
+        public static readonly string strBrowserName = ConfigurationManager.AppSettings.Get("browser");
+        public static readonly string strUrl = ConfigurationManager.AppSettings.Get("url");
+        public static readonly string strEmail = ConfigurationManager.AppSettings.Get("email");
+        public static readonly string strPass = ConfigurationManager.AppSettings.Get("password");
+        /*Extent Reports Framework*/
         public static clsReportManager objRM = new clsReportManager();
-        public static ExtentHtmlReporter objHtmlReporter;
-        //public static ExtentV3HtmlReporter objHtmlReporter;
+        public static ExtentV3HtmlReporter objHtmlReporter;
         public static ExtentReports objExtent;
         public static ExtentTest objTest;
-
 
         //**************************************************
         //                  M E T H O D S 
@@ -37,13 +39,13 @@ namespace AutomationFrameworkC.Base_Files
         [OneTimeSetUp]
         public static void fnBeforeClass()
         {
-            /*Init ExtentHTML*/
+            /*Init ExtentHtmlReporter object*/
             if (objHtmlReporter == null)
             {
-                objHtmlReporter = new ExtentHtmlReporter(objRM.fnReportPath());
-                //objHtmlReporter = new ExtentV3HtmlReporter(objRM.fnReportPath());
+                objHtmlReporter = new ExtentV3HtmlReporter(objRM.fnReportPath());
+                //objHtmlReporter = new ExtentHtmlReporter(objRM.fnReportPath());
             }
-            /*Init ExtentReports*/
+            /*Init ExtentReports object*/
             if (objExtent == null)
             {
                 objExtent = new ExtentReports();
@@ -58,24 +60,23 @@ namespace AutomationFrameworkC.Base_Files
             objExtent.Flush();
         }
 
-        //SetUp Before each test case
         [SetUp]
-        public static void fnSetUp()
+        //SetUp Before each test case
+        public static void SetUp()
         {
             objDriver = new ChromeDriver();
             objDriver.Url = strUrl;
             objDriver.Manage().Window.Maximize();
+
         }
-        
-        //TearDown After each test case
+
         [TearDown]
-        public static void fnTearDown()
+        //TearDown After each test case
+        public static void AfterTest()
         {
             objRM.fnTestCaseResult(objTest, objExtent, objDriver);
             objDriver.Close();
             objDriver.Quit();
         }
-
-
     }
 }
