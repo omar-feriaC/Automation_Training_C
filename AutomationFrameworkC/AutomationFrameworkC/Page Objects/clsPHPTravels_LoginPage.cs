@@ -66,8 +66,7 @@ namespace AutomationFrameworkC.Page_Objects
                 _objWait.Until(ExpectedConditions.ElementExists(By.Name(STR_EMAIL_TXT)));
                 _objWait.Until(ExpectedConditions.ElementIsVisible(By.Name(STR_EMAIL_TXT)));
                 objEmailTxt.Clear();
-                objEmailTxt.SendKeys(pstrEmail);
-                //Assert.Equals(pstrEmail, objEmailTxt.GetProperty("Value"));
+                objEmailTxt.SendKeys(pstrEmail);              
             }
             catch (Exception e)
             {
@@ -305,11 +304,7 @@ namespace AutomationFrameworkC.Page_Objects
             {
                 try
                 {
-                    //  Thread.Sleep(5000);                   
-                    // _objDriver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(20);
-                    //_objWait.PollingInterval = TimeSpan.FromSeconds(20);
-                    _objWait.Until(ExpectedConditions.InvisibilityOfElementLocated(By.ClassName("xcrud-overlay")));                                      
-
+                   _objWait.Until(ExpectedConditions.InvisibilityOfElementLocated(By.ClassName("xcrud-overlay")));                                      
 
                     string DataOrder = objColumnsLst[k].GetAttribute("data-order");
                     string ColumnName = objColumnsLst[k].Text;                                       
@@ -320,7 +315,8 @@ namespace AutomationFrameworkC.Page_Objects
                         objRM.fnAddStepLog(objTest, "Column " + ColumnName + " orders Desc properly", "Pass");
                     }
                     objColumnsLst[k].Click();
-                                        
+
+                    _objWait.Until(ExpectedConditions.InvisibilityOfElementLocated(By.ClassName("xcrud-overlay")));
                     string DataOrder2 = objColumnsLst[k].GetAttribute("data-order");
                     if (DataOrder2 == "asc")
                     {
