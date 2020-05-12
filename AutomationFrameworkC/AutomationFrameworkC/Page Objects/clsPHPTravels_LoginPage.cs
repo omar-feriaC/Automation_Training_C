@@ -36,7 +36,7 @@ namespace AutomationFrameworkC.Page_Objects
         readonly static string STR_ACCOUNTS_LST = "//ul[@id='ACCOUNTS' and @aria-expanded='true']//li";
         readonly static string STR_ACCOUNT_HIDEN = "//a[@aria-expanded='false' and text()[contains(., 'Accounts')]]";
         readonly static string STR_COLUMNS_LST = "//tr[@class='xcrud-th']//th[contains(@class,'xcrud-column xcrud-action')]";
-
+        
         /*WEBELEMENTS DEFINITION*/
         private static IWebElement objEmailTxt => _objDriver.FindElement(By.Name(STR_EMAIL_TXT));
         private static IWebElement objPasswordTxt => _objDriver.FindElement(By.Name(STR_PASSWORD_TXT));
@@ -50,7 +50,7 @@ namespace AutomationFrameworkC.Page_Objects
         private static IList<IWebElement> objAccountsLst => _objDriver.FindElements(By.XPath(STR_ACCOUNTS_LST));
         private static IWebElement objAccountsHid => _objDriver.FindElement(By.XPath(STR_ACCOUNT_HIDEN));
         private static IList<IWebElement> objColumnsLst => _objDriver.FindElements(By.XPath(STR_COLUMNS_LST));
-
+              
         /*METHODS/FUNCTIONS*/
 
         //Email
@@ -140,7 +140,6 @@ namespace AutomationFrameworkC.Page_Objects
                 Assert.Fail();
             }
         }
-
 
         //Sign In
         public static void fnSignInPage(string pstrEmail, string pstrPass)
@@ -260,7 +259,7 @@ namespace AutomationFrameworkC.Page_Objects
         {
             return objAccountsLst;
         }
-
+              
         public static void fnSubMenus()
         {
             try
@@ -294,7 +293,7 @@ namespace AutomationFrameworkC.Page_Objects
         {
             return objColumnsLst;
         }
-
+               
         public static void fnSort()
         {
             _objWait.Until(ExpectedConditions.ElementExists(By.XPath(STR_COLUMNS_LST)));
@@ -307,15 +306,15 @@ namespace AutomationFrameworkC.Page_Objects
                 try
                 {
                     //  Thread.Sleep(5000);                   
-                    _objDriver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(20);
-                    
+                    // _objDriver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(20);
+                    //_objWait.PollingInterval = TimeSpan.FromSeconds(20);
+                    _objWait.Until(ExpectedConditions.InvisibilityOfElementLocated(By.ClassName("xcrud-overlay")));                                      
+
 
                     string DataOrder = objColumnsLst[k].GetAttribute("data-order");
-                    string ColumnName = objColumnsLst[k].Text;
+                    string ColumnName = objColumnsLst[k].Text;                                       
 
-                    
-
-                    if (DataOrder == "desc")
+                    if (DataOrder == "desc") 
                     {
                         Console.WriteLine("Column " + ColumnName + " orders Desc properly");
                         objRM.fnAddStepLog(objTest, "Column " + ColumnName + " orders Desc properly", "Pass");
