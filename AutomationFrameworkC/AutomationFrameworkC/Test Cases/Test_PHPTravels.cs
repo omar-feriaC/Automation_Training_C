@@ -24,6 +24,7 @@ namespace AutomationFrameworkC.Test_Cases
             //Login Action          
             Assert.AreEqual(true, objDriver.Title.Contains("Administator Login"), "The Login Page was not loaded correctly.");
             clsPHPTravels_LoginPage.fnSignInPage(strEmail, strPass);
+            clsPHPTravels_LoginPage.fnWaitAfterSignIn();
             Assert.AreEqual(true, objDriver.Title.Contains("Dashboard"), "The Dashboard was not loaded correctly.");
             clsPHPTravels_LoginPage.fnDashboardTotals();
             objRM.fnAddStepLogWithSnapshot(objTest, objDriver, "Dashboard Totals", "DashboardTotals.png", "Pass");

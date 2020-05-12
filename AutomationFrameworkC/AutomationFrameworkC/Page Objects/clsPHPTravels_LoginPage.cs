@@ -6,6 +6,7 @@ using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.WaitHelpers;
 using System;
 using System.Collections.Generic;
+using System.Threading;
 
 namespace AutomationFrameworkC.Page_Objects
 {
@@ -140,22 +141,28 @@ namespace AutomationFrameworkC.Page_Objects
             }
         }
 
+
         //Sign In
         public static void fnSignInPage(string pstrEmail, string pstrPass)
         {
             try
             {
                 fnEnterEmail(pstrEmail);
-                fnEnterPassword(pstrPass);
-                //  fnClickRememberMe();
-                fnClickLogin();
+                fnEnterPassword(pstrPass);              
+                fnClickLogin();                
             }
             catch (Exception e)
             {
                 Console.WriteLine("SignIn process fail: " + e.Message);
                 Assert.Fail();
-
             }
+        }
+
+        public static void fnWaitAfterSignIn()
+        {
+            _objDriver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
+            _objWait.Until(ExpectedConditions.TitleContains("Dashboard"));
+            _objWait.Until(ExpectedConditions.UrlContains("phptravels.net/admin"));                     
         }
 
         //Dashboard 
@@ -175,7 +182,6 @@ namespace AutomationFrameworkC.Page_Objects
                 {
                     Console.WriteLine(objDashLst[i].Text);
                 }
-
             }
             catch (Exception e)
             {
@@ -213,6 +219,7 @@ namespace AutomationFrameworkC.Page_Objects
         {
             try
             {
+                
                 if (!(objSidebarHid.Displayed))
                 {
                     fnClickHamburgerMenu();
@@ -235,6 +242,7 @@ namespace AutomationFrameworkC.Page_Objects
         {
             try
             {
+                _objDriver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
                 if (objAccountsHid.Displayed)
                 {
                     objAccountsHid.Click();
@@ -257,6 +265,7 @@ namespace AutomationFrameworkC.Page_Objects
         {
             try
             {
+                _objDriver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
                 _objWait.Until(ExpectedConditions.ElementExists(By.XPath(STR_ACCOUNTS_LST)));
                 _objWait.Until(ExpectedConditions.ElementIsVisible(By.XPath(STR_ACCOUNTS_LST)));
 
@@ -265,7 +274,9 @@ namespace AutomationFrameworkC.Page_Objects
                     string SubMenu = objAccountsLst[j].Text;
 
                     objAccountsLst[j].Click();
+                    _objDriver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
                     fnSort();
+                    Console.WriteLine("The columns in the " + SubMenu + " sub menu of the Accounts Menu have been validated.");
                     objRM.fnAddStepLog(objTest, "The columns in the " + SubMenu + " sub menu of the Accounts Menu have been validated.", "Pass");
                     fnAccountDisplayed();
                 }
@@ -288,23 +299,33 @@ namespace AutomationFrameworkC.Page_Objects
         {
             _objWait.Until(ExpectedConditions.ElementExists(By.XPath(STR_COLUMNS_LST)));
             _objWait.Until(ExpectedConditions.ElementIsVisible(By.XPath(STR_COLUMNS_LST)));
-
+            _objDriver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
+            _objWait.Until(ExpectedConditions.PresenceOfAllElementsLocatedBy(By.XPath(STR_COLUMNS_LST)));
+            
             for (int k = 0; k < objColumnsLst.Count; k++)
             {
                 try
                 {
+                    //  Thread.Sleep(5000);                   
+                    _objDriver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(20);
+                    
+
                     string DataOrder = objColumnsLst[k].GetAttribute("data-order");
                     string ColumnName = objColumnsLst[k].Text;
 
+                    
+
                     if (DataOrder == "desc")
                     {
+                        Console.WriteLine("Column " + ColumnName + " orders Desc properly");
                         objRM.fnAddStepLog(objTest, "Column " + ColumnName + " orders Desc properly", "Pass");
                     }
                     objColumnsLst[k].Click();
-
+                                        
                     string DataOrder2 = objColumnsLst[k].GetAttribute("data-order");
                     if (DataOrder2 == "asc")
                     {
+                        Console.WriteLine("Column " + ColumnName + " orders Asc properly");
                         objRM.fnAddStepLog(objTest, "Column " + ColumnName + " orders Asc properly", "Pass");
                     }
                 }

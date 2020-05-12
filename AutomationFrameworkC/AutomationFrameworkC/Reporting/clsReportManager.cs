@@ -34,8 +34,8 @@ namespace AutomationFrameworkC.Reporting
         }
 
         //Method to set up the report
-        public void fnReportSetUp(ExtentHtmlReporter phtmlReporter, ExtentReports pExtent)
-        //public void fnReportSetUp(ExtentV3HtmlReporter phtmlReporter, ExtentReports pExtent)
+        //public void fnReportSetUp(ExtentHtmlReporter phtmlReporter, ExtentReports pExtent)
+        public void fnReportSetUp(ExtentV3HtmlReporter phtmlReporter, ExtentReports pExtent)
         {
             phtmlReporter.Config.Theme = AventStack.ExtentReports.Reporter.Configuration.Theme.Dark;
             phtmlReporter.Config.DocumentTitle = "Automation Framework Report";
@@ -47,12 +47,7 @@ namespace AutomationFrameworkC.Reporting
             pExtent.AddSystemInfo("Date:", time.ToShortDateString());
             pExtent.AddSystemInfo("Version:", "v1.0");
         }
-
-        internal void fnReportSetUp(ExtentV3HtmlReporter objHtmlReporter, ExtentReports objExtent)
-        {
-            throw new NotImplementedException();
-        }
-
+               
         //Method to take image and returns screen path
         public string fnCaptureImage(IWebDriver pobjDriver, string pstrScreenName)
         {
