@@ -1,0 +1,6 @@
+C:\Exam10\M10Exercise_BrendaL\M10Exercise_BrendaL\bin\Debug\M10Exercise_BrendaL.exe.config
+C:\Exam10\M10Exercise_BrendaL\M10Exercise_BrendaL\bin\Debug\M10Exercise_BrendaL.exe
+C:\Exam10\M10Exercise_BrendaL\M10Exercise_BrendaL\bin\Debug\M10Exercise_BrendaL.pdb
+C:\Exam10\M10Exercise_BrendaL\M10Exercise_BrendaL\obj\Debug\M10Exercise_BrendaL.csprojAssemblyReference.cache
+C:\Exam10\M10Exercise_BrendaL\M10Exercise_BrendaL\obj\Debug\M10Exercise_BrendaL.exe
+C:\Exam10\M10Exercise_BrendaL\M10Exercise_BrendaL\obj\Debug\M10Exercise_BrendaL.pdb
