@@ -11,6 +11,7 @@ namespace M10Exercise_BrendaL
     {
         static void Main(string[] args)
         {
+
             ////1 . Print the length of a string from an array of strings. 
             #region 
 
@@ -108,6 +109,7 @@ namespace M10Exercise_BrendaL
             #endregion
 
             Console.ReadLine();
+
         }
     }
 }
